@@ -1,0 +1,128 @@
+import React, { useEffect, useState } from 'react'
+import styles from "./Header.module.scss";
+import classNames from "classnames/bind";
+import images from '../../../../assets/images';
+import { Link } from 'react-router-dom';
+
+const cx = classNames.bind(styles);
+
+function Header() {
+
+  const [selectedNavigateHome, setSelectedNavigateHome] = useState(false);
+  const [selectedNavigateFirst, setSelectedNavigateFirst] = useState(false);
+  const [selectedNavigateSecond, setSelectedNavigateSecond] = useState(false);
+  const [selectedNavigateThree, setSelectedNavigateThree] = useState(false);
+  const [selectedNavigateLast, setSelectedNavigateLast] = useState(false);
+
+  useEffect(() => {
+    handleHomeLink();
+  }, []);
+
+
+  const handleHomeLink = () => {
+    setSelectedNavigateHome(true);
+    setSelectedNavigateFirst(false);
+    setSelectedNavigateSecond(false);
+    setSelectedNavigateThree(false);
+    setSelectedNavigateLast(false);
+  }
+
+  const handleCreateOrderLink = () => {
+    setSelectedNavigateHome(false);
+    setSelectedNavigateFirst(true);
+    setSelectedNavigateSecond(false);
+    setSelectedNavigateThree(false);
+    setSelectedNavigateLast(false);
+  }
+  const handleYourOrderLink = () => {
+    setSelectedNavigateHome(false);
+    setSelectedNavigateFirst(false);
+    setSelectedNavigateSecond(true);
+    setSelectedNavigateThree(false);
+    setSelectedNavigateLast(false);
+  }
+  const handleContractLink = () => {
+    setSelectedNavigateHome(false);
+    setSelectedNavigateFirst(false);
+    setSelectedNavigateSecond(false);
+    setSelectedNavigateThree(true);
+    setSelectedNavigateLast(false);
+  }
+  const handleBillLink = () => {
+    setSelectedNavigateHome(false);
+    setSelectedNavigateFirst(false);
+    setSelectedNavigateSecond(false);
+    setSelectedNavigateThree(false);
+    setSelectedNavigateLast(true);
+  }
+
+
+  return (
+    <div className={cx('container-header')}>
+      <div className={cx('container-start')}>
+        <Link to='/'>
+          <img className={cx('logo-web')} src={images.logo} alt="logo" />
+        </Link>
+        <div className={cx('container-navigate')}>
+        <Link className={cx('btn-link')} to='/' onClick={handleHomeLink}>
+            <span className={cx('text-navigate-selected')}>Trang chủ</span>
+            {
+              selectedNavigateHome && <div className={cx('bar-selected')}></div>
+            }
+          </Link>
+
+          <Link className={cx('btn-link')} to='/' onClick={handleCreateOrderLink}>
+            <span className={cx('text-navigate-selected')}>Tạo đơn hàng</span>
+            {
+              selectedNavigateFirst && <div className={cx('bar-selected')}></div>
+            }
+          </Link>
+
+          <Link className={cx('btn-link')} to='/' onClick={handleYourOrderLink}>
+            <span className={cx('text-navigate')}>Đơn hàng của bạn</span>
+            {
+              selectedNavigateSecond && <div className={cx('bar-selected')}></div>
+            }
+          </Link>
+
+          <Link className={cx('btn-link')} to='/' onClick={handleContractLink}>
+            <span className={cx('text-navigate')}>Hợp đồng</span>
+            {
+              selectedNavigateThree && <div className={cx('bar-selected')}></div>
+            }
+          </Link>
+
+          <Link className={cx('btn-link')} to='/' onClick={handleBillLink}>
+            <span className={cx('text-navigate')}>Hóa đơn</span>
+            {
+              selectedNavigateLast && <div className={cx('bar-selected')}></div>
+            }
+          </Link>
+        </div>
+      </div>
+
+      <div className={cx('container-end')}>
+        <div className={cx('container-auth')}>
+          <a href='/'>
+            <span className={cx('text-btn')}>ĐĂNG KÝ</span>
+          </a>
+          <span className={cx('text-btn')}>/</span>
+          <a href='/'>
+            <span className={cx('text-btn')}>ĐĂNG NHẬP</span>
+          </a>
+        </div>
+        {/* <div className={cx('container-auth')}>
+          <a href='/'>
+            <span className={cx('text-btn')}>PHAN TRỌNG TÍNH</span>
+          </a>
+        </div> */}
+
+        <Link to='/'>
+          <img className={cx('avt-auth')} src={images.icon_account} alt="avt" />
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+export default Header
