@@ -1,0 +1,20 @@
+@import '../../constants/color.scss';
+
+.container {
+    background-color: $white;
+    margin-top: 10;
+    margin-bottom: 10;
+    display: flex;
+    flex-direction: row;
+
+    .logo {
+    }
+
+    .heading {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        color: $heading;
+    }
+}
