@@ -1,0 +1,117 @@
+.container-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 60px;
+    background-color: #fff;
+    border-bottom: 2px solid #70BACF;
+
+
+    .container-start {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .logo-web {
+            width: 120px;
+            height: 80px;
+            margin-right: 20px;
+            background-size: contain;
+        }
+
+        .container-navigate {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: 40px;
+
+            .btn-link {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                .text-navigate {
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #70BACF;
+                    margin: 0 10px;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: #1d7790;
+                    }
+                }
+
+                .text-navigate-selected {
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #70BACF;
+                    margin: 0 10px;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: #1d7790;
+                    }
+
+                }
+
+                .bar-selected {
+                    width: 90%;
+                    height: 3px;
+                    background-color: #70BACF;
+                }
+            }
+
+
+        }
+
+    }
+
+
+    .container-end {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .container-auth {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .text-btn {
+                font-size: 18px;
+                font-weight: 200;
+                color: #70BACF;
+                margin: 0 6px;
+
+                &:hover {
+                    cursor: pointer;
+                    color: #1d7790;
+                }
+            }
+            .text-btn {
+                font-size: 18px;
+                font-weight: 200;
+                color: #70BACF;
+                margin: 0 6px;
+            }
+
+        }
+
+        .avt-auth {
+            border: 1px solid #70BACF;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-left: 10px;
+
+            &:hover {
+                cursor: pointer;
+                border: 2px solid #70BACF;
+            }
+        }
+
+
+    }
+}
