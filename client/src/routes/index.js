@@ -19,6 +19,6 @@ export const customerRoutes = [
 ]
 
 export const adminRoutes = [
-    { path: '/account', component: AccountManager, layout: LayoutAdmin },
+    { path: '/admin/account', component: AccountManager, layout: LayoutAdmin },
 ]
 

@@ -17,7 +17,11 @@ export default mongoose.model('User',
         },
         status: {
             type: String,
-            default: "Chờ xét duyệt", // "Đang hoạt động"  "Đã bị khóa"
+            default: "Chờ xác nhân", // "Đang hoạt động"  "Đã bị khóa" 
+        },
+        isVerify: {
+            type: Boolean,
+            default: false
         },
         representative: {
             type: {
