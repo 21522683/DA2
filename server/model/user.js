@@ -4,7 +4,7 @@ export default mongoose.model('User',
     new Schema({
         diaChi: String,
         tenDoanhNghiep: String,
-        STK: String,
+        stk: String,
         nganHang: String,
         soFAX: String,
         isAdmin: {

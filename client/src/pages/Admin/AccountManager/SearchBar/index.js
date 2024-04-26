@@ -7,8 +7,9 @@ const cx = classNames.bind(styles)
 function SearchBar({handleChangeInput}) {
     const inputRef = useRef(null)    
     const [value, setValue] = useState('');
+    
     useEffect(() => {
-        handleChangeInput(value)
+        handleChangeInput(value);
     },[value])
 
     return (

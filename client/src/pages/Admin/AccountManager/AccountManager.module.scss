@@ -96,6 +96,17 @@
                             }
                         }
                     }
+                    .active {
+                        color: rgb(0, 218, 0);
+                    }
+
+                    .waiting {
+                        color: rgb(83, 83, 255);
+                    }
+
+                    .lock {
+                        color: rgb(255, 29, 29);
+                    }
                 }
             }
         }

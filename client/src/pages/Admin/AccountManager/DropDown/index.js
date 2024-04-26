@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from "classnames/bind";
 import styles from './DropDown.module.scss';
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 const cx = classNames.bind(styles);
-const Dropdown = () => {
+function Dropdown({handleSelectOption}) {
     const [selectedOption, setSelectedOption] = useState('Tất cả');
     const[showOption, setShowOption] = useState(false);
 
-
-    const handleSelectOption = (option) => {
-        setSelectedOption(option);
+    useEffect(() => {
+        handleSelectOption(selectedOption);
         setShowOption(false);
-    };
+    }, [selectedOption])
 
     return (
         <div className={cx("dropdown")}>
