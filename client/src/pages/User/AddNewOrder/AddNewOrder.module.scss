@@ -1,0 +1,22 @@
+@import '../../../constants/color.scss';
+@import '../../../constants/dimen.scss';
+
+.container {
+    .header {
+        width: 100%;
+        text-align: center;
+        background-color: $bgheader;
+        color: $white;
+        padding: $padding_content_vertical;
+        font-size: $text_size_title;
+    }
+
+    .childContainer {
+        width: 90%;
+        margin: 0px 5%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+    }
+
+}

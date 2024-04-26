@@ -4,15 +4,19 @@ import classNames from 'classnames/bind';
 import styles from './TextInput.module.scss';
 const cx = classNames.bind(styles);
 
+interface TextInputProps {
+  placeholder: String;
+  message: String;
+}
 
-function TextInput (props) {
+function TextInput (placeholder, message) {
   return (
     <div className={cx('container')}>
         <input className={cx('textInput')}
-        placeholder={props.placeholder}
+        placeholder={placeholder}
         />
         <label className={cx('errorMessage')}>
-        {props.message}
+        {message}
         </label>
     </div>
   )

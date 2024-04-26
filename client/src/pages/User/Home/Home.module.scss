@@ -1,0 +1,39 @@
+@import '../../../constants/color.scss';
+@import '../../../constants/dimen.scss';
+
+.container {
+    .guideContainer {
+        display: flex;
+        flex-direction: row;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: minmax(min-content, max-content);
+        margin: $margin_component_vertical 0px;
+    }
+
+    .title {
+        margin: $margin_component_vertical 3% 10px 3%;
+        font-size: $text_size_title;
+        color: $bgbutton1;
+    }
+
+    .content {
+        margin: 0% 3%;
+        font-size: $text_size_content;
+    }
+
+    .listContainer::-webkit-scrollbar {
+        display: none;
+    } 
+
+    .listContainer {
+        width: 100%;
+        overflow: auto;
+
+        .listFieldProduct {
+            display: flex;
+            flex-direction: row;
+            list-style-type: none;
+            margin-bottom: $margin_component_vertical;
+        }
+    }
+}

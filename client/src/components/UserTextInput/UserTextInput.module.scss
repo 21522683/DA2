@@ -1,0 +1,27 @@
+@import '../../constants/color.scss';
+@import '../../constants//dimen.scss';
+
+.container {
+    flex: 1;
+    
+    .label {
+        font-size: $text_size_content;
+        color: $disabled;
+    }
+
+    .input {
+        width: 100%;
+        padding: $padding_input_vertical $padding_input_horizontal;
+        color: $black;
+        border-radius: 5px;
+        border-width: 1px;
+        border-color: $disabled;
+        border-style: solid;
+    }
+
+    .errorMessage {
+        color: $error;
+        font-size: 15px;
+        font-style: italic;
+    }
+}
