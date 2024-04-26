@@ -7,6 +7,7 @@
     .label {
         font-size: $text_size_content;
         color: $disabled;
+        margin-bottom: 5px;
     }
 
     .input {
@@ -17,11 +18,13 @@
         border-width: 1px;
         border-color: $disabled;
         border-style: solid;
+        margin-bottom: 5px;
     }
 
     .errorMessage {
         color: $error;
         font-size: 15px;
         font-style: italic;
+        margin-bottom: 5px;
     }
 }

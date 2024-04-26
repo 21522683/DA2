@@ -42,7 +42,7 @@ function UserTextInput ({label, type, value, isError, message, handleOnBlur}) {
         <input className={cx('input')}
             type={type}
             onFocus={handleFocus}
-            onBlur={{handleBlur}}
+            onBlur={handleBlur}
             value={value}
             style={{
                 borderColor: isFocused ? borderColors['focus'] :

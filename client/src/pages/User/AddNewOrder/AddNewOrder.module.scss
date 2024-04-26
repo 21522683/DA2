@@ -13,10 +13,44 @@
 
     .childContainer {
         width: 90%;
-        margin: 0px 5%;
+        margin: 10px 5%;
         height: auto;
         display: flex;
         flex-direction: row;
+
+        .serviceContainer {
+            flex: 1;
+            
+            .label {
+                font-size: $text_size_content;
+                color: $disabled;
+                margin-bottom: 5px;
+            }
+
+            .comboService {
+                background-color: $bgbutton2;
+                color: $white;
+                padding: $padding_input_vertical $padding_input_horizontal;
+                border-radius: 5px;
+                border-width: 1px;
+                border-color: $disabled;
+                border-style: solid;        
+                margin-bottom: 5px;
+
+                .itemService {
+                    background-color: $white;
+                    color: $black;
+                    padding: $padding_input_vertical $padding_input_horizontal;
+                }
+            }
+        
+        }
+    }
+
+    .title {
+        margin: $margin_component_vertical 5% 10px 5%;
+        font-size: $text_size_title;
+        color: $bgbutton1;
     }
 
 }
