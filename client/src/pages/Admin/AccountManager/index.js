@@ -225,7 +225,7 @@ function AccountManager() {
   }
 
   const handleChangeFilter = (value) => {
-
+    console.log(value);
   }
 
   const handleClickSeeDetail = (index) => {

@@ -2,6 +2,8 @@
 import LayoutAdmin from "../components/Layouts/LayoutAdmin/index.js"
 import LayoutUser from "../components/Layouts/LayoutUser/index.js"
 import AccountManager from "../pages/Admin/AccountManager/index.js"
+import ContainerManager from "../pages/Admin/ContainerManager/index.js"
+import OrderManager from "../pages/Admin/OrderManager/index.js"
 import LoginScreen from "../pages/Login"
 import SignUpScreen from "../pages/SignUp"
 import Home from "../pages/User/Home/index.js"
@@ -20,5 +22,7 @@ export const customerRoutes = [
 
 export const adminRoutes = [
     { path: '/admin/account', component: AccountManager, layout: LayoutAdmin },
+    { path: '/admin/order', component: OrderManager, layout: LayoutAdmin },
+    { path: '/admin/container', component: ContainerManager, layout: LayoutAdmin },
 ]
 

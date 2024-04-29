@@ -14,18 +14,12 @@ function Dropdown({handleSelectOption}) {
         handleSelectOption('Tất cả');
     }
     const handleClickOption2 = () => {
-        setSelectedOption('Đang hoạt động');
+        setSelectedOption('Đã xét duyệt');
         setShowOption(false);
-        handleSelectOption('Đang hoạt động');
+        handleSelectOption('Đã xét duyệt');
     }
 
     const handleClickOption3 = () => {
-        setSelectedOption('Đang bị khóa');
-        setShowOption(false);
-        handleSelectOption('Đang bị khóa');
-    }
-
-    const handleClickOption4 = () => {
         setSelectedOption('Chờ xét duyệt');
         setShowOption(false);
         handleSelectOption('Chờ xét duyệt');
@@ -44,18 +38,14 @@ function Dropdown({handleSelectOption}) {
                             <span className={cx('text_dropdown')}>Tất cả</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption2}>
-                            <span className={cx('text_dropdown')}>Đang hoạt động</span>
+                            <span className={cx('text_dropdown')}>Đã xét duyệt</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption3}>
-                            <span className={cx('text_dropdown')}>Đang bị khóa</span>
-                        </div>
-                        <div className={cx('dropdown_option')} onClick={handleClickOption4}>
                             <span className={cx('text_dropdown')}>Chờ xét duyệt</span>
                         </div>
                     </div>
                 )
             }
-
         </div>
     );
 };

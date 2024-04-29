@@ -3,7 +3,6 @@ import { Schema } from "mongoose"
 export default mongoose.model('Order',
     new Schema({
         loaiHinh: String, // "Xuất khẩu" hoặc  "Nhập khẩu"
-        tenHH: String,
         hangHoa: [
             {
                 type: mongoose.Schema.Types.ObjectId,
@@ -18,6 +17,7 @@ export default mongoose.model('Order',
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
+        ngayTaoDon: Date,
         trangThaiXetDuyet: {
             type: Boolean,
             default: false

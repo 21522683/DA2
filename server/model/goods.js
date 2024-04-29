@@ -12,7 +12,7 @@ export default mongoose.model('Goods',
         linhVuc: {
             type: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'Representative'
+                ref: 'GoodsField'
             },
         },
         soluong: Number,
