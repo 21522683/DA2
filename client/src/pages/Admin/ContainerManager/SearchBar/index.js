@@ -16,7 +16,7 @@ function SearchBar({handleChangeInput}) {
         <div className={cx('wrapper')}>
             <div className={cx('main-search')}>
                 <span className={cx('main-icon-search')}><AiOutlineSearch /></span>
-                <input onChange={(e) => setValue(e.target.value)} ref={inputRef} type="text" placeholder="Nhập số tàu để tìm kiếm" className={cx('main-input')} value={value}/>
+                <input onChange={(e) => setValue(e.target.value)} ref={inputRef} type="text" placeholder="Nhập số container để tìm kiếm" className={cx('main-input')} value={value}/>
                 <span onClick={() => setValue('')} className={cx('main-icon-close')}><AiOutlineClose /></span>
             </div>
         </div>
