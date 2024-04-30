@@ -45,12 +45,24 @@
             }
         
         }
+
+        .title {
+            flex: 1;
+            font-size: $text_size_title;
+            color: $bgbutton1;
+        }
+    
+        .btnAddProduct {
+            background-color: $bgbutton2;
+            color: $white;
+            padding: $padding_input_vertical $padding_input_horizontal;
+            border-radius: 5px;
+            border-width: 1px;
+            border-color: $disabled;
+            border-style: solid;        
+            margin-bottom: 5px;
+        }
     }
 
-    .title {
-        margin: $margin_component_vertical 5% 10px 5%;
-        font-size: $text_size_title;
-        color: $bgbutton1;
-    }
 
 }

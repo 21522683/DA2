@@ -57,9 +57,16 @@ function AddNewOrder() {
         />
       </div>
 
+      <div className={cx('childContainer')}>
       <h1 className={cx('title')}>
         Thêm thông tin hàng hóa
       </h1>
+      
+      <button className={cx('btnAddProduct')}>
+        Thêm hàng hóa
+      </button>
+      </div>
+
     </div>
   )
 }

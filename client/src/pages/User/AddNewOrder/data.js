@@ -13,6 +13,38 @@ export const listServices = [
   }
 ];
 
+export const listField = [
+  {
+    id: 0,
+    field: 'Chọn lĩnh vực'
+  },
+  {
+    id: 1,
+    field: 'Y tế',
+  },
+  {
+    id: 2,
+    field: 'Hàng tiêu dùng',
+  },
+  {
+    id: 3,
+    field: 'Công nghệ',
+  },
+  {
+    id: 4,
+    field: 'Thời trang',
+  },
+  {
+    id: 5,
+    field: 'Hóa chất',
+  },
+  {
+    id: 6,
+    field: 'Cơ khí',
+  }
+
+];
+
 export const listUnit = [
   {
     id: 0,
