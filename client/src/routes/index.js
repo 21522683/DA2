@@ -7,6 +7,7 @@ import Home from "../pages/User/Home/index.js"
 import NotFound from "../pages/NotFound"
 import AddNewOrder from "../pages/User/AddNewOrder/index.js"
 import AddProduct from "../pages/User/AddNewOrder/AddProduct/index.js"
+import OrderManage from "../pages/User/OrderManage/index.js"
 
 export const publicRoutes = [
     { path: '/', component: NotFound },
@@ -16,9 +17,10 @@ export const publicRoutes = [
 ]
 
 export const customerRoutes = [
-    { path: '/', component: AddNewOrder, layout: LayoutUser},
+    { path: '/', component: OrderManage, layout: LayoutUser},
     { path: '/add-new-order', component: AddNewOrder, layout: LayoutUser},
     { path: '/add-product', component: AddProduct, layout: LayoutUser},
+    { path: '/order-manage', component: OrderManage, layout: LayoutUser},
 
 ]
 
