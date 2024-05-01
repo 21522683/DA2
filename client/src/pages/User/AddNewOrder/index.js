@@ -3,7 +3,8 @@ import classNames from 'classnames/bind';
 import styles from './AddNewOrder.module.scss';
 import UserTextInput from '../../../components/UserTextInput';
 import { listServices } from './data';
-
+import images from '../../../assets/images';
+import ProductCard from '../../../components/ProductCard';
 const cx = classNames.bind(styles);
 
 function AddNewOrder() {
@@ -28,10 +29,14 @@ function AddNewOrder() {
           label='Ngày đi dự kiến'
         />
 
+        <div className={cx('spaceView')}/>
+
         <UserTextInput
           label='Ngày đến dự kiến'
         />
         
+        <div className={cx('spaceView')}/>
+
         <div className={cx('serviceContainer')}>
           <p className={cx('label')}>
             Lựa chọn dịch vụ:
@@ -66,6 +71,14 @@ function AddNewOrder() {
         Thêm hàng hóa
       </button>
       </div>
+
+      <ProductCard
+      srcimage={images.bgHome}
+      />
+
+      <button className={cx('btnAddOrder')}>
+        Thêm hàng hóa
+      </button>
 
     </div>
   )

@@ -18,8 +18,15 @@
         display: flex;
         flex-direction: row;
 
+        .spaceView {
+            width: 5%;
+        }
+
         .serviceContainer {
+            display: flex;
+            flex-direction: column;
             flex: 1;
+            justify-content: right;
             
             .label {
                 font-size: $text_size_content;
@@ -61,8 +68,18 @@
             border-color: $disabled;
             border-style: solid;        
             margin-bottom: 5px;
+            border-radius: 5px;
         }
     }
 
+    .btnAddOrder {
+        padding: $padding_input_vertical $padding_content_horizontal;
+        background-color: $bgbutton2;
+        color: $white;
+        width: 20%;
+        margin: 15px 40%;
+        font-size: $text_size_content;
+        border-radius: 5px;
+    }
 
 }
