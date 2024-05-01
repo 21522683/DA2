@@ -8,9 +8,10 @@ const cx = classNames.bind(styles);
 
 interface ProductCardProps {
     srcImage: String;
+    type: String;
 }
 
-const ProductCard = ({srcImage}) => {
+const ProductCard = ({srcImage, type}) => {
 
   return (
     <div className={cx('container')}>
@@ -136,12 +137,16 @@ const ProductCard = ({srcImage}) => {
             </div>
         </div>
         </>
-
-        <div className={cx('buttonContainer')}>
-            <button className={cx('btnDelete')}>Xóa</button>
-            <div className={cx('spaceView')}/>
-            <button className={cx('btnEdit')}>Cập nhật</button>
-        </div>
+         
+        {
+            type === 'canEdit' && (
+                <div className={cx('buttonContainer')}>
+                <button className={cx('btnDelete')}>Xóa</button>
+                <div className={cx('spaceView')}/>
+                <button className={cx('btnEdit')}>Cập nhật</button>
+            </div>
+            )
+        }
     </div>
   )
 }

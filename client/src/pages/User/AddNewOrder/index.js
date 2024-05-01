@@ -74,6 +74,7 @@ function AddNewOrder() {
 
       <ProductCard
       srcimage={images.bgHome}
+      type='canEdit'
       />
 
       <button className={cx('btnAddOrder')}>
