@@ -1,49 +1,53 @@
 import React from 'react'
 import classNames from "classnames/bind";
-import styles from './ItemContainer.module.scss';
+import styles from './ItemVessel.module.scss';
 import { useDispatch } from 'react-redux';
-import { setIndexContainerSelected, setIsOpenMessageBox, setIsOpenModalUpdate } from '../../../../redux/sliceAdmin/containerSlice';
+import { setIndexVesselSelected, setIsOpenMessageBox, setIsOpenModalUpdate } from '../../../../redux/sliceAdmin/vesselSlice';
 
 const cx = classNames.bind(styles);
 
 
-function ItemContainer({itemContainer, indexItem}) {
+function ItemVessel({itemVessel, indexItem}) {
 
     const dispatch = useDispatch();
 
     const handleClickUpdate = () => {
-        dispatch(setIndexContainerSelected(indexItem));
+        dispatch(setIndexVesselSelected(indexItem));
         dispatch(setIsOpenModalUpdate(true));
     }
 
     const handleClickDelete = () => {
-        dispatch(setIndexContainerSelected(indexItem));
+        dispatch(setIndexVesselSelected(indexItem));
         dispatch(setIsOpenMessageBox(true));
     }
 
     return (
-        <div className={cx(itemContainer.trangThai ? 'container_lock' : 'container')}>
+        <div className={cx(itemVessel.trangThai ? 'container_lock' : 'container')}>
             <div className={cx('item-container')}>
                 <div className={cx('container-status')}>
                     <div className={cx('flag')}></div>
                     {
-                        itemContainer.trangThai ? (<span className={cx('status')}>Đã sử dụng</span>) : (<span className={cx('status')}>Đang trống</span>)
+                        itemVessel.trangThai ? (<span className={cx('status')}>Đã sử dụng</span>) : (<span className={cx('status')}>Đang trống</span>)
                     }
                 </div>
                 <div className={cx('container_id')}>
+                    <span className={cx('title_number')}>Tên tàu</span>
+                    <span className={cx('content_number')}>{itemVessel.tenTau}</span>
+                </div>
+                <div className={cx('container_id')}>
                     <span className={cx('title_number')}>Số hiệu</span>
-                    <span className={cx('content_number')}>{itemContainer.soHieu}</span>
+                    <span className={cx('content_number')}>{itemVessel.soHieu}</span>
                 </div>
 
                 <div className={cx('container_info')}>
                     <div className={cx('container_volume')}>
-                        <span className={cx('title')}>Thể tích (m3):</span>
-                        <span className={cx('content')}>{itemContainer.theTichChua}</span>
+                        <span className={cx('title')}>Tải trọng (tấn):</span>
+                        <span className={cx('content')}>{itemVessel.taiTrong}</span>
                     </div>
 
                     <div className={cx('container_volume')}>
                         <span className={cx('title')}>Trọng lượng (tấn):</span>
-                        <span className={cx('content')}>{itemContainer.trongLuong}</span>
+                        <span className={cx('content')}>{itemVessel.trongLuong}</span>
                     </div>
                 </div>
             </div>
@@ -61,4 +65,4 @@ function ItemContainer({itemContainer, indexItem}) {
     )
 }
 
-export default ItemContainer;
+export default ItemVessel;

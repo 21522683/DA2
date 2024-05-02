@@ -1,0 +1,95 @@
+.container_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+
+    .header {
+        display: flex;
+        flex-direction: column;
+
+        .title_header {
+            font-size: 18px;
+            color: #303030;
+            font-weight: 550;
+        }
+
+        .container-first {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .container_filter {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                margin: 20px 0;
+                padding: 0 20px;
+
+                .container_search {
+                    width: 45%;
+
+                    .title_search {
+                        font-size: 14px;
+                        color: #3c3c3c;
+                    }
+                }
+
+                .container_dropdown {
+                    width: 200px;
+                    position: relative;
+                    z-index: 999;
+                    margin-left: 40px;
+
+                    .title_search {
+                        font-size: 14px;
+                        color: #3c3c3c;
+                    }
+
+                    .date_picker {
+                        border: 2px solid #b6b6b6;
+                        padding: 12px 20px;
+                        margin-top: 10px;
+                        border-radius: 4px;
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            .btn-add {
+                width: 180px;
+                background-color: #008DB5;
+                padding: 10px 20px;
+                color: #ffffff;
+                font-size: 16px;
+                font-weight: bold;
+                border-radius: 4px;
+                margin-top: 30px;
+                margin-right: 20px;
+                text-align: center;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: #007190;
+                }
+            }
+        }
+
+
+    }
+
+    .body_container {
+        margin: 20px 0;
+        padding: 0 20px;
+        max-height: 372px;
+        overflow-y: auto;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 60px;
+        width: 100%;
+        margin-top: 60px;
+    }
+}

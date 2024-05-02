@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import classNames from 'classnames/bind';
-import styles from './ModalUpdateContainer.module.scss';
+import styles from './ModalUpdateVessel.module.scss';
 import Dropdown from './DropDown';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalUpdate } from '../../../../redux/sliceAdmin/containerSlice';
+import { setIsOpenModalUpdate } from '../../../../redux/sliceAdmin/vesselSlice';
 
 const cx = classNames.bind(styles);
+
 function chuyenChuoiSangSoThuc(value) {
     let chuoi = value.toString();
     let parts = chuoi.split('.');
@@ -21,16 +22,19 @@ function chuyenChuoiSangSoThuc(value) {
 function ModalUpdateContainer() {
 
     const dispatch = useDispatch();
-    const listContainers = useSelector(state => state.containerManagement.containersList);
-    const indexSelected = useSelector(state => state.containerManagement.indexSelected);
-    const itemSelected = listContainers[indexSelected];
+    const listVissels = useSelector(state => state.vesselManagement.vesselsList);
+    const indexSelected = useSelector(state => state.vesselManagement.indexSelected);
+    const itemSelected = listVissels[indexSelected];
 
+    const [tenTau, setTenTau] = useState(itemSelected.tenTau);
     const [soHieu, setSoHieu] = useState(itemSelected.soHieu);
     const [trangThai, setTrangThai] = useState(itemSelected.trangThai);
-    const [theTichChua, setTheTichChua] = useState(itemSelected.theTichChua);
+    const [taiTrong, setTaiTrong] = useState(itemSelected.taiTrong);
     const [trongLuong, setTrongLuong] = useState(itemSelected.trongLuong);
 
-    
+    const handleChangeTenTau = (value) => {
+        setTenTau(value);
+    };
     const handleChangeSoHieu = (value) => {
         setSoHieu(value);
     };
@@ -38,8 +42,8 @@ function ModalUpdateContainer() {
         setTrangThai(value === 'Đang trống' ? false : true);
     };
     
-    const handleChangeTheTichChua = (value) => {
-        setTheTichChua(value);
+    const handleChangeTaiTrong = (value) => {
+        setTaiTrong(value);
     };
     
     const handleChangeTrongLuong = (value) => {
@@ -52,9 +56,10 @@ function ModalUpdateContainer() {
     }
     const handleSave = () => {
         const itemUpdate = {
+            tenTau: tenTau,
             soHieu: soHieu,
             trangThai: trangThai,
-            theTichChua: chuyenChuoiSangSoThuc(theTichChua),
+            taiTrong: chuyenChuoiSangSoThuc(taiTrong),
             trongLuong: chuyenChuoiSangSoThuc(trongLuong)
         }
         console.log(itemUpdate);
@@ -66,18 +71,29 @@ function ModalUpdateContainer() {
         <div className={cx('wrapper')} onClick={handleClose}>
             <div className={cx('container-body')} onClick={(e) => e.stopPropagation()}>
                 <div className={cx('container-header')}>
-                    <span className={cx('title_modal')}>CẬP NHẬT CONTAINER</span>
+                    <span className={cx('title_modal')}>CẬP NHẬT THÔNG TIN TÀU</span>
                     <span className={cx('btn_close')} onClick={handleClose}>&times;</span>
                 </div>
 
                 <div className={cx('container_body_modal')}>
-                    <div className={cx('container_input_2')}>
-                        <div className={cx('container_input_2_a')}>
-                            <span className={cx('title_input')}>Số hiệu container</span>
+                <div className={cx('container_input_2')}>
+                        <div className={cx('container_input_2_ten')}>
+                            <span className={cx('title_input')}>Tên tàu</span>
                             <input
                                 type="text"
                                 className={cx('input_number')}
-                                placeholder='Nhập số hiệu container'
+                                placeholder='Nhập tên tàu'
+                                value={tenTau}
+                                onChange={(e) => handleChangeTenTau(e.target.value)} />
+                        </div>
+                    </div>
+                    <div className={cx('container_input_2')}>
+                        <div className={cx('container_input_2_a')}>
+                            <span className={cx('title_input')}>Số hiệu tàu</span>
+                            <input
+                                type="text"
+                                className={cx('input_number')}
+                                placeholder='Nhập số hiệu tàu'
                                 value={soHieu}
                                 onChange={(e) => handleChangeSoHieu(e.target.value)} />
                         </div>
@@ -90,13 +106,13 @@ function ModalUpdateContainer() {
 
                     <div className={cx('container_input_2')}>
                         <div className={cx('container_input_2_a')}>
-                            <span className={cx('title_input')}>Thể tích (m3)</span>
+                            <span className={cx('title_input')}>Tải trọng (tấn)</span>
                             <input 
                                 type="number" 
                                 className={cx('input_number')} 
                                 placeholder='Nhập thể tích' 
-                                value={theTichChua}
-                                onChange={(e) => handleChangeTheTichChua(e.target.value)}/>
+                                value={taiTrong}
+                                onChange={(e) => handleChangeTaiTrong(e.target.value)}/>
                         </div>
 
                         <div className={cx('container_input_2_a')}>

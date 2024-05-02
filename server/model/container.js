@@ -6,7 +6,7 @@ export default mongoose.model('Container',
         theTichChua: Number,
         trangThai: {
             type: Boolean,
-            default: true
+            default: false
         },
         trongLuong: Number,
     })

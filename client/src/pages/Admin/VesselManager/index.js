@@ -1,94 +1,105 @@
 import React, { useEffect } from 'react'
 import classNames from "classnames/bind";
-import styles from './ContainerManager.module.scss';
+import styles from './VesselManager.module.scss';
 import SearchBar from './SearchBar';
 import Dropdown from './DropDown';
-import ItemContainer from './ItemContainer';
+import ItemVessel from './ItemVessel';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalAdd, setListContainer } from '../../../redux/sliceAdmin/containerSlice';
-import ModalAddContainer from './ModalAddContainer';
-import ModalUpdateContainer from './ModalUpdateContainer';
+import ModalUpdateVessel from './ModalUpdateVessel';
 import MessageBox from './MessageBox';
+import { setIsOpenModalAdd, setListVessel } from '../../../redux/sliceAdmin/vesselSlice';
+import ModalAddVessel from './ModalAddVessel';
 const cx = classNames.bind(styles);
 
-function ContainerManager() {
+function VesselManager() {
 
   const list = [
     {
+      tenTau: "Tàu CONCACUT-SHPPING_1",
       soHieu: "QC-99877TS_0",
-      theTichChua: 1411,
+      taiTrong: 1411,
       trangThai: false,
       trongLuong: 1.2,
     },
     {
+      tenTau: "Tàu CONCACUT-SHPPING_2",
       soHieu: "QC-99877TS_1",
-      theTichChua: 1211,
+      taiTrong: 1211,
       trangThai: false,
       trongLuong: 1.32,
     },
     {
+      tenTau: "Tàu CONCACUT-SHPPING_3",
       soHieu: "QC-99877TS_2",
-      theTichChua: 911,
+      taiTrong: 911,
       trangThai: true,
       trongLuong: 1.02,
     },
     {
+      tenTau: "Tàu CONCACUT-SHPPING_4",
       soHieu: "QC-99877TS_0",
-      theTichChua: 1411,
+      taiTrong: 1411,
       trangThai: false,
       trongLuong: 1.2,
     },
     {
+      tenTau: "Tàu CONCACUT-SHPPING_5",
       soHieu: "QC-99877TS_1",
-      theTichChua: 1211,
+      taiTrong: 1211,
       trangThai: true,
       trongLuong: 1.32,
     },
     {
+      tenTau: "Tàu CONCACUT-SHPPING_6",
       soHieu: "QC-99877TS_2",
-      theTichChua: 911,
+      taiTrong: 911,
       trangThai: false,
       trongLuong: 1.02,
     },
     {
+      tenTau: "Tàu CONCACUT-SHPPING_7",
       soHieu: "QC-99877TS_1",
-      theTichChua: 1211,
+      taiTrong: 1211,
       trangThai: true,
       trongLuong: 1.32,
     },
     {
+      tenTau: "Tàu CONCACUT-SHPPING_8",
       soHieu: "QC-99877TS_2",
-      theTichChua: 911,
+      taiTrong: 911,
       trangThai: false,
       trongLuong: 1.02,
     },
     {
+      tenTau: "Tàu CONCACUT-SHPPING_9",
       soHieu: "QC-99877TS_2",
-      theTichChua: 911,
+      taiTrong: 911,
       trangThai: false,
       trongLuong: 1.02,
     },
     {
+      tenTau: "Tàu CONCACUT-SHPPING_10",
       soHieu: "QC-99877TS_2",
-      theTichChua: 911,
+      taiTrong: 911,
       trangThai: false,
       trongLuong: 1.02,
     },
     {
+      tenTau: "Tàu CONCACUT-SHPPING_11",
       soHieu: "QC-99877TS_1",
-      theTichChua: 1211,
+      taiTrong: 1211,
       trangThai: true,
       trongLuong: 1.32,
     },
   ];
   const dispatch = useDispatch();
-  const listContainers = useSelector(state => state.containerManagement.containersList);
-  const isOpenModalAdd = useSelector(state => state.containerManagement.isOpenModalAdd);
-  const isOpenModalUpdate = useSelector(state => state.containerManagement.isOpenModalUpdate);
-  const isOpenMessagebox = useSelector(state => state.containerManagement.isOpenMessagebox);
+  const listVessels = useSelector(state => state.vesselManagement.vesselsList);
+  const isOpenModalAdd = useSelector(state => state.vesselManagement.isOpenModalAdd);
+  const isOpenModalUpdate = useSelector(state => state.vesselManagement.isOpenModalUpdate);
+  const isOpenMessagebox = useSelector(state => state.vesselManagement.isOpenMessagebox);
 
   useEffect(() => {
-    dispatch(setListContainer(list));
+    dispatch(setListVessel(list));
   }, []);
 
   const handleClickAdd = () => {
@@ -105,16 +116,16 @@ function ContainerManager() {
   return (
     <div className={cx('container_main')}>
       {
-        isOpenModalAdd && <ModalAddContainer />
+        isOpenModalAdd && <ModalAddVessel />
       }
       {
-        isOpenModalUpdate && <ModalUpdateContainer />
+        isOpenModalUpdate && <ModalUpdateVessel />
       }
       {
         isOpenMessagebox && <MessageBox/>
       }
       <div className={cx('header')}>
-        <span className={cx('title_header')}>QUẢN LÝ CONTAINER</span>
+        <span className={cx('title_header')}>QUẢN LÝ TÀU</span>
 
         <div className={cx('container-first')}>
           <div className={cx('container_filter')}>
@@ -130,24 +141,22 @@ function ContainerManager() {
           </div>
 
           <div className={cx('btn-add')} onClick={handleClickAdd}>
-            Thêm container
+            Thêm tàu
           </div>
         </div>
       </div>
 
       <div className={cx('body_container')}>
         {
-          listContainers.map((item, index) => {
+          listVessels.map((item, index) => {
             return (
-              <ItemContainer itemContainer={item} key={index} indexItem={index} />
+              <ItemVessel itemVessel={item} key={index} indexItem={index} />
             )
           })
         }
-
-
       </div>
     </div>
   )
 }
 
-export default ContainerManager
+export default VesselManager;

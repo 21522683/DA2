@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from "classnames/bind";
 import styles from './MessageBox.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenMessageBox } from '../../../../redux/sliceAdmin/containerSlice';
+import { setIsOpenMessageBox } from '../../../../redux/sliceAdmin/vesselSlice';
 
 
 const cx = classNames.bind(styles);
@@ -10,12 +10,12 @@ const cx = classNames.bind(styles);
 function MessageBox() {
 
   const dispatch = useDispatch();
-  const listContainers = useSelector(state => state.containerManagement.containersList);
-  const indexSelected = useSelector(state => state.containerManagement.indexSelected);
+  const listVessels = useSelector(state => state.vesselManagement.vesselsList);
+  const indexSelected = useSelector(state => state.vesselManagement.indexSelected);
 
   const handleSend = () => {
     // copy ra mảng mới rồi xóa, sau đó dispatch setList lại
-    const arr = [...listContainers];
+    const arr = [...listVessels];
     console.log(arr.length);
     arr.splice(indexSelected, 1);
     console.log(arr.length);
@@ -32,7 +32,7 @@ function MessageBox() {
           </div>
 
           <div className={cx('container-2')}>
-            <span className={cx('text_content')}>Bạn có chắc chắn muốn xóa container này ? Dữ liệu sẽ không thể phục hồi sau khi xóa !</span>
+            <span className={cx('text_content')}>Bạn có chắc chắn muốn xóa tàu này ? Dữ liệu sẽ không thể phục hồi sau khi xóa !</span>
           </div>
 
 

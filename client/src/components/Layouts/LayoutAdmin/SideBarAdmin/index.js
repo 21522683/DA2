@@ -10,7 +10,7 @@ function SideBarAdmin() {
 
     const [activeItem , setActiveItem ] = useState('account');
     const handleClickItem = (item) =>{
-        setActiveItem(item)
+        setActiveItem(item);
     }
 
     return (
@@ -21,19 +21,19 @@ function SideBarAdmin() {
             </div>
 
             <div className={cx('container-navigate')}>
-                <Link className={cx(activeItem==='account'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('account')}>
+                <Link to={'/admin/account'} className={cx(activeItem==='account'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('account')}>
                     <span className={cx(activeItem==='account'?'text-navigate-active':'text-navigate')}>QUẢN LÝ TÀI KHOẢN</span>
                 </Link>
-                <Link className={cx(activeItem==='order'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('order')}>
+                <Link to={'/admin/order'} className={cx(activeItem==='order'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('order')}>
                     <span className={cx(activeItem==='order'?'text-navigate-active':'text-navigate')}>QUẢN LÝ ĐƠN HÀNG</span>
                 </Link>
                 <Link className={cx(activeItem==='doc_goods'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('doc_goods')}>
                     <span className={cx(activeItem==='doc_goods'?'text-navigate-active':'text-navigate')}>KÊ KHAI HÀNG HÓA</span>
                 </Link>
-                <Link className={cx(activeItem==='container'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('container')}>
+                <Link to={'/admin/container'} className={cx(activeItem==='container'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('container')}>
                     <span className={cx(activeItem==='container'?'text-navigate-active':'text-navigate')}>QUẢN LÝ CONTAINER</span>
                 </Link>
-                <Link className={cx(activeItem==='ship'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('ship')}>
+                <Link to={'/admin/vessel'} className={cx(activeItem==='ship'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('ship')}>
                     <span className={cx(activeItem==='ship'?'text-navigate-active':'text-navigate')}>QUẢN LÝ TÀU</span>
                 </Link>
                 <Link className={cx(activeItem==='bill'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('bill')}>
