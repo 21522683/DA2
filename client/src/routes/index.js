@@ -3,6 +3,7 @@ import LayoutAdmin from "../components/Layouts/LayoutAdmin/index.js"
 import LayoutUser from "../components/Layouts/LayoutUser/index.js"
 import AccountManager from "../pages/Admin/AccountManager/index.js"
 import ContainerManager from "../pages/Admin/ContainerManager/index.js"
+import GoodsDeclarationManager from "../pages/Admin/GoodsDeclarationManager/index.js"
 import OrderManager from "../pages/Admin/OrderManager/index.js"
 import VesselManager from "../pages/Admin/VesselManager/index.js"
 import LoginScreen from "../pages/Login"
@@ -26,5 +27,6 @@ export const adminRoutes = [
     { path: '/admin/order', component: OrderManager, layout: LayoutAdmin },
     { path: '/admin/container', component: ContainerManager, layout: LayoutAdmin },
     { path: '/admin/vessel', component: VesselManager, layout: LayoutAdmin },
+    { path: '/admin/goods-declaration', component: GoodsDeclarationManager, layout: LayoutAdmin },
 ]
 

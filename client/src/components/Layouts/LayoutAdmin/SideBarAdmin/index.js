@@ -27,7 +27,7 @@ function SideBarAdmin() {
                 <Link to={'/admin/order'} className={cx(activeItem==='order'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('order')}>
                     <span className={cx(activeItem==='order'?'text-navigate-active':'text-navigate')}>QUẢN LÝ ĐƠN HÀNG</span>
                 </Link>
-                <Link className={cx(activeItem==='doc_goods'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('doc_goods')}>
+                <Link to={'/admin/goods-declaration'} className={cx(activeItem==='doc_goods'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('doc_goods')}>
                     <span className={cx(activeItem==='doc_goods'?'text-navigate-active':'text-navigate')}>KÊ KHAI HÀNG HÓA</span>
                 </Link>
                 <Link to={'/admin/container'} className={cx(activeItem==='container'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('container')}>

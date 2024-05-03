@@ -617,10 +617,10 @@ function OrderManager() {
 
   const [startDateFilter, setStartDateFilter] = useState(new Date());
 
-  const handleChangeInputSearch = () => {
+  const handleChangeInputSearch = (value) => {
 
   }
-  const handleChangeFilter = () => {
+  const handleChangeFilter = (value) => {
 
   }
 
