@@ -11,6 +11,7 @@ import OrderManage from "../pages/User/OrderManage/index.js"
 import ContractManage from "../pages/User/ContractManage/index.js"
 import BillManage from "../pages/User/BillManage/index.js"
 import OrderDetail from "../pages/User/OrderDetail/index.js"
+import ContractDetail from "../pages/User/ContractDetail/index.js"
 
 export const publicRoutes = [
     { path: '/', component: NotFound },
@@ -20,12 +21,13 @@ export const publicRoutes = [
 ]
 
 export const customerRoutes = [
-    { path: '/', component: OrderDetail, layout: LayoutUser},
+    { path: '/', component: ContractDetail, layout: LayoutUser},
     { path: '/add-new-order', component: AddNewOrder, layout: LayoutUser},
     { path: '/add-product', component: AddProduct, layout: LayoutUser},
     { path: '/order-manage', component: OrderManage, layout: LayoutUser},
     { path: '/order-detail', component: OrderDetail, layout: LayoutUser},
     { path: '/contract-manage', component: ContractManage, layout: LayoutUser},
+    { path: '/contract-detail', component: ContractDetail, layout: LayoutUser},
     { path: '/bill-manage', component: BillManage, layout: LayoutUser},
 ]
 
