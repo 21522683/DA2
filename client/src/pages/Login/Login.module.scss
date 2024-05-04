@@ -1,23 +1,42 @@
 @import '../../constants/color.scss';
+@import '../../constants/dimen.scss';
 
 .container {
+    flex: 1;
     background-color: $default;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
 
     .mainContainer {
+        flex: 1;
+        margin: 5% 15% 0px 15%;
         background-color: $white;
-        justify-content: center;
-        align-items: center;
-        margin: 5% 10%;
-        height: 70vh;
+        padding: 50px 10%;
         display: flex;
+        justify-content: center;
         flex-direction: column;
 
-        .txtUsername {
-            width: 10%;
-            height: 50px;
+        .mainTitle {
+            color: $bgbutton1;
+            font-weight: bold;
+            font-size: $text_size_title;
+            margin: 0px 0px 15px 0px;
+        }
+
+        .forgotPassword {
+            font-size: 15px;
+            text-align: right;
+        }
+
+        .btnLoginIn {
+            background-color: $bgbutton2;
+            color: $white;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: $text_size_content;
+        }
+
+        .mt {
+            margin-top: 15px;
         }
 
     }

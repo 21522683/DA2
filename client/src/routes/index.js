@@ -23,7 +23,7 @@ export const publicRoutes = [
 ]
 
 export const customerRoutes = [
-    { path: '/', component: Home, layout: LayoutUser},
+    { path: '/', component: LoginScreen, layout: LayoutUser},
     { path: '/add-new-order', component: AddNewOrder, layout: LayoutUser},
     { path: '/add-product', component: AddProduct, layout: LayoutUser},
     { path: '/order-manage', component: OrderManage, layout: LayoutUser},
