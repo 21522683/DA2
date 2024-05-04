@@ -70,15 +70,23 @@
 
     .btn-logout {
         width: 50%;
-        padding: 12px 0;
-        margin: 20px 0;
+        padding: 10px 0;
         display: flex;
         justify-content: center;
         align-items: center;
         color: #008DB5;
-        border: 1px solid #008DB5;
+        border: 2px solid #008DB5;
         align-self: center;
         border-radius: 10px;
+        margin-bottom: 20px;
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #008DB5;
+            color: #ffffff;
+            font-weight: bold;
+        }
     }
 
 

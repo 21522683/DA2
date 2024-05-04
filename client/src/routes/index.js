@@ -3,6 +3,7 @@ import LayoutAdmin from "../components/Layouts/LayoutAdmin/index.js"
 import LayoutUser from "../components/Layouts/LayoutUser/index.js"
 import AccountManager from "../pages/Admin/AccountManager/index.js"
 import ContainerManager from "../pages/Admin/ContainerManager/index.js"
+import ContractManager from "../pages/Admin/ContractManager/index.js"
 import GoodsDeclarationManager from "../pages/Admin/GoodsDeclarationManager/index.js"
 import HistoryBillManager from "../pages/Admin/HistoryBillManager/index.js"
 import OrderManager from "../pages/Admin/OrderManager/index.js"
@@ -30,5 +31,6 @@ export const adminRoutes = [
     { path: '/admin/vessel', component: VesselManager, layout: LayoutAdmin },
     { path: '/admin/goods-declaration', component: GoodsDeclarationManager, layout: LayoutAdmin },
     { path: '/admin/bill', component: HistoryBillManager, layout: LayoutAdmin },
+    { path: '/admin/contract', component: ContractManager, layout: LayoutAdmin },
 ]
 
