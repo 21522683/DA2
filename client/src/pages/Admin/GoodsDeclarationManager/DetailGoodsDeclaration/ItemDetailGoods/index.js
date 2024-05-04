@@ -5,60 +5,61 @@ import styles from './ItemDetailGoods.module.scss';
 const cx = classNames.bind(styles);
 
 
-function ItemDetailGoods() {
+function ItemDetailGoods({itemHangHoa}) {
+
   return (
     <div className={cx('detail_goods')}>
       <div className={cx('container_hh')}>
         <span className={cx('title')}>Tên hàng hóa:</span>
-        <span className={cx('content')}>Thuốc chống cảm của bộ y tế</span>
+        <span className={cx('content')}>{itemHangHoa.tenHH}</span>
       </div>
       <div className={cx('container_hh')}>
         <span className={cx('title')}>Nhà cung cấp:</span>
-        <span className={cx('content')}>Công ty cổ phần Medical ABNC</span>
+        <span className={cx('content')}>{itemHangHoa.nhaCungCap}</span>
       </div>
 
       <div className={cx('container_mutilple')}>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Lĩnh vực:</span>
-          <span className={cx('content')}>Y tế</span>
+          <span className={cx('content')}>{itemHangHoa.linhVuc.tenLinhVuc}</span>
         </div>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Số lượng:</span>
-          <span className={cx('content')}>1200</span>
+          <span className={cx('content')}>{itemHangHoa.soluong}</span>
         </div>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Khối lượng:</span>
-          <span className={cx('content')}>1.42</span>
+          <span className={cx('content')}>{itemHangHoa.khoiLuong}</span>
         </div>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Đơn vị tính:</span>
-          <span className={cx('content')}>kg</span>
+          <span className={cx('content')}>{itemHangHoa.donViTinh}</span>
         </div>
       </div>
 
       <div className={cx('container_mutilple')}>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Ngày SX:</span>
-          <span className={cx('content')}>11/02/2023</span>
+          <span className={cx('content')}>{itemHangHoa.ngaySX}</span>
         </div>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>HSD:</span>
-          <span className={cx('content')}>11/02/2026</span>
+          <span className={cx('content')}>{itemHangHoa.HSD}</span>
         </div>
       </div>
 
       <div className={cx('container_mutilple')}>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Chiều dài (m):</span>
-          <span className={cx('content')}>0.12</span>
+          <span className={cx('content')}>{itemHangHoa.chieuDai}</span>
         </div>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Chiều rộng (m):</span>
-          <span className={cx('content')}>0.04</span>
+          <span className={cx('content')}>{itemHangHoa.chieuRong}</span>
         </div>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Chiều cao (m):</span>
-          <span className={cx('content')}>0.02</span>
+          <span className={cx('content')}>{itemHangHoa.chieuCao}</span>
         </div>
       </div>
 
@@ -67,9 +68,9 @@ function ItemDetailGoods() {
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Hình ảnh:</span>
           {
-            [1, 2, 3, 4].map((item, index) => {
+            itemHangHoa.hinhAnh.map((item, index) => {
               return (
-                <img key={index} className={cx('image_hh')} src='https://chothuekholanh.vn/uploads/images/dong-goi-hang-hoa.jpg' alt='hh' />
+                <img key={index} className={cx('image_hh')} src={item.url} alt='hh' />
               )
             })
           }
@@ -77,9 +78,8 @@ function ItemDetailGoods() {
       </div>
       <div className={cx('container_hh')}>
         <span className={cx('title')}>Mô tả:</span>
-        <span className={cx('content-script')}>Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)</span>
+        <span className={cx('content-script')}>{itemHangHoa.moTa}</span>
       </div>
-
     </div>
   )
 }

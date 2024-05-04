@@ -36,7 +36,7 @@ function SideBarAdmin() {
                 <Link to={'/admin/vessel'} className={cx(activeItem==='ship'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('ship')}>
                     <span className={cx(activeItem==='ship'?'text-navigate-active':'text-navigate')}>QUẢN LÝ TÀU</span>
                 </Link>
-                <Link className={cx(activeItem==='bill'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('bill')}>
+                <Link to={'/admin/bill'} className={cx(activeItem==='bill'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('bill')}>
                     <span className={cx(activeItem==='bill'?'text-navigate-active':'text-navigate')}>LỊCH SỬ GIAO DỊCH</span>
                 </Link>
                 <Link className={cx(activeItem==='contract'?'item-navigate-active':'item-navigate')} onClick={() => handleClickItem('contract')}>

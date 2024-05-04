@@ -2,15 +2,22 @@ import React from 'react'
 import classNames from "classnames/bind";
 import styles from './DetailGoodsDeclaration.module.scss';
 import ItemDetailGoods from './ItemDetailGoods';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsOpenModalDetail } from '../../../../redux/sliceAdmin/goodsDeclarationSlice';
 
 const cx = classNames.bind(styles);
 
 
 function DetailGoodsDeclaration() {
 
+  const dispatch = useDispatch();
+  const listGoodsDeclaration = useSelector(state => state.goodsDeclarationManagement.goodsDeclarationsList);
+  const indexSelected = useSelector(state => state.goodsDeclarationManagement.indexSelected);
+  const itemSelected = listGoodsDeclaration[indexSelected];
+
 
   const handleClose = () => {
-
+    dispatch(setIsOpenModalDetail(false));
   }
 
   const handleAccept = () => {
@@ -29,8 +36,9 @@ function DetailGoodsDeclaration() {
         <div className={cx('container_first')}>
           <div className={cx('container-status')}>
             <span className={cx('title')}>Trạng thái: </span>
-            {/* <span className={cx('accept')}>Đã tạo hóa đơn</span> */}
-            <span className={cx('status')}>Chưa tạo hóa đơn</span>
+            {
+              itemSelected.trangThai ? (<span className={cx('accept')}>Đã tạo hóa đơn</span>) : (<span className={cx('status')}>Chưa tạo hóa đơn</span>)
+            }
           </div>
 
           <div className={cx('container-status')}>
@@ -39,8 +47,8 @@ function DetailGoodsDeclaration() {
           </div>
 
           <div className={cx('container-status')}>
-            <span className={cx('title')}>Ngày tạo đơn: </span>
-            <span className={cx('content')}>11/01/2024</span>
+            <span className={cx('title')}>Ngày tạo đơn hàng: </span>
+            <span className={cx('content')}>{itemSelected.donHang.ngayTaoDon}</span>
           </div>
         </div>
 
@@ -49,28 +57,28 @@ function DetailGoodsDeclaration() {
           <div className={cx('container_1')}>
             <div className={cx('container-date')}>
               <span className={cx('title')}>Tên người đại diện: </span>
-              <span className={cx('content')}>Phạm Nguyễn Trường An</span>
+              <span className={cx('content')}>{itemSelected.donHang.user.representative.hoten}</span>
             </div>
 
             <div className={cx('container-date')}>
               <span className={cx('title')}>Địa chỉ email: </span>
-              <span className={cx('content')}>phantrongtinh15082003@gmail.com</span>
+              <span className={cx('content')}>{itemSelected.donHang.user.representative.email}</span>
             </div>
           </div>
           <div className={cx('container_1')}>
             <div className={cx('container-date')}>
               <span className={cx('title')}>Tên doanh nghiệp: </span>
-              <span className={cx('content')}>Công ty cổ phần tiêu dùng Macdison</span>
+              <span className={cx('content')}>{itemSelected.donHang.user.tenDoanhNghiep}</span>
             </div>
 
             <div className={cx('container-date')}>
               <span className={cx('title')}>Số điện thoại: </span>
-              <span className={cx('content')}>0379361210</span>
+              <span className={cx('content')}>{itemSelected.donHang.user.representative.soDienThoai}</span>
             </div>
 
             <div className={cx('container-date')}>
               <span className={cx('title')}>Số FAX: </span>
-              <span className={cx('content')}>124379361210</span>
+              <span className={cx('content')}>{itemSelected.donHang.user.soFAX}</span>
             </div>
           </div>
 
@@ -81,32 +89,30 @@ function DetailGoodsDeclaration() {
           <div className={cx('container_1')}>
             <div className={cx('container-date')}>
               <span className={cx('title')}>Ngày đi dự kiến: </span>
-              <span className={cx('content')}>11/04/2024</span>
+              <span className={cx('content')}>{itemSelected.donHang.ngayDiDuKien}</span>
             </div>
 
             <div className={cx('container-date')}>
               <span className={cx('title')}>Ngày đến dự kiến: </span>
-              <span className={cx('content')}>11/04/2024</span>
+              <span className={cx('content')}>{itemSelected.donHang.ngayDenDuKien}</span>
             </div>
 
             <div className={cx('container-type')}>
               <span className={cx('title')}>Loại hình: </span>
-              <span className={cx('content')}>Xuất khẩu</span>
+              <span className={cx('content')}>{itemSelected.donHang.loaiHinh}</span>
             </div>
           </div>
           <div className={cx('container_1')}>
             <div className={cx('container-date')}>
               <span className={cx('title')}>Thông tin cảng đi: </span>
-              <span className={cx('content')}>Cảng Đông Anh, Sài Gòn</span>
+              <span className={cx('content')}>{itemSelected.donHang.cangDi}</span>
             </div>
 
             <div className={cx('container-date')}>
               <span className={cx('title')}>Thông tin cảng đến: </span>
-              <span className={cx('content')}>Cảng Cam Ranh Khánh Hòa</span>
+              <span className={cx('content')}>{itemSelected.donHang.cangDen}</span>
             </div>
           </div>
-
-
         </div>
 
         <div className={cx('info-goods')}>
@@ -114,9 +120,9 @@ function DetailGoodsDeclaration() {
           <div className={cx('container_list')}>
 
             {
-              [1, 2, 3, 4 , 5].map((item, index) => {
+              itemSelected.donHang.hangHoa.map((item, index) => {
                 return (
-                  <ItemDetailGoods key={index} />
+                  <ItemDetailGoods itemHangHoa={item} key={index} />
                 )
               })
             }
@@ -125,9 +131,16 @@ function DetailGoodsDeclaration() {
         </div>
 
         <div className={cx('container-btn')}>
-          <div className={cx('btn-accept')} onClick={handleAccept}>
-            Tạo hóa đơn
-          </div>
+          {
+            itemSelected.trangThai ?
+              (
+                <span className={cx('text_message')}>Hóa đơn đã được tạo và gửi đến người dùng</span>
+              ) : (
+                <div className={cx('btn-accept')} onClick={handleAccept}>
+                  Tạo hóa đơn
+                </div>
+              )
+          }
         </div>
 
       </div >
