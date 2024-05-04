@@ -226,20 +226,13 @@
             justify-content: center;
             margin: 20px 0 20px;
 
-            .btn_accpet {
+            .flag_content {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color: #ffffff;
-                background-color: #008DB5;
+                color: #008DB5;
                 font-weight: bold;
-                padding: 8px 20px;
-                border-radius: 4px;
 
-                &:hover {
-                    cursor: pointer;
-                    background-color: #005e78;
-                }
             }
         }
 

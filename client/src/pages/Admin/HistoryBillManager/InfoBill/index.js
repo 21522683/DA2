@@ -1,12 +1,12 @@
 import React from 'react'
 import classNames from "classnames/bind";
-import styles from './DetailBill.module.scss';
+import styles from './InfoBill.module.scss';
 import formatMoney from '../../../../utils/formatMoney.js';
 
 const cx = classNames.bind(styles);
 
 
-function DetailBill() {
+function InfoBill() {
 
   const handleClose = () => {
 
@@ -21,7 +21,7 @@ function DetailBill() {
       <div className={cx('container-body')} onClick={(e) => e.stopPropagation()}>
 
         <div className={cx('container-header')}>
-          <span className={cx('title_modal')}>CHI TIẾT HÓA ĐƠN</span>
+          <span className={cx('title_modal')}>HÓA ĐƠN</span>
           <span className={cx('btn_close')} onClick={handleClose}>&times;</span>
         </div>
 
@@ -29,81 +29,18 @@ function DetailBill() {
           <div className={cx('container_first')}>
             <div className={cx('container-status')}>
               <span className={cx('title')}>Trạng thái: </span>
-              <span className={cx('accept')}>Đã thanh toán</span>
+              {/* <span className={cx('accept')}>Đã thanh toán</span> */}
+              <span className={cx('status')}>Chưa thanh toán</span>
+            </div>
+
+            <div className={cx('container-status')}>
+              <span className={cx('title')}>Mã đơn hàng: </span>
+              <span className={cx('content')}>DH0927226372</span>
             </div>
 
             <div className={cx('container-status')}>
               <span className={cx('title')}>Ngày tạo hóa đơn: </span>
               <span className={cx('content')}>11/01/2024</span>
-            </div>
-
-            <div className={cx('container-status')}>
-              <span className={cx('title')}>Ngày thanh toán: </span>
-              <span className={cx('content')}>11/01/2024</span>
-            </div>
-          </div>
-
-          <div className={cx('info-order')}>
-            <span className={cx('title-order')}>THÔNG TIN NGƯỜI THANH TOÁN</span>
-            <div className={cx('container_1')}>
-              <div className={cx('container-date')}>
-                <span className={cx('title')}>Tên đại diện: </span>
-                <span className={cx('content')}>Phạm Nguyễn Trường An</span>
-              </div>
-
-              <div className={cx('container-date')}>
-                <span className={cx('title')}>Số điện thoại: </span>
-                <span className={cx('content')}>0379362122</span>
-              </div>
-            </div>
-            <div className={cx('container_1')}>
-              <div className={cx('container-date')}>
-                <span className={cx('title')}>Địa chỉ email: </span>
-                <span className={cx('content')}>phantrongtinh15082003@gmail.com</span>
-              </div>
-
-              <div className={cx('container-date')}>
-                <span className={cx('title')}>Số tài khoản:</span>
-                <span className={cx('content')}>1020637570</span>
-              </div>
-            </div>
-
-            <div className={cx('container_1')}>
-              <div className={cx('container-date')}>
-                <span className={cx('title')}>Tên doanh nghiệp:</span>
-                <span className={cx('content')}>Công ty cổ phần tiêu dùng Macdison</span>
-              </div>
-
-              <div className={cx('container-date')}>
-                <span className={cx('title')}>Ngân hàng:</span>
-                <span className={cx('content')}>VIETCOMBANK</span>
-              </div>
-            </div>
-          </div>
-
-          <div className={cx('info-order')}>
-            <span className={cx('title-order')}>THÔNG TIN NGƯỜI NHẬN THANH TOÁN</span>
-            <div className={cx('container_1')}>
-              <div className={cx('container-date')}>
-                <span className={cx('title')}>Tên người đại diện: </span>
-                <span className={cx('content')}>Phạm Nguyễn Trường An</span>
-              </div>
-
-              <div className={cx('container-date')}>
-                <span className={cx('title')}>Số tài khoản: </span>
-                <span className={cx('content')}>1020637570</span>
-              </div>
-            </div>
-            <div className={cx('container_1')}>
-              <div className={cx('container-date')}>
-                <span className={cx('title')}>Tên doanh nghiệp: </span>
-                <span className={cx('content')}>Công ty cổ phần tiêu dùng Macdison</span>
-              </div>
-
-              <div className={cx('container-date')}>
-                <span className={cx('title')}>Ngân hàng: </span>
-                <span className={cx('content')}>VIETCOMBANK</span>
-              </div>
             </div>
           </div>
 
@@ -213,6 +150,32 @@ function DetailBill() {
 
           <div className={cx('spacer')}></div>
 
+          <div className={cx('info-order')}>
+            <span className={cx('title-order')}>THÔNG TIN NGƯỜI NHẬN THANH TOÁN</span>
+            <div className={cx('container_1')}>
+              <div className={cx('container-date')}>
+                <span className={cx('title')}>Tên người đại diện: </span>
+                <span className={cx('content')}>Phạm Nguyễn Trường An</span>
+              </div>
+
+              <div className={cx('container-date')}>
+                <span className={cx('title')}>Số tài khoản: </span>
+                <span className={cx('content')}>1020637570</span>
+              </div>
+            </div>
+            <div className={cx('container_1')}>
+              <div className={cx('container-date')}>
+                <span className={cx('title')}>Tên doanh nghiệp: </span>
+                <span className={cx('content')}>Công ty cổ phần tiêu dùng Macdison</span>
+              </div>
+
+              <div className={cx('container-date')}>
+                <span className={cx('title')}>Ngân hàng: </span>
+                <span className={cx('content')}>VIETCOMBANK</span>
+              </div>
+            </div>
+          </div>
+
           <div className={cx('info-pay')}>
             <span className={cx('title_info')}>CÁC KHOẢN THANH TOÁN</span>
             <div className={cx('container_col')}>
@@ -249,9 +212,7 @@ function DetailBill() {
         </div>
 
         <div className={cx('container-btn')}>
-          <div className={cx('btn_accpet')}>
-            Tạo hợp đồng cho đơn hàng
-          </div>
+          <span className={cx('flag_content')}>Đã gửi hóa đơn đến người dùng</span>
         </div>
 
       </div >
@@ -259,4 +220,4 @@ function DetailBill() {
   )
 }
 
-export default DetailBill;
+export default InfoBill;

@@ -2,12 +2,10 @@ import mongoose from "mongoose"
 import { Schema } from "mongoose"
 export default mongoose.model('Bill',
     new Schema({
-        keKhaiHH: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'GoodsDeclaration'
-            },
-        ],
+        keKhaiHH: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'GoodsDeclaration'
+        },
         thue: Number, // thuế
         phiVanChuyen: Number,
         phiContainer: Number,
