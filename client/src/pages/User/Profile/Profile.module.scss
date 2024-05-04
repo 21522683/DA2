@@ -1,0 +1,62 @@
+@import '../../../constants/color.scss';
+@import '../../../constants/dimen.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: $bgbutton2;
+    padding: 50px 15%;
+
+    .title {
+        color: $white;
+        font-size: $text_size_title;   
+        font-weight: bold;     
+    }
+
+    .mainContainer {
+        background-color: $white;
+        margin-top: 15px;
+        padding: 15px 10%;
+
+        .mainTitle {
+            color: $bgbutton1;
+            font-weight: bold;
+            margin: 20px 0px;
+        }
+
+        .pagination {
+            width: 100%;
+            margin: 30px 0%;
+            height: 2px;
+            border-style: dashed;
+            border-width: 2px 0px 0px 0px;
+            border-color: $disabled;
+        }
+    
+    }
+
+    .buttonContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        margin-top: 10px;
+
+        .btnEdit {
+            background-color: $white;
+            padding: 13px 20px;
+            color: $bgbutton2;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-left: 15px;
+        }
+
+        .btnDelete {
+            background-color: $bgbutton3;
+            padding: 13px 20px;
+            color: $white;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-left: 15px;
+        }
+    }
+}
