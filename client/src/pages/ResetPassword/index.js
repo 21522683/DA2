@@ -1,41 +1,37 @@
 import React from 'react'
 
 import classNames from 'classnames/bind';
-import styles from './Login.module.scss';
+import styles from './ResetPassword.module.scss';
 import Header from '../../components/Header';
 import UserTextInput from '../../components/UserTextInput';
 const cx = classNames.bind(styles);
 
 
-function LoginScreen() {
+function ResetPassword() {
   return (
     <div className={cx('container')}>
-      <Header title="Đăng nhập"/>
+      <Header title="Khôi phục mật khẩu"/>
 
       <div className={cx('mainContainer')}>
         <p className={cx('mainTitle')}>
-          Thông tin đăng nhập
+        Khôi phục mật khẩu
         </p>
 
         <UserTextInput label='Email'/>
         <div className={cx('mt')}/>
-        <UserTextInput label='Mật khẩu:'/>
-        <p className={cx('forgotPassword')}>
-          Quên mật khẩu
-        </p>
 
         <div className={cx('mt')}/>
 
         <button className={cx('btnLoginIn')}>
-        Đăng nhập
+        Xác thực
         </button>
 
         <div className={cx('signUpContainer', 'mt')}>
           <p className={cx('textSignUp')}>
-            Chưa có tài khoản
+            Đã có tài khoản
           </p>
           <p className={cx('textSignUp', 'ml')}>
-            Đăng ký
+            Đăng nhập
           </p>
         </div>
       </div>
@@ -43,4 +39,4 @@ function LoginScreen() {
   )
 }
 
-export default LoginScreen;
+export default ResetPassword;

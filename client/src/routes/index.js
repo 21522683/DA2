@@ -14,16 +14,20 @@ import OrderDetail from "../pages/User/OrderDetail/index.js"
 import ContractDetail from "../pages/User/ContractDetail/index.js"
 import BillDetail from "../pages/User/BillDetail/index.js"
 import Profile from "../pages/User/Profile/index.js"
+import ForgotPassword from "../pages/ForgotPassword/index.js"
+import ResetPassword from "../pages/ResetPassword/index.js"
 
 export const publicRoutes = [
     { path: '/', component: NotFound },
     { path: '/login', component: LoginScreen },
     { path: '/sign-up', component: SignUpScreen },
+    { path: '/forgot-password', component: ForgotPassword },
+    { path: '/reset-password', component: ResetPassword },
     { path: '/not-found', component: NotFound },
 ]
 
 export const customerRoutes = [
-    { path: '/', component: LoginScreen, layout: LayoutUser},
+    { path: '/', component: ResetPassword, layout: LayoutUser},
     { path: '/add-new-order', component: AddNewOrder, layout: LayoutUser},
     { path: '/add-product', component: AddProduct, layout: LayoutUser},
     { path: '/order-manage', component: OrderManage, layout: LayoutUser},
