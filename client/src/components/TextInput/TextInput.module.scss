@@ -1,0 +1,24 @@
+@import '../../constants/color.scss';
+@import '../../constants/dimen.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+    .textInput {
+        width: 100%;
+        height: 90%;
+        border-width: 0.7px;
+        border-style: solid;
+        border-color: $border;
+        border-radius: 5px;
+        font-size: 20px;
+        padding: $padding_input_vertical $padding_input_horizontal;
+    }
+
+    .errorMessage {
+        color: $error;
+        font-size: 10px;
+    }
+
+}

@@ -1,0 +1,85 @@
+@import '../../../constants/color.scss';
+@import '../../../constants/dimen.scss';
+
+.container {
+    .header {
+        width: 100%;
+        text-align: center;
+        background-color: $bgheader;
+        color: $white;
+        padding: $padding_content_vertical;
+        font-size: $text_size_title;
+    }
+
+    .childContainer {
+        width: 90%;
+        margin: 10px 5%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+
+        .spaceView {
+            width: 5%;
+        }
+
+        .serviceContainer {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: right;
+            
+            .label {
+                font-size: $text_size_content;
+                color: $disabled;
+                margin-bottom: 5px;
+            }
+
+            .comboService {
+                background-color: $bgbutton2;
+                color: $white;
+                padding: $padding_input_vertical $padding_input_horizontal;
+                border-radius: 5px;
+                border-width: 1px;
+                border-color: $disabled;
+                border-style: solid;        
+                margin-bottom: 5px;
+
+                .itemService {
+                    background-color: $white;
+                    color: $black;
+                    padding: $padding_input_vertical $padding_input_horizontal;
+                }
+            }
+        
+        }
+
+        .title {
+            flex: 1;
+            font-size: $text_size_title;
+            color: $bgbutton1;
+        }
+    
+        .btnAddProduct {
+            background-color: $bgbutton2;
+            color: $white;
+            padding: $padding_input_vertical $padding_input_horizontal;
+            border-radius: 5px;
+            border-width: 1px;
+            border-color: $disabled;
+            border-style: solid;        
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+    }
+
+    .btnAddOrder {
+        padding: $padding_input_vertical $padding_content_horizontal;
+        background-color: $bgbutton2;
+        color: $white;
+        width: 20%;
+        margin: 15px 40%;
+        font-size: $text_size_content;
+        border-radius: 5px;
+    }
+
+}

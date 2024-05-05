@@ -1,0 +1,85 @@
+@import '../../../constants/color.scss';
+@import '../../../constants/dimen.scss';
+
+.container {
+    .headerContainer {
+        display: flex;
+        flex-direction: column;
+        background-color: $bgheader;
+        justify-content: center;
+        align-items: center;
+        padding: $padding_content_vertical;
+
+        .header {
+            width: 100%;
+            text-align: center;
+            color: $white;
+            font-size: $text_size_title;
+        }
+    
+    }
+
+    .title {
+        flex: 1;
+        font-size: $text_size_title;
+        color: $bgbutton1;
+        margin: 30px 5% 10px 5%;
+    }
+
+    .titleRule {
+        flex: 1;
+        font-size: $text_size_title;
+        color: $bgbutton1;
+        margin: 30px 5% 10px 5%;
+        text-align: center;
+    }
+
+    .pagination {
+        width: 90%;
+        margin: 30px 5%;
+        height: 2px;
+        border-style: dashed;
+        border-width: 2px 0px 0px 0px;
+        border-color: $disabled;
+    }
+
+    .childContainer {
+        width: 90%;
+        margin: 10px 5%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+
+        .spaceView {
+            width: 5%;
+        }
+
+        .signatureContainer {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+            margin-bottom: 15px;
+
+            .signatureStyle {
+                font-weight: bold;
+                font-size: $text_size_content;
+            }
+            
+            .mt {
+                margin-top: 100px;
+            }
+        }
+    }
+
+    .btnConfirm {
+        width: 30%;
+        padding: $padding_input_vertical $padding_content_horizontal;
+        background-color: $bgbutton2;
+        color: $white;
+        margin: $margin_component_vertical 35%;
+        font-size: $text_size_content;
+    }
+
+}

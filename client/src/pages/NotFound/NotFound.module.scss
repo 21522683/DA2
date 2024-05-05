@@ -1,0 +1,31 @@
+@import '../../constants/color.scss';
+
+.container {
+    background-color: $default;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    .mainContainer {
+        background-color: $white;
+        justify-content: center;
+        align-items: center;
+        margin: 5% 10%;
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+
+        .contentText {
+            color: $heading;
+            font-size: 85px;
+        }
+        
+        .btnBack {
+            background-color: $white;
+            color: $heading;
+            font-style: italic;
+            text-decoration: underline;
+        }
+    }
+
+}

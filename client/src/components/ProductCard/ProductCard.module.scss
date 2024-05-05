@@ -1,0 +1,138 @@
+@import '../../constants/color.scss';
+@import '../../constants/dimen.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    margin: 0px 5%;
+    border-color: $border;
+    padding: 25px 5%;
+
+    .headerContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding-bottom: 10px;
+        .image {
+            width: 10%;
+            margin: 20px 0px;
+        }
+
+        .textContainer {
+            flex: 1;
+            flex-direction: column;
+            padding: 0px 30px;
+
+            .textTitle {
+                font-weight: bold;
+                font-size: $text_size_title;
+            }
+
+            .textField {
+                font-size: $text_size_content;
+                margin-top: -10px;
+            }
+
+            .textDcription {
+                font-size: $text_size_content;
+            }
+        }
+    }
+
+    .title {
+        flex: 1;
+        font-size: $text_size_title;
+        color: $bgbutton1;
+        margin: 10px 0%;
+    }
+
+    .childContainer {
+        width: 100%;
+        margin: 10px 0px;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+
+        .fieldContainer {
+            flex: 1;
+            
+            .label {
+                font-size: $text_size_content;
+                color: $disabled;
+                margin-bottom: 5px;
+            }
+
+            .comboField {
+                background-color: $white;
+                color: $black;
+                padding: $padding_input_vertical $padding_input_horizontal;
+                border-radius: 5px;
+                border-width: 1px;
+                border-color: $disabled;
+                border-style: solid;        
+                margin-bottom: 5px;
+                width: 100%;
+
+                .itemField {
+                    background-color: $white;
+                    color: $black;
+                    padding: $padding_input_vertical $padding_input_horizontal;
+                }
+            }
+
+            .input {
+                width: 100%;
+                height: 100px;
+                padding: $padding_input_vertical $padding_input_horizontal;
+                color: $black;
+                border-radius: 5px;
+                border-width: 1px;
+                border-color: $disabled;
+                border-style: solid;
+                margin-bottom: 5px;
+                max-lines: 10;
+            }        
+        
+        }
+
+        .spaceView {
+            width: 5%;
+        }
+    }
+
+    .buttonContainer {
+        width: 100%;
+        margin: 10px 0px;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        .btnDelete {
+            padding: $padding_input_vertical $padding_content_horizontal;
+            background-color: $bgbutton3;
+            color: $white;
+            width: 20%;
+            font-size: $text_size_content;
+            border-radius: 5px;
+        }
+    
+        .spaceView {
+            width: 5%;
+        }
+
+        .btnEdit {
+            padding: $padding_input_vertical $padding_content_horizontal;
+            background-color: $bgbutton2;
+            color: $white;
+            width: 20%;
+            font-size: $text_size_content;
+            border-radius: 5px;
+        }
+    
+    }
+
+}
