@@ -1,0 +1,84 @@
+.container {
+    width: 100%;
+    height: auto;
+    .slider {
+        width: 100%;
+        margin: 0px 0 20px;
+        img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+    }
+    .container_first {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 140px;
+        background-color: #fff;
+        
+        .item_first {
+            border: 2px solid #b2b2b2;
+            background-color: #fff;
+            border-radius: 8px;
+            width: 45%;
+            padding: 20px 40px;
+            .header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+                .icon {
+                    width: 50px;
+                    height: 50px;
+                    object-fit: cover;
+                }
+                .title {
+                    font-size: 28px;
+                    margin-left: 20px;
+                    color: #052740;
+                }
+            }
+            .content {
+                font-size: 18px;
+                color: #959595;
+                text-align: justify;
+            }
+
+            .btn_see {
+                margin: 20px 0 10px;
+                background-color: #052740;
+                color: #ffffff;
+                width: 100px;
+                text-align: center;
+                padding: 10px 20px;
+                &:hover {
+                    cursor: pointer;
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
+
+    .container_second {
+        margin: 20px 0;
+        padding: 20px 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .title {
+            font-size: 32px;
+            color: #052740;
+            font-weight: bold;
+        }
+        .content {
+            padding: 20px 0;
+            font-size: 20px;
+            text-align: justify;
+            font-style: italic;
+        }
+    }
+    .slider_ngang {
+        margin: 30px 0;
+    }
+}

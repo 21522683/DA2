@@ -14,6 +14,7 @@ import NotFound from "../pages/Generals/NotFound/index.js"
 import Home from "../pages/User/Home/index.js"
 import ResetPassword from "../pages/auth/ResetPassword/index.js"
 import TemplateEmailVerify from "../pages/auth/TemplateEmailVerify/index.js"
+import CreateOrder from "../pages/User/CreateOrder/index.js"
 
 export const publicRoutes = [
     { path: '/sign-up', component: SignUp },
@@ -27,6 +28,8 @@ export const publicRoutes = [
 
 export const customerRoutes = [
     { path: '/', component: Home, layout: LayoutUser},
+    { path: '/order', component: CreateOrder, layout: LayoutUser},
+
 ]
 
 export const adminRoutes = [
