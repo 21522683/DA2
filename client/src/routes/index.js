@@ -7,11 +7,22 @@ import GoodsDeclarationManager from "../pages/Admin/GoodsDeclarationManager/inde
 import HistoryBillManager from "../pages/Admin/HistoryBillManager/index.js"
 import OrderManager from "../pages/Admin/OrderManager/index.js"
 import VesselManager from "../pages/Admin/VesselManager/index.js"
+import Login from "../pages/auth/Login/index.js"
+import SignUp from "../pages/auth/SignUp/index.js"
+import ForgetPassword from "../pages/auth/FogetPassword/index.js"
 import NotFound from "../pages/Generals/NotFound/index.js"
 import Home from "../pages/User/Home/index.js"
+import ResetPassword from "../pages/auth/ResetPassword/index.js"
+import TemplateEmailVerify from "../pages/auth/TemplateEmailVerify/index.js"
 
 export const publicRoutes = [
+    { path: '/sign-up', component: SignUp },
+    { path: '/login', component: Login },
+    { path: '/forgot', component: ForgetPassword },
+    { path: '/forgot-password', component: ResetPassword },
+    { path: '/verify-email', component: TemplateEmailVerify },
     { path: '/not-found', component: NotFound },
+    
 ]
 
 export const customerRoutes = [
