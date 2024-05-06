@@ -1,5 +1,4 @@
 import React from 'react'
-
 import classNames from 'classnames/bind';
 import styles from './NotFound.module.scss';
 import Header from '../../components/Header';

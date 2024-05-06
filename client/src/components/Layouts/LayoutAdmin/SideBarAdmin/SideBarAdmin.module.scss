@@ -1,0 +1,95 @@
+.container_sidebar {
+    width: 22%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #008DB5;
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .logo {
+            width: 120px;
+            height: 70px;
+            background-size: contain;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .spacer {
+            height: 4px;
+            background-color: #70BACF;
+            width: 90%;
+            margin: 10px 0;
+        }
+    }
+
+    .container-navigate {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0 20px;
+        margin: 10px 0 20px;
+
+        .item-navigate {
+            box-sizing: border-box;
+            border-bottom: 1px solid #70BACF;
+            display: flex;
+            padding: 12px 0;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+
+            .text-navigate {
+                font-size: 16px;
+                font-weight: 200;
+                color: #70BACF;
+                text-align: center;
+            }
+        }
+
+        .item-navigate-active {
+            box-sizing: border-box;
+            border-bottom: 1px solid #70BACF;
+            display: flex;
+            padding: 12px 0;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            background-color: #70BACF;
+
+            .text-navigate-active {
+                font-size: 16px;
+                font-weight: 200;
+                color: #fff;
+                text-align: center;
+            }
+        }
+    }
+
+    .btn-logout {
+        width: 50%;
+        padding: 10px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #008DB5;
+        border: 2px solid #008DB5;
+        align-self: center;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #008DB5;
+            color: #ffffff;
+            font-weight: bold;
+        }
+    }
+
+
+}

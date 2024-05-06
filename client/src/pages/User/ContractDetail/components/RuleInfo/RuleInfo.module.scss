@@ -1,0 +1,23 @@
+@import '../../../../../constants/color.scss';
+@import '../../../../../constants/dimen.scss';
+
+.container {
+    flex: 1;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin: 10px $margin_component_horizontal;
+
+
+    .title {
+        font-weight: bold;
+        color: $black;
+        font-size: $text_size_content;
+    }
+
+    .content {
+        color: $black;
+        font-size: $text_size_content;
+        margin-top: 10px;
+    }
+}
