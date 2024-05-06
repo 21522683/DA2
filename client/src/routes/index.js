@@ -15,6 +15,9 @@ import Home from "../pages/User/Home/index.js"
 import ResetPassword from "../pages/auth/ResetPassword/index.js"
 import TemplateEmailVerify from "../pages/auth/TemplateEmailVerify/index.js"
 import CreateOrder from "../pages/User/CreateOrder/index.js"
+import YourOrder from "../pages/User/YourOrder/index.js"
+import YourContract from "../pages/User/YourContract/index.js"
+import YourBillHistory from "../pages/User/YourBillHistory/index.js"
 
 export const publicRoutes = [
     { path: '/sign-up', component: SignUp },
@@ -28,7 +31,10 @@ export const publicRoutes = [
 
 export const customerRoutes = [
     { path: '/', component: Home, layout: LayoutUser},
-    { path: '/order', component: CreateOrder, layout: LayoutUser},
+    { path: '/user/create-order', component: CreateOrder, layout: LayoutUser},
+    { path: '/user/your-order', component: YourOrder, layout: LayoutUser},
+    { path: '/user/your-contract', component: YourContract, layout: LayoutUser},
+    { path: '/user/you-history-bill', component: YourBillHistory, layout: LayoutUser},
 
 ]
 

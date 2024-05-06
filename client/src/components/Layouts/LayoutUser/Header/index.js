@@ -60,39 +60,39 @@ function Header() {
   return (
     <div className={cx('container-header')}>
       <div className={cx('container-start')}>
-        <Link to='/'>
+        <Link to='/' onClick={handleHomeLink}>
           <img className={cx('logo-web')} src={images.logo} alt="logo" />
         </Link>
         <div className={cx('container-navigate')}>
-        <Link className={cx('btn-link')} to='/' onClick={handleHomeLink}>
+          <Link className={cx('btn-link')} to='/' onClick={handleHomeLink}>
             <span className={cx('text-navigate-selected')}>Trang chủ</span>
             {
               selectedNavigateHome && <div className={cx('bar-selected')}></div>
             }
           </Link>
 
-          <Link className={cx('btn-link')} to='/' onClick={handleCreateOrderLink}>
+          <Link className={cx('btn-link')} to='/user/create-order' onClick={handleCreateOrderLink}>
             <span className={cx('text-navigate-selected')}>Tạo đơn hàng</span>
             {
               selectedNavigateFirst && <div className={cx('bar-selected')}></div>
             }
           </Link>
 
-          <Link className={cx('btn-link')} to='/' onClick={handleYourOrderLink}>
+          <Link className={cx('btn-link')} to='/user/your-order' onClick={handleYourOrderLink}>
             <span className={cx('text-navigate')}>Đơn hàng của bạn</span>
             {
               selectedNavigateSecond && <div className={cx('bar-selected')}></div>
             }
           </Link>
 
-          <Link className={cx('btn-link')} to='/' onClick={handleContractLink}>
+          <Link className={cx('btn-link')} to='/user/your-contract' onClick={handleContractLink}>
             <span className={cx('text-navigate')}>Hợp đồng</span>
             {
               selectedNavigateThree && <div className={cx('bar-selected')}></div>
             }
           </Link>
 
-          <Link className={cx('btn-link')} to='/' onClick={handleBillLink}>
+          <Link className={cx('btn-link')} to='/user/you-history-bill' onClick={handleBillLink}>
             <span className={cx('text-navigate')}>Hóa đơn</span>
             {
               selectedNavigateLast && <div className={cx('bar-selected')}></div>
@@ -103,11 +103,11 @@ function Header() {
 
       <div className={cx('container-end')}>
         <div className={cx('container-auth')}>
-          <a href='/'>
+          <a href='/sign-up'>
             <span className={cx('text-btn')}>Đăng ký</span>
           </a>
           <span className={cx('text-btn')}>/</span>
-          <a href='/'>
+          <a href='/login'>
             <span className={cx('text-btn')}>Đăng nhập</span>
           </a>
         </div>
