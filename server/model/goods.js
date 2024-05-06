@@ -1,0 +1,29 @@
+import mongoose from "mongoose"
+import { Schema } from "mongoose"
+export default mongoose.model('Goods',
+    new Schema({
+        tenHH: String,
+        hinhAnh: [
+            {
+                url: String,
+                public_id: String,
+            }
+        ],
+        linhVuc: {
+            type: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'GoodsField'
+            },
+        },
+        soluong: Number,
+        moTa: String,
+        donViTinh: String,
+        khoiLuong: Number,
+        ngaySX: Date,
+        HSD: Date,
+        chieuDai: Number,
+        chieuRong: Number,
+        chieuCao: Number,
+        nhaCungCap: String,
+    })
+)

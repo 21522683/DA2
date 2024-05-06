@@ -24,7 +24,6 @@ import ForgotPassword from "../pages/ForgotPassword/index.js"
 import ResetPassword from "../pages/ResetPassword/index.js"
 
 export const publicRoutes = [
-    { path: '/', component: NotFound },
     { path: '/login', component: LoginScreen },
     { path: '/sign-up', component: SignUpScreen },
     { path: '/forgot-password', component: ForgotPassword },
