@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from "./LayoutAdmin.module.scss";
 import classNames from "classnames/bind";
-import Header from './Header';
 import Footer from './Footer';
 import SideBarAdmin from './SideBarAdmin';
 

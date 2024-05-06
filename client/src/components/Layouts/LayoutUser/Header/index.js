@@ -104,11 +104,11 @@ function Header() {
       <div className={cx('container-end')}>
         <div className={cx('container-auth')}>
           <a href='/'>
-            <span className={cx('text-btn')}>ĐĂNG KÝ</span>
+            <span className={cx('text-btn')}>Đăng ký</span>
           </a>
           <span className={cx('text-btn')}>/</span>
           <a href='/'>
-            <span className={cx('text-btn')}>ĐĂNG NHẬP</span>
+            <span className={cx('text-btn')}>Đăng nhập</span>
           </a>
         </div>
         {/* <div className={cx('container-auth')}>

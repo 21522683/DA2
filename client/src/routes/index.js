@@ -7,13 +7,15 @@ import GoodsDeclarationManager from "../pages/Admin/GoodsDeclarationManager/inde
 import HistoryBillManager from "../pages/Admin/HistoryBillManager/index.js"
 import OrderManager from "../pages/Admin/OrderManager/index.js"
 import VesselManager from "../pages/Admin/VesselManager/index.js"
+import NotFound from "../pages/Generals/NotFound/index.js"
+import Home from "../pages/User/Home/index.js"
 
 export const publicRoutes = [
-    // { path: '/', component: NotFound },
+    { path: '/not-found', component: NotFound },
 ]
 
 export const customerRoutes = [
-    // { path: '/', component: ResetPassword, layout: LayoutUser},
+    { path: '/', component: Home, layout: LayoutUser},
 ]
 
 export const adminRoutes = [
