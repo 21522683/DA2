@@ -1,1 +1,1 @@
-export {default as UserController} from './staff.js'
+export {default as UserController} from './user.js'

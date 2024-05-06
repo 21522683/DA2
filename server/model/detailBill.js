@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import { Schema } from "mongoose"
-export default mongoose.model('Bill',
+export default mongoose.model('DetailBill',
     new Schema({
         hoaDon: {
             type: mongoose.Schema.Types.ObjectId,

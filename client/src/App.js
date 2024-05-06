@@ -5,7 +5,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className='App'>
-          <Routes>
+        <Routes>
           <Route>
             {customerRoutes.map((route, index) => {
               const Layout = route.layout;
@@ -36,11 +36,12 @@ function App() {
               )
             })}
           </Route>
-          {publicRoutes.map((route, index) => {
-            const Page = route.component
-            const Layout = route.layout
-            return <Route key={index} path={route.path} element={<Layout><Page /></Layout>} />
-          })}
+          <Route>
+            {publicRoutes.map((route, index) => {
+              const Page = route.component
+              return <Route key={index} path={route.path} element={<Page />} />
+            })}
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>
