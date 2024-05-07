@@ -1,0 +1,143 @@
+.item-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 2px solid #b1b1b1;
+
+    .image_hh {
+        width: 60px;
+        height: 60px;
+        border: 1px solid #c0c0c0;
+        border-radius: 2px;
+    }
+
+    .container-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0 20px;
+
+        .name_goods {
+            font-size: 14px;
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .container-field {
+            display: flex;
+
+            .title {
+                color: #000000;
+                font-size: 12px;
+                font-weight: 400;
+            }
+
+            .content {
+                color: #000000;
+                font-size: 12px;
+                font-weight: 400;
+                margin-left: 10px;
+            }
+        }
+
+        .description {
+            font-size: 10px;
+            color: #cccccc;
+            font-style: italic;
+            margin-top: 2px;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            width: 100%;
+            overflow: hidden;
+        }
+
+    }
+
+    .icon_detail {
+        font-size: 30px;
+        color: #000000;
+        cursor: pointer;
+        width: 44px;
+        height: 42px;
+        padding: 12px;
+        border-radius: 50%;
+
+        &:hover {
+            background-color: #ebebeb;
+            cursor: pointer;
+        }
+    }
+
+}
+
+.detail_goods {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid #ccc;
+
+    .container_hh {
+        display: flex;
+        align-items: center;
+        margin: 4px 0;
+        margin-left: 40px;
+
+        .title {
+            font-size: 14px;
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .content {
+            font-size: 14px;
+            color: #6f6f6f;
+            margin-left: 10px;
+        }
+        .content-script {
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            overflow: hidden;
+            font-size: 14px;
+            color: #6f6f6f;
+            margin-left: 10px;
+            width: 90%;
+        }
+    }
+
+    .container_mutilple {
+        display: flex;
+        align-items: center;
+
+        .container_hh {
+            display: flex;
+            align-items: center;
+            margin: 4px 0;
+            margin-left: 40px;
+
+            .title {
+                font-size: 14px;
+                color: #000000;
+                font-weight: bold;
+            }
+
+            .content {
+                font-size: 14px;
+                color: #6f6f6f;
+                margin-left: 10px;
+            }
+
+            .image_hh {
+                width: 50px;
+                height: 50px;
+                margin: 0 6px;
+            }
+
+            
+        }
+    }
+}

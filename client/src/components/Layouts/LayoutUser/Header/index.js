@@ -102,7 +102,7 @@ function Header() {
       </div>
 
       <div className={cx('container-end')}>
-        <div className={cx('container-auth')}>
+        {/* <div className={cx('container-auth')}>
           <a href='/sign-up'>
             <span className={cx('text-btn')}>Đăng ký</span>
           </a>
@@ -110,16 +110,15 @@ function Header() {
           <a href='/login'>
             <span className={cx('text-btn')}>Đăng nhập</span>
           </a>
-        </div>
-        {/* <div className={cx('container-auth')}>
-          <a href='/'>
-            <span className={cx('text-btn')}>PHAN TRỌNG TÍNH</span>
-          </a>
         </div> */}
+        
+        <div className={cx('container-auth')}>
+          <Link to={'/user/info'}>
+            <span className={cx('text-btn')}>PHAN TRỌNG TÍNH</span>
+          </Link>
+        </div>
 
-        <Link to='/'>
-          <img className={cx('avt-auth')} src={images.icon_account} alt="avt" />
-        </Link>
+        <img className={cx('avt-auth')} src={images.icon_account} alt="avt" />
       </div>
     </div>
   )

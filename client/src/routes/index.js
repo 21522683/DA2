@@ -18,6 +18,7 @@ import CreateOrder from "../pages/User/CreateOrder/index.js"
 import YourOrder from "../pages/User/YourOrder/index.js"
 import YourContract from "../pages/User/YourContract/index.js"
 import YourBillHistory from "../pages/User/YourBillHistory/index.js"
+import PrivateInfomation from "../pages/User/PrivateInfomation/index.js"
 
 export const publicRoutes = [
     { path: '/sign-up', component: SignUp },
@@ -35,7 +36,7 @@ export const customerRoutes = [
     { path: '/user/your-order', component: YourOrder, layout: LayoutUser},
     { path: '/user/your-contract', component: YourContract, layout: LayoutUser},
     { path: '/user/you-history-bill', component: YourBillHistory, layout: LayoutUser},
-
+    { path: '/user/info', component: PrivateInfomation, layout: LayoutUser},
 ]
 
 export const adminRoutes = [

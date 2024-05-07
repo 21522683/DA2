@@ -14,21 +14,15 @@ function Dropdown({handleSelectOption}) {
         handleSelectOption('Tất cả');
     }
     const handleClickOption2 = () => {
-        setSelectedOption('Đã xét duyệt');
+        setSelectedOption('Đã ký kết');
         setShowOption(false);
-        handleSelectOption('Đã xét duyệt');
+        handleSelectOption('Đã ký kết');
     }
 
     const handleClickOption3 = () => {
-        setSelectedOption('Chờ xét duyệt');
+        setSelectedOption('Chưa ký kết');
         setShowOption(false);
-        handleSelectOption('Chờ xét duyệt');
-    }
-
-    const handleClickOption4 = () => {
-        setSelectedOption('Đã bị hủy');
-        setShowOption(false);
-        handleSelectOption('Đã bị hủy');
+        handleSelectOption('Chưa ký kết');
     }
 
     return (
@@ -44,13 +38,10 @@ function Dropdown({handleSelectOption}) {
                             <span className={cx('text_dropdown')}>Tất cả</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption2}>
-                            <span className={cx('text_dropdown')}>Đã xét duyệt</span>
+                            <span className={cx('text_dropdown')}>Đã ký kết</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption3}>
-                            <span className={cx('text_dropdown')}>Chờ xét duyệt</span>
-                        </div>
-                        <div className={cx('dropdown_option')} onClick={handleClickOption4}>
-                            <span className={cx('text_dropdown')}>Đã bị hủy</span>
+                            <span className={cx('text_dropdown')}>Chưa ký kết</span>
                         </div>
                     </div>
                 )
