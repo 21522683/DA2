@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './ModalUpdateContainer.module.scss';
 import Dropdown from './DropDown';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalUpdate } from '../../../../redux/sliceAdmin/containerSlice';
+import { setIsOpenModalUpdate } from '../../../../redux/slices/containerSlice';
 
 const cx = classNames.bind(styles);
 function chuyenChuoiSangSoThuc(value) {

@@ -27,7 +27,7 @@ export const publicRoutes = [
     { path: '/forgot-password', component: ResetPassword },
     { path: '/verify-email', component: TemplateEmailVerify },
     { path: '/not-found', component: NotFound },
-    
+    { path: '/users/verify/:tokenLinkVerifyEmail', component: TemplateEmailVerify},
 ]
 
 export const customerRoutes = [
@@ -37,6 +37,7 @@ export const customerRoutes = [
     { path: '/user/your-contract', component: YourContract, layout: LayoutUser},
     { path: '/user/you-history-bill', component: YourBillHistory, layout: LayoutUser},
     { path: '/user/info', component: PrivateInfomation, layout: LayoutUser},
+    
 ]
 
 export const adminRoutes = [

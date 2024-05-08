@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from './DetailGoodsDeclaration.module.scss';
 import ItemDetailGoods from './ItemDetailGoods';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalDetail } from '../../../../redux/sliceAdmin/goodsDeclarationSlice';
+import { setIsOpenModalDetail } from '../../../../redux/slices/goodsDeclarationSlice';
 
 const cx = classNames.bind(styles);
 

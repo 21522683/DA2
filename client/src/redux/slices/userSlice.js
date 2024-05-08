@@ -6,6 +6,7 @@ const userSlice = createSlice({
   initialState: {
 
     usersList: [],
+    currentUser: {},
     indexSelected: -1,
     isOpenModalReview: false,
     isOpenModalChangeStatus: false,
@@ -28,10 +29,18 @@ const userSlice = createSlice({
     },
     setIndexUserSelected: (state, action) => {
       state.indexSelected = action.payload;
+    },
+    setCurrentUser: (state, action) => {
+      state.currentUser = {
+        ...action.payload
+      };
+    },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
     }
   },
 });
 
-export const { setListUser, setIsOpenModalReview, setIsOpenModalChangeStatus, setIsOpenMessageBox, setIndexUserSelected } = userSlice.actions;
+export const { setListUser, setIsOpenModalReview, setIsOpenModalChangeStatus, setIsOpenMessageBox, setIndexUserSelected, setCurrentUser, setLoading } = userSlice.actions;
 export default userSlice.reducer;
 

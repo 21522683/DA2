@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from "classnames/bind";
 import styles from './ItemContainer.module.scss';
 import { useDispatch } from 'react-redux';
-import { setIndexContainerSelected, setIsOpenMessageBox, setIsOpenModalUpdate } from '../../../../redux/sliceAdmin/containerSlice';
+import { setIndexContainerSelected, setIsOpenMessageBox, setIsOpenModalUpdate } from '../../../../redux/slices/containerSlice';
 
 const cx = classNames.bind(styles);
 

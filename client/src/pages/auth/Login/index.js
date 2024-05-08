@@ -3,12 +3,15 @@ import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import HashLoader from "react-spinners/HashLoader";
+import { useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
 function Login() {
-    const dispatch = useDispatch()
+    const prevLink = useSelector(state => state.globalApp.previousLink)
+    const [isLoading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [textValidateEmail, setTextValidateEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -61,101 +64,115 @@ function Login() {
         let flagPassword = validatePass(pass);
         if (flagEmail && flagPassword) {
             // Xử lý submit ở đây
-            // dispatch(setLoading(true))
-            // try {
-            //     const data = {
-            //         email,
-            //         password: pass
-            //     }
-            //     const { data: res } = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/user/login`, data);
-            //     localStorage.setItem("accessToken", res.data.accessToken);
-            //     localStorage.setItem("refreshToken", res.data.refreshToken);
-            // dispatch(setLoading(false))
+            setLoading(true);
+            try {
+                const data = {
+                    email,
+                    password: pass
+                }
+                const { data: res } = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/user/login`, data);
+                localStorage.setItem("accessToken", res.data.accessToken);
+                localStorage.setItem("refreshToken", res.data.refreshToken);
+                setLoading(false);
 
-            //     if (res.data.isAdmin) {
-            //         window.location.href = "/admin";
-            //     }
-            //     else {
-            //         if (prevLink.includes("@report")) {
-            //             console.log(prevLink.substring(7))
-            //             window.location.href = prevLink.substring(7)
-            //         }
-            //         else {
-            //             window.location.href = "/";
-            //         }
-                    
-            //     }
+                if (res.data.isAdmin) {
+                    window.location.href = "/admin/account";
+                }
+                else {
+                    if (prevLink.includes("@report")) {
+                        console.log(prevLink.substring(7))
+                        window.location.href = prevLink.substring(7)
+                    }
+                    else {
+                        window.location.href = "/";
+                    }
 
-            // } catch (error) {
-            //     dispatch(setLoading(false))
+                }
 
-            //     if (
-            //         error.response &&
-            //         error.response.status >= 400 &&
-            //         error.response.status <= 500
-            //     ) {
-            //         setError(error.response.data.message);
-            //     }
-            // }
+            } catch (error) {
+                setLoading(false);
+
+                if (
+                    error.response &&
+                    error.response.status >= 400 &&
+                    error.response.status <= 500
+                ) {
+                    setError(error.response.data.message);
+                }
+            }
         }
     };
 
     return (
-        <div className={cx('login_container')}>
-            <div className={cx('login_form_container')}>
-                <div className={cx('left')}>
-                    <form className={cx('form_container')} onSubmit={handleSubmit}>
-                        <h2>Đăng nhập</h2>
-                        <div style={{ display: 'flex', flexDirection: 'column', height: '70px' }}>
-                            <input
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                type="email"
-                                placeholder="Địa chỉ email"
-                                name="email"
-                                className={cx('inputInfo')}
-                            />
-                            <span className={cx('text-validate')}>{textValidateEmail}</span>
-                        </div>
-
-                        <div style={{ display: 'flex', flexDirection: 'column', height: '70px', marginTop: '10px' }}>
-                            <div className={cx('container-pass')}>
+        <>
+            {isLoading && (
+                <div className={cx("container-loader")}>
+                    <HashLoader
+                        color="#009DC8"
+                        loading={isLoading}
+                        size={80}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        className={cx("loader-feedback")}
+                    />
+                </div>
+            )}
+            <div className={cx('login_container')}>
+                <div className={cx('login_form_container')}>
+                    <div className={cx('left')}>
+                        <form className={cx('form_container')} onSubmit={handleSubmit}>
+                            <h2>Đăng nhập</h2>
+                            <div style={{ display: 'flex', flexDirection: 'column', height: '70px' }}>
                                 <input
-                                    type={showPass ? 'text' : 'password'}
-                                    placeholder="Mật khẩu"
-                                    name="password"
-                                    value={pass}
-                                    onChange={(e) => setPass(e.target.value)}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    type="email"
+                                    placeholder="Địa chỉ email"
+                                    name="email"
                                     className={cx('inputInfo')}
                                 />
-                                {showPass ? (
-                                    <FaEye className={cx('eye-icon')} onClick={handleShowAndHidePass} />
-                                ) : (
-                                    <FaEyeSlash className={cx('eye-icon')} onClick={handleShowAndHidePass} />
-                                )}
+                                <span className={cx('text-validate')}>{textValidateEmail}</span>
                             </div>
-                            <span className={cx('text-validate')}>{textValidatePass}</span>
-                        </div>
 
-                        {error && <div className={cx('error_msg')}>{error}</div>}
-                        <button type="submit" className={cx('green_btn')}>
-                            Đăng nhập
-                        </button>
-                        <Link to="/forgot">
-                            <span className={cx('text-forgot')}>Quên mật khẩu ?</span>
+                            <div style={{ display: 'flex', flexDirection: 'column', height: '70px', marginTop: '10px' }}>
+                                <div className={cx('container-pass')}>
+                                    <input
+                                        type={showPass ? 'text' : 'password'}
+                                        placeholder="Mật khẩu"
+                                        name="password"
+                                        value={pass}
+                                        onChange={(e) => setPass(e.target.value)}
+                                        className={cx('inputInfo')}
+                                    />
+                                    {showPass ? (
+                                        <FaEye className={cx('eye-icon')} onClick={handleShowAndHidePass} />
+                                    ) : (
+                                        <FaEyeSlash className={cx('eye-icon')} onClick={handleShowAndHidePass} />
+                                    )}
+                                </div>
+                                <span className={cx('text-validate')}>{textValidatePass}</span>
+                            </div>
+
+                            {error && <div className={cx('error_msg')}>{error}</div>}
+                            <button type="submit" className={cx('green_btn')}>
+                                Đăng nhập
+                            </button>
+                            <Link to="/forgot">
+                                <span className={cx('text-forgot')}>Quên mật khẩu ?</span>
+                            </Link>
+                        </form>
+                    </div>
+                    <div className={cx('right')}>
+                        <span>Bạn chưa có tài khoản ?</span>
+                        <Link to="/sign-up">
+                            <button type="button" className={cx('white_btn')}>
+                                Đăng ký
+                            </button>
                         </Link>
-                    </form>
-                </div>
-                <div className={cx('right')}>
-                    <span>Bạn chưa có tài khoản ?</span>
-                    <Link to="/sign-up">
-                        <button type="button" className={cx('white_btn')}>
-                            Đăng ký
-                        </button>
-                    </Link>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

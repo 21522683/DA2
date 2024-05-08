@@ -4,7 +4,7 @@ import styles from './DetailOrder.module.scss';
 import ItemDetailOrder from './ItemDetailOrder';
 import MessageBox from './ItemDetailOrder/MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenMessageBox, setIsOpenModalDetail } from '../../../../redux/sliceAdmin/orderSlice';
+import { setIsOpenMessageBox, setIsOpenModalDetail } from '../../../../redux/slices/orderSlice';
 
 const cx = classNames.bind(styles);
 

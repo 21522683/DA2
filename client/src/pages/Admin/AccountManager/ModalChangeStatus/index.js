@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from "classnames/bind";
 import styles from './ModalChangeStatus.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalChangeStatus } from '../../../../redux/sliceAdmin/userSlice';
+import { setIsOpenModalChangeStatus } from '../../../../redux/slices/userSlice';
 
 const cx = classNames.bind(styles)
 

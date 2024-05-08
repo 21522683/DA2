@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DetailOrder from './DetailOrder'
 import { useDispatch, useSelector } from 'react-redux';
-import { setIndexOrderSelected, setIsOpenModalDetail, setListOrder } from '../../../redux/sliceAdmin/orderSlice';
+import { setIndexOrderSelected, setIsOpenModalDetail, setListOrder } from '../../../redux/slices/orderSlice';
 
 
 const cx = classNames.bind(styles);

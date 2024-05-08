@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames/bind';
 import styles from './ModalAddVessel.module.scss';
 import { useDispatch } from 'react-redux';
-import { setIsOpenModalAdd } from '../../../../redux/sliceAdmin/vesselSlice';
+import { setIsOpenModalAdd } from '../../../../redux/slices/vesselSlice';
 
 const cx = classNames.bind(styles);
 

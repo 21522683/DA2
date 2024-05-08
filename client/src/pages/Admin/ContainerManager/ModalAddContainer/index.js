@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames/bind';
 import styles from './ModalAddContainer.module.scss';
 import { useDispatch } from 'react-redux';
-import { setIsOpenModalAdd } from '../../../../redux/sliceAdmin/containerSlice';
+import { setIsOpenModalAdd } from '../../../../redux/slices/containerSlice';
 
 const cx = classNames.bind(styles);
 

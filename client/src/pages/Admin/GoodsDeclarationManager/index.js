@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DetailGoodsDeclaration from './DetailGoodsDeclaration';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIndexGoodDeclarationSelected, setIsOpenModalDetail, setListGoodsDeclaration } from '../../../redux/sliceAdmin/goodsDeclarationSlice';
+import { setIndexGoodDeclarationSelected, setIsOpenModalDetail, setListGoodsDeclaration } from '../../../redux/slices/goodsDeclarationSlice';
 
 const cx = classNames.bind(styles);
 

@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userSlice from '../redux/sliceAdmin/userSlice';
-import orderSlice from './sliceAdmin/orderSlice';
-import containerSlice from './sliceAdmin/containerSlice';
-import vesselSlice from './sliceAdmin/vesselSlice';
-import goodsDeclarationSlice from './sliceAdmin/goodsDeclarationSlice';
+import userSlice from './slices/userSlice';
+import orderSlice from './slices/orderSlice';
+import containerSlice from './slices/containerSlice';
+import vesselSlice from './slices/vesselSlice';
+import goodsDeclarationSlice from './slices/goodsDeclarationSlice';
+import globalAppReducer from './slices/globalApp';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     containerManagement: containerSlice,
     vesselManagement: vesselSlice,
     goodsDeclarationManagement: goodsDeclarationSlice,
+    globalApp: globalAppReducer,
   },
 });
 

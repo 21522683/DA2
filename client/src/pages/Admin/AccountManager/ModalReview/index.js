@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from './ModalReview.module.scss'
 import MessageBox from './MessageBox'
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenMessageBox, setIsOpenModalReview } from '../../../../redux/sliceAdmin/userSlice';
+import { setIsOpenMessageBox, setIsOpenModalReview } from '../../../../redux/slices/userSlice';
 
 
 const cx = classNames.bind(styles)

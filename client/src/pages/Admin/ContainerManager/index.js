@@ -5,7 +5,7 @@ import SearchBar from './SearchBar';
 import Dropdown from './DropDown';
 import ItemContainer from './ItemContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalAdd, setListContainer } from '../../../redux/sliceAdmin/containerSlice';
+import { setIsOpenModalAdd, setListContainer } from '../../../redux/slices/containerSlice';
 import ModalAddContainer from './ModalAddContainer';
 import ModalUpdateContainer from './ModalUpdateContainer';
 import MessageBox from './MessageBox';

@@ -3,6 +3,10 @@ import styles from "./Header.module.scss";
 import classNames from "classnames/bind";
 import images from '../../../../assets/images';
 import { Link } from 'react-router-dom';
+import customAxios from '../../../../utils/customAxios.js';
+import baseUrl from '../../../../utils/index.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser }  from '../../../../redux/slices/userSlice.js';
 
 const cx = classNames.bind(styles);
 
@@ -56,6 +60,27 @@ function Header() {
     setSelectedNavigateLast(true);
   }
 
+  const dispatch = useDispatch();
+  const currentUser = useSelector(state => state.userManagement.currentUser);
+  const getUser = async () => {
+    try {
+      const res = await customAxios.get(`${baseUrl}/user/getInfoCurrentUser`)
+      setFlat(true);
+      dispatch(setCurrentUser(res.data.data));
+    } catch (error) {
+
+    }
+  }
+  const [flat, setFlat] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken') || false
+    if (token) {
+      getUser();
+    }
+    else setFlat(false)
+  }, [])
+
+
 
   return (
     <div className={cx('container-header')}>
@@ -102,22 +127,25 @@ function Header() {
       </div>
 
       <div className={cx('container-end')}>
-        {/* <div className={cx('container-auth')}>
-          <a href='/sign-up'>
-            <span className={cx('text-btn')}>Đăng ký</span>
-          </a>
-          <span className={cx('text-btn')}>/</span>
-          <a href='/login'>
-            <span className={cx('text-btn')}>Đăng nhập</span>
-          </a>
-        </div> */}
-        
-        <div className={cx('container-auth')}>
-          <Link to={'/user/info'}>
-            <span className={cx('text-btn')}>PHAN TRỌNG TÍNH</span>
-          </Link>
-        </div>
-
+        {
+          flat ? (
+            <div className={cx('container-auth')}>
+              <Link to={'/user/info'}>
+                <span className={cx('text-btn')}>{currentUser.hoten}</span>
+              </Link>
+            </div>
+          ) : (
+            <div className={cx('container-auth')}>
+              <a href='/sign-up'>
+                <span className={cx('text-btn')}>Đăng ký</span>
+              </a>
+              <span className={cx('text-btn')}>/</span>
+              <a href='/login'>
+                <span className={cx('text-btn')}>Đăng nhập</span>
+              </a>
+            </div>
+          )
+        }
         <img className={cx('avt-auth')} src={images.icon_account} alt="avt" />
       </div>
     </div>

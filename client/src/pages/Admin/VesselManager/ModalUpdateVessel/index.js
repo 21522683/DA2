@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './ModalUpdateVessel.module.scss';
 import Dropdown from './DropDown';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalUpdate } from '../../../../redux/sliceAdmin/vesselSlice';
+import { setIsOpenModalUpdate } from '../../../../redux/slices/vesselSlice';
 
 const cx = classNames.bind(styles);
 

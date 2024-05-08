@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from './MessageBox.module.scss';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenMessageBox } from '../../../../../redux/sliceAdmin/userSlice';
+import { setIsOpenMessageBox } from '../../../../../redux/slices/userSlice';
 
 
 const cx = classNames.bind(styles);

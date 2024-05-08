@@ -7,7 +7,7 @@ import ItemVessel from './ItemVessel';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalUpdateVessel from './ModalUpdateVessel';
 import MessageBox from './MessageBox';
-import { setIsOpenModalAdd, setListVessel } from '../../../redux/sliceAdmin/vesselSlice';
+import { setIsOpenModalAdd, setListVessel } from '../../../redux/slices/vesselSlice';
 import ModalAddVessel from './ModalAddVessel';
 const cx = classNames.bind(styles);
 

@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from "classnames/bind";
 import styles from './MessageBox.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenMessageBox } from '../../../../redux/sliceAdmin/containerSlice';
+import { setIsOpenMessageBox } from '../../../../redux/slices/containerSlice';
 
 
 const cx = classNames.bind(styles);

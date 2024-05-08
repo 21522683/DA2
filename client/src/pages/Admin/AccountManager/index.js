@@ -4,7 +4,7 @@ import styles from './AccountManager.module.scss'
 import SearchBar from './SearchBar';
 import Dropdown from './DropDown';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIndexUserSelected, setIsOpenModalChangeStatus, setIsOpenModalReview, setListUser } from '../../../redux/sliceAdmin/userSlice';
+import { setIndexUserSelected, setIsOpenModalChangeStatus, setIsOpenModalReview, setListUser } from '../../../redux/slices/userSlice';
 import ModalReview from './ModalReview/index.js';
 import ModalChangeStatus from './ModalChangeStatus/index.js';
 

@@ -5,15 +5,6 @@ export default mongoose.model('User',
         hoten: String,
         email: String,
         password: String,
-        infoVerify: {
-            soDienThoai: String,
-            maSoDN: String,
-            diaChi: String,
-            tenDoanhNghiep: String,
-            stk: String,
-            nganHang: String,
-            soFAX: String,
-        },
         isAdmin: {
             type: Boolean,
             default: false
@@ -29,6 +20,15 @@ export default mongoose.model('User',
         isVerify: {
             type: Boolean,
             default: false
+        },
+        infoVerify: {
+            soDienThoai: String,
+            maSoDN: String,
+            diaChi: String,
+            tenDoanhNghiep: String,
+            stk: String,
+            nganHang: String,
+            soFAX: String,
         },
         isVerifiedEmail: { 
             type: Boolean, 

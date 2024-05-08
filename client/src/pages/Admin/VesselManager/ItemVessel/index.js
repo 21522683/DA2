@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from "classnames/bind";
 import styles from './ItemVessel.module.scss';
 import { useDispatch } from 'react-redux';
-import { setIndexVesselSelected, setIsOpenMessageBox, setIsOpenModalUpdate } from '../../../../redux/sliceAdmin/vesselSlice';
+import { setIndexVesselSelected, setIsOpenMessageBox, setIsOpenModalUpdate } from '../../../../redux/slices/vesselSlice';
 
 const cx = classNames.bind(styles);
 

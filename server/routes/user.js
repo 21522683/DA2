@@ -1,12 +1,13 @@
 import express from 'express'
 import { UserController } from "../controllers/index.js";
+import checkToken from '../middlewares/auth.js'
 
 const router = express.Router();
 
-
-router.get('/getAll', UserController.getAllUser);
-router.post('/login', UserController.login);
-router.put('/updateUser/:id', UserController.updateUser);
+router.post('/checkRegisterEmail', UserController.checkRegisterEmail);
+router.get("/registerUser/:tokenLinkVerifyEmail", UserController.registerUser);
+router.post('/login', UserController.loginUser);
+router.get('/getInfoCurrentUser',checkToken, UserController.getInfoCurrentUser);
 
 
 

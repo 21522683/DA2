@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SignUp.module.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
-import { useDispatch } from 'react-redux';
+import HashLoader from "react-spinners/HashLoader";
+import { toast } from 'react-toastify';
+import customAxios from '../../../utils/customAxios.js';
+import baseUrl from '../../../utils/index.js';
 
 const cx = classNames.bind(styles);
 
 function SignUp() {
 
-    const dispatch = useDispatch();
-
+    const [isLoading, setLoading] = useState(false);
     const [name, setName] = useState('');
     const [textValidateName, setTextValidateName] = useState('');
     const [email, setEmail] = useState('');
@@ -27,7 +29,7 @@ function SignUp() {
     const handleShowAndHideConfirmPass = () => {
         setShowConfirmPass(!showConfirmPass);
     };
-    const [showButtonRegister,setShowButtonRegister] = useState(true)
+    const [showButtonRegister, setShowButtonRegister] = useState(true)
     const [error, setError] = useState('');
     const [msg, setMsg] = useState('');
 
@@ -100,117 +102,131 @@ function SignUp() {
         let flagConfirmPass = validateConfirmPass(confirmPass);
         if (flagName && flagEmail && flagPassword && flagConfirmPass) {
             // Xử lý submit ở đây..
-            // dispatch(setLoading(true))
-            // try {
-            //     const url = `${baseURL}/user/checkRegisterEmail`;
-            //     const data = {
-            //         fullName: name,
-            //         email,
-            //         password: pass
-            //     }
-            //     const { data: res } = await customAxios.post(url, data);
-            //     dispatch(setLoading(false))
-            //     // toast.success('Tài khoản đã bị khóa')
-            //     setShowButtonRegister(false)
-            //     setMsg(res.message);
-            // } catch (error) {
-            //     dispatch(setLoading(false))
-            //     if (
-            //         error.response &&
-            //         error.response.status >= 400 &&
-            //         error.response.status <= 500
-            //     ) {
-            //         setError(error.response.data.message);
-            //     }
-            // }
+            setLoading(true);
+            try {
+                const url = `${baseUrl}/user/checkRegisterEmail`;
+                const data = {
+                    hoten: name,
+                    email,
+                    password: pass
+                }
+                const { data: res } = await customAxios.post(url, data);
+                setLoading(false);
+                toast.success('Xác nhận thành công');
+                setShowButtonRegister(false)
+                setMsg(res.message);
+            } catch (error) {
+                setLoading(false);
+                if (
+                    error.response &&
+                    error.response.status >= 400 &&
+                    error.response.status <= 500
+                ) {
+                    setError(error.response.data.message);
+                }
+            }
         }
     };
 
     return (
-        <div className={cx('signup_container')}>
-            <div className={cx('signup_form_container')}>
-                <div className={cx('left')}>
-                    <h2>Chào mừng bạn quay lại</h2>
-                    <a href="/login">
-                        <button type="button" className={cx('white_btn')}>
-                            Đăng nhập
-                        </button>
-                    </a>
+        <>
+            {isLoading && (
+                <div className={cx("container-loader")}>
+                    <HashLoader
+                        color="#009DC8"
+                        loading={isLoading}
+                        size={80}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        className={cx("loader-feedback")}
+                    />
                 </div>
-                <div className={cx('right')}>
-                    <form className={cx('form_container')} onSubmit={handleSubmit}>
-                        <h2>Đăng ký tài khoản</h2>
-                        <div style={{ display: 'flex', flexDirection: 'column', height: '70px' }}>
-                            <input
-                                type="text"
-                                placeholder="Họ và tên"
-                                name="fullName"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className={cx('inputInfo')}
-                            />
-                            <span className={cx('text-validate')}>{textValidateName}</span>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', height: '70px', marginTop: '8px' }}>
-                            <input
-                                type="email"
-                                placeholder="Địa chỉ email"
-                                name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className={cx('inputInfo')}
-                            />
-                            <span className={cx('text-validate')}>{textValidateEmail}</span>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', height: '70px', marginTop: '8px' }}>
-                            <div className={cx('container-pass')}>
-                                <input
-                                    type={showPass ? 'text' : 'password'}
-                                    placeholder="Mật khẩu"
-                                    name="password"
-                                    value={pass}
-                                    onChange={(e) => setPass(e.target.value)}
-                                    className={cx('inputInfo')}
-                                />
-                                {showPass ? (
-                                    <FaEye className={cx('eye-icon')} onClick={handleShowAndHidePass} />
-                                ) : (
-                                    <FaEyeSlash className={cx('eye-icon')} onClick={handleShowAndHidePass} />
-                                )}
-                            </div>
-                            <span className={cx('text-validate')}>{textValidatePass}</span>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', height: '70px', marginTop: '8px' }}>
-                            <div className={cx('container-pass')}>
-                                <input
-                                    type={showConfirmPass ? 'text' : 'password'}
-                                    placeholder="Xác nhận lại mật khẩu"
-                                    name="confirmPassword"
-                                    value={confirmPass}
-                                    onChange={(e) => setConfirmPass(e.target.value)}
-                                    className={cx('inputInfo')}
-                                />
-                                {showConfirmPass ? (
-                                    <FaEye className={cx('eye-icon')} onClick={handleShowAndHideConfirmPass} />
-                                ) : (
-                                    <FaEyeSlash className={cx('eye-icon')} onClick={handleShowAndHideConfirmPass} />
-                                )}
-                            </div>
-
-                            <span className={cx('text-validate')}>{textValidateConfirmPass}</span>
-                        </div>
-                        {error && <div className={cx('error_msg')}>{error}</div>}
-                        {msg && <div className={cx('success_msg')}>{msg}</div>}
-                        {
-                            showButtonRegister &&
-                            <button type="submit" className={cx('green_btn')}>
-                                Đăng ký
+            )}
+            <div className={cx('signup_container')}>
+                <div className={cx('signup_form_container')}>
+                    <div className={cx('left')}>
+                        <h2>Chào mừng bạn quay lại</h2>
+                        <a href="/login">
+                            <button type="button" className={cx('white_btn')}>
+                                Đăng nhập
                             </button>
-                        }
-                    </form>
+                        </a>
+                    </div>
+                    <div className={cx('right')}>
+                        <form className={cx('form_container')} onSubmit={handleSubmit}>
+                            <h2>Đăng ký tài khoản</h2>
+                            <div style={{ display: 'flex', flexDirection: 'column', height: '70px' }}>
+                                <input
+                                    type="text"
+                                    placeholder="Họ và tên"
+                                    name="fullName"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className={cx('inputInfo')}
+                                />
+                                <span className={cx('text-validate')}>{textValidateName}</span>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', height: '70px', marginTop: '8px' }}>
+                                <input
+                                    type="email"
+                                    placeholder="Địa chỉ email"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className={cx('inputInfo')}
+                                />
+                                <span className={cx('text-validate')}>{textValidateEmail}</span>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', height: '70px', marginTop: '8px' }}>
+                                <div className={cx('container-pass')}>
+                                    <input
+                                        type={showPass ? 'text' : 'password'}
+                                        placeholder="Mật khẩu"
+                                        name="password"
+                                        value={pass}
+                                        onChange={(e) => setPass(e.target.value)}
+                                        className={cx('inputInfo')}
+                                    />
+                                    {showPass ? (
+                                        <FaEye className={cx('eye-icon')} onClick={handleShowAndHidePass} />
+                                    ) : (
+                                        <FaEyeSlash className={cx('eye-icon')} onClick={handleShowAndHidePass} />
+                                    )}
+                                </div>
+                                <span className={cx('text-validate')}>{textValidatePass}</span>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', height: '70px', marginTop: '8px' }}>
+                                <div className={cx('container-pass')}>
+                                    <input
+                                        type={showConfirmPass ? 'text' : 'password'}
+                                        placeholder="Xác nhận lại mật khẩu"
+                                        name="confirmPassword"
+                                        value={confirmPass}
+                                        onChange={(e) => setConfirmPass(e.target.value)}
+                                        className={cx('inputInfo')}
+                                    />
+                                    {showConfirmPass ? (
+                                        <FaEye className={cx('eye-icon')} onClick={handleShowAndHideConfirmPass} />
+                                    ) : (
+                                        <FaEyeSlash className={cx('eye-icon')} onClick={handleShowAndHideConfirmPass} />
+                                    )}
+                                </div>
+
+                                <span className={cx('text-validate')}>{textValidateConfirmPass}</span>
+                            </div>
+                            {error && <div className={cx('error_msg')}>{error}</div>}
+                            {msg && <div className={cx('success_msg')}>{msg}</div>}
+                            {
+                                showButtonRegister &&
+                                <button type="submit" className={cx('green_btn')}>
+                                    Đăng ký
+                                </button>
+                            }
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
