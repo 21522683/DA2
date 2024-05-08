@@ -9,5 +9,10 @@ export default mongoose.model('Container',
             default: false
         },
         trongLuong: Number,
+        soLuong: {
+            type: Number,
+            default: 0
+        },
+        giaThue: Number,
     })
 )

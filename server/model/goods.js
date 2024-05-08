@@ -25,5 +25,6 @@ export default mongoose.model('Goods',
         chieuRong: Number,
         chieuCao: Number,
         nhaCungCap: String,
+        giaBan: Number,
     })
 )

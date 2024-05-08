@@ -1,5 +1,4 @@
 export {default as User} from './user.js'
-export {default as Representative} from './representative.js'
 export {default as Bill} from './bill.js'
 export {default as Container} from './container.js'
 export {default as Contract} from './contract.js'
