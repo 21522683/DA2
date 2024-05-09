@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './FogetPassword.module.scss';
 import { useDispatch } from 'react-redux';
-
+import axios from 'axios';
+import HashLoader from "react-spinners/HashLoader";
+import baseUrl from '../../../utils/index'
 const cx = classNames.bind(styles);
 
 function ForgetPassword() {
+
+    const [isLoading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const dispatch = useDispatch();
     const [showButtonAccept, setShowButtonAccept] = useState(true)
@@ -36,58 +40,72 @@ function ForgetPassword() {
         setError("");
         let flagEmail = validateEmail(email);
         if (flagEmail) {
-            // dispatch(setLoading(true))
-            // try {
-            //     const url = `${baseURL}/user/forgot-password`;
-            //     const { data } = await axios.post(url, { email });
-            //     dispatch(setLoading(false))
-            //     setShowButtonAccept(false)
-            //     setMsg(`Một liên kết cập nhật mật khẩu đã được gửi đến ${email}. Liên kết tồn tại trong 5 phút.`);
-            // } catch (error) {
-            //     dispatch(setLoading(false))
+            setLoading(true);
+            try {
+                const url = `${baseUrl}/user/forgot-password`;
+                const { data } = await axios.post(url, { email });
+                setLoading(false);
+                setShowButtonAccept(false)
+                setMsg(`Một liên kết cập nhật mật khẩu đã được gửi đến ${email}. Liên kết tồn tại trong 5 phút.`);
+            } catch (error) {
+                setLoading(false);
 
-            //     if (
-            //         error.response &&
-            //         error.response.status >= 400 &&
-            //         error.response.status <= 500
-            //     ) {
+                if (
+                    error.response &&
+                    error.response.status >= 400 &&
+                    error.response.status <= 500
+                ) {
 
-            //         setError(error.response.data.message);
-            //         setMsg("");
-            //     }
-            // }
+                    setError(error.response.data.message);
+                    setMsg("");
+                }
+            }
         }
 
     };
 
     return (
-        <div className={cx('container')}>
-            <form className={cx('form_container')} onSubmit={handleSubmit}>
-                <h1>Quên mật khẩu</h1>
-                <span className={cx('title')}>
-                    Chúng tôi sẽ gửi thông tin đổi mật khẩu đến địa chỉ email của bạn. Vui lòng kiểm tra email để cập
-                    nhật lại mật khẩu.
-                </span>
-                <div style={{ display: 'flex', flexDirection: 'column', height: '70px' }}>
-                    <input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        type="text"
-                        placeholder="Địa chỉ email"
-                        name="email"
-                        className={cx('inputInfo')}
+        <>
+            {isLoading && (
+                <div className={cx("container-loader")}>
+                    <HashLoader
+                        color="#009DC8"
+                        loading={isLoading}
+                        size={80}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        className={cx("loader-feedback")}
                     />
                 </div>
-                {error && <div className={cx('error_msg')}>{error}</div>}
-                {msg && <div className={cx('success_msg')}>{msg}</div>}
-                {
-                    showButtonAccept &&
-                    <button type="submit" className={cx('green_btn')}>
-                        Xác nhận
-                    </button>
-                }
-            </form>
-        </div>
+            )}
+            <div className={cx('container')}>
+                <form className={cx('form_container')} onSubmit={handleSubmit}>
+                    <h1>Quên mật khẩu</h1>
+                    <span className={cx('title')}>
+                        Chúng tôi sẽ gửi thông tin đổi mật khẩu đến địa chỉ email của bạn. Vui lòng kiểm tra email để cập
+                        nhật lại mật khẩu.
+                    </span>
+                    <div style={{ display: 'flex', flexDirection: 'column', height: '70px' }}>
+                        <input
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="text"
+                            placeholder="Địa chỉ email"
+                            name="email"
+                            className={cx('inputInfo')}
+                        />
+                    </div>
+                    {error && <div className={cx('error_msg')}>{error}</div>}
+                    {msg && <div className={cx('success_msg')}>{msg}</div>}
+                    {
+                        showButtonAccept &&
+                        <button type="submit" className={cx('green_btn')}>
+                            Xác nhận
+                        </button>
+                    }
+                </form>
+            </div>
+        </>
     );
 }
 

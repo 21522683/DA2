@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import customAxios from '../../../../utils/customAxios.js';
 import baseUrl from '../../../../utils/index.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser }  from '../../../../redux/slices/userSlice.js';
+import { setCurrentUser } from '../../../../redux/slices/userSlice.js';
 
 const cx = classNames.bind(styles);
 
@@ -17,6 +17,7 @@ function Header() {
   const [selectedNavigateSecond, setSelectedNavigateSecond] = useState(false);
   const [selectedNavigateThree, setSelectedNavigateThree] = useState(false);
   const [selectedNavigateLast, setSelectedNavigateLast] = useState(false);
+  const [selectedNavigateName, setSelectedNavigateName] = useState(false);
 
   useEffect(() => {
     handleHomeLink();
@@ -29,6 +30,7 @@ function Header() {
     setSelectedNavigateSecond(false);
     setSelectedNavigateThree(false);
     setSelectedNavigateLast(false);
+    setSelectedNavigateName(false);
   }
 
   const handleCreateOrderLink = () => {
@@ -37,6 +39,7 @@ function Header() {
     setSelectedNavigateSecond(false);
     setSelectedNavigateThree(false);
     setSelectedNavigateLast(false);
+    setSelectedNavigateName(false);
   }
   const handleYourOrderLink = () => {
     setSelectedNavigateHome(false);
@@ -44,6 +47,7 @@ function Header() {
     setSelectedNavigateSecond(true);
     setSelectedNavigateThree(false);
     setSelectedNavigateLast(false);
+    setSelectedNavigateName(false);
   }
   const handleContractLink = () => {
     setSelectedNavigateHome(false);
@@ -51,6 +55,7 @@ function Header() {
     setSelectedNavigateSecond(false);
     setSelectedNavigateThree(true);
     setSelectedNavigateLast(false);
+    setSelectedNavigateName(false);
   }
   const handleBillLink = () => {
     setSelectedNavigateHome(false);
@@ -58,6 +63,16 @@ function Header() {
     setSelectedNavigateSecond(false);
     setSelectedNavigateThree(false);
     setSelectedNavigateLast(true);
+    setSelectedNavigateName(false);
+  }
+
+  const handleNameLink = () => {
+    setSelectedNavigateHome(false);
+    setSelectedNavigateFirst(false);
+    setSelectedNavigateSecond(false);
+    setSelectedNavigateThree(false);
+    setSelectedNavigateLast(false);
+    setSelectedNavigateName(true);
   }
 
   const dispatch = useDispatch();
@@ -129,10 +144,14 @@ function Header() {
       <div className={cx('container-end')}>
         {
           flat ? (
-            <div className={cx('container-auth')}>
+            <div className={cx('container-auth')} onClick={handleNameLink}>
               <Link to={'/user/info'}>
                 <span className={cx('text-btn')}>{currentUser.hoten}</span>
+                {
+                  selectedNavigateName && <div className={cx('bar-selected')}></div>
+                }
               </Link>
+
             </div>
           ) : (
             <div className={cx('container-auth')}>

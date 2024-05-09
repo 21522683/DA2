@@ -105,6 +105,65 @@ const getInfoCurrentUser = async (req, res) => {
     }
 };
 
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        let emailUser = await User.findOne({ email }).exec();
+        if (!emailUser) {
+            return res.status(401).json({ message: 'Email không tồn tại!' });
+        }
+        const tokenResetPassword = jwt.sign(
+            {
+                email: emailUser.email,
+            },
+            process.env.JWT_SECRET_LINK_RESET_PASSWORD,
+            {
+                expiresIn: process.env.EXPIRED_LINK_RESET_PASSWORD,
+            },
+        );
+        const url = `${process.env.FRONT_END_URL}user/${emailUser.id}/update-new-password/${tokenResetPassword}`;
+        await sendEmail(emailUser.email, 'Password Reset', url);
+        console.log(url);
+
+        res.status(200).json({
+            message: `Một liên kết cập nhật mật khẩu đã được gửi đến ${emailUser.email}. Liên kết tồn tại trong 5 phút.`,
+            data: url,
+        });
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message,
+        });
+    }
+};
+
+const verifyLinkForgotPassword = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id).exec();
+        if (!user) return res.status(400).json({ message: 'Invalid link' });
+
+        const token = req.params.tokenVerifyLinkForgotPassword;
+        jwt.verify(token, process.env.JWT_SECRET_LINK_RESET_PASSWORD);
+        res.status(200).json({ message: 'successfully' });
+    } catch (error) {
+        res.status(400).json({ message: 'Invalid link' });
+    }
+};
+
+const updateNewPassword = async (req, res) => {
+    try {
+        const { newPassword, id } = req.body;
+        const user = await User.findById(id).exec();
+        const hashedPassword = await bcrypt.hash(newPassword, parseInt(process.env.ROUNDS));
+        user.password = hashedPassword;
+        await user.save();
+        return res.status(200).json({ message: 'Cập nhật mật khẩu thành công!' });
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message,
+        });
+    }
+};
+
 
 
 
@@ -112,5 +171,8 @@ export default {
     checkRegisterEmail,
     registerUser,
     loginUser,
-    getInfoCurrentUser
+    getInfoCurrentUser,
+    forgotPassword,
+    verifyLinkForgotPassword,
+    updateNewPassword
 }

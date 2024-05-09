@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './ResetPassword.module.scss';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
 import NotFound from '../../Generals/NotFound';
+import axios from 'axios';
+import HashLoader from "react-spinners/HashLoader";
+import baseUrl from '../../../utils/index'
 
 const cx = classNames.bind(styles);
 
 function ResetPassword() {
+
+    const [isLoading, setLoading] = useState(false);
     const dispatch = useDispatch()
     const [validUrl, setValidUrl] = useState(null);
     const [pass, setPass] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
     const [showPass, setShowPass] = useState(false);
     const [showConfirmPass, setShowConfirmPass] = useState(false);
-    const [showButtonAccept,setShowButtonAccept] = useState(true)
+    const [showButtonAccept, setShowButtonAccept] = useState(true)
     const handleShowAndHidePass = () => {
         setShowPass(!showPass);
     };
@@ -56,25 +61,25 @@ function ResetPassword() {
     const [error, setError] = useState('');
     const param = useParams();
 
-    // useEffect(() => {
-    //     const verifyUrl = async () => {
+    useEffect(() => {
+        const verifyUrl = async () => {
 
-    //         try {
-    //             const url = `${baseURL}/user/forgot-password/${param.id}/verify-link/${param.tokenResetPassword}`;
-    //             const { data } = await axios.get(url);
-
-
-    //             console.log(data);
-    //             setValidUrl(true);
-    //         } catch (error) {
+            try {
+                const url = `${baseUrl}/user/forgot-password/${param.id}/verify-link/${param.tokenResetPassword}`;
+                const { data } = await axios.get(url);
 
 
-    //             console.log(error);
-    //             setValidUrl(false);
-    //         }
-    //     };
-    //     verifyUrl();
-    // }, [param]);
+                console.log(data);
+                setValidUrl(true);
+            } catch (error) {
+
+
+                console.log(error);
+                setValidUrl(false);
+            }
+        };
+        verifyUrl();
+    }, [param]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -83,88 +88,101 @@ function ResetPassword() {
         let flagConfirmPass = validateConfirmPass(confirmPass);
         if (flagPassword && flagConfirmPass) {
             // Xử lý submit ở đây..
-            // dispatch(setLoading(true))
-            // try {
-            //     const url = `${baseURL}/user/forgot-password/update-new-password`;
-            //     const { data } = await axios.patch(url, { newPassword: pass, id: param.id });
-            //     dispatch(setLoading(false))
-            //     setMsg("Cập nhật mật khẩu mới thành công! Đang chuyển hướng tới trang đăng nhập");
-            //     setShowButtonAccept(false)
-            //     setTimeout(() => {
-            //         window.location.href = "/login";
-            //     },2000)
-            // } catch (error) {
-            //     dispatch(setLoading(false))
-            //     if (
-            //         error.response &&
-            //         error.response.status >= 400 &&
-            //         error.response.status <= 500
-            //     ) {
-            //         setError(error.response.data.message);
-            //         setMsg("");
-            //     }
-            // }
+            setLoading(true);
+            try {
+                const url = `${baseUrl}/user/forgot-password/update-new-password`;
+                const { data } = await axios.patch(url, { newPassword: pass, id: param.id });
+                setLoading(false);
+                setMsg("Cập nhật mật khẩu mới thành công! Đang chuyển hướng tới trang đăng nhập");
+                setShowButtonAccept(false)
+                setTimeout(() => {
+                    window.location.href = "/login";
+                },2000)
+            } catch (error) {
+                setLoading(false);
+                if (
+                    error.response &&
+                    error.response.status >= 400 &&
+                    error.response.status <= 500
+                ) {
+                    setError(error.response.data.message);
+                    setMsg("");
+                }
+            }
         }
     };
     return (
-        <div className={cx('container')}>
-            {/* validUrl */}
-            {validUrl && (
-                <>
-                    <form className={cx('form_container')} onSubmit={handleSubmit}>
-                        <h2>Cập nhật mật khẩu</h2>
-                        <span className={cx('title')}>Hãy nhập mật khẩu mới cho tài khoản của bạn</span>
-                        <div style={{ display: 'flex', flexDirection: 'column', height: '70px' }}>
-                            <div className={cx('container-pass')}>
-                                <input
-                                    type={showPass ? 'text' : 'password'}
-                                    placeholder="Mật khẩu"
-                                    name="password"
-                                    value={pass}
-                                    onChange={(e) => setPass(e.target.value)}
-                                    className={cx('inputInfo')}
-                                />
-                                {showPass ? (
-                                    <FaEye className={cx('eye-icon')} onClick={handleShowAndHidePass} />
-                                ) : (
-                                    <FaEyeSlash className={cx('eye-icon')} onClick={handleShowAndHidePass} />
-                                )}
-                            </div>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', height: '70px', marginTop: '10px' }}>
-                            <div className={cx('container-pass')}>
-                                <input
-                                    type={showConfirmPass ? 'text' : 'password'}
-                                    placeholder="Xác nhận lại mật khẩu"
-                                    name="confirmPassword"
-                                    value={confirmPass}
-                                    onChange={(e) => setConfirmPass(e.target.value)}
-                                    className={cx('inputInfo')}
-                                />
-                                {showConfirmPass ? (
-                                    <FaEye className={cx('eye-icon')} onClick={handleShowAndHideConfirmPass} />
-                                ) : (
-                                    <FaEyeSlash className={cx('eye-icon')} onClick={handleShowAndHideConfirmPass} />
-                                )}
-                            </div>
-
-
-                        </div>
-
-                        {error && <div className={cx('error_msg')}>{error}</div>}
-                        {msg && <div className={cx('success_msg')}>{msg}</div>}
-                        {
-                            showButtonAccept &&
-                            <button type="submit" className={cx('green_btn')}>
-                                Xác nhận
-                            </button>
-                        }
-                    </form>
-                </>
+        <>
+            {isLoading && (
+                <div className={cx("container-loader")}>
+                    <HashLoader
+                        color="#009DC8"
+                        loading={isLoading}
+                        size={80}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        className={cx("loader-feedback")}
+                    />
+                </div>
             )}
+            <div className={cx('container')}>
+                {validUrl && (
+                    <>
+                        <form className={cx('form_container')} onSubmit={handleSubmit}>
+                            <h2>Cập nhật mật khẩu</h2>
+                            <span className={cx('title')}>Hãy nhập mật khẩu mới cho tài khoản của bạn</span>
+                            <div style={{ display: 'flex', flexDirection: 'column', height: '70px' }}>
+                                <div className={cx('container-pass')}>
+                                    <input
+                                        type={showPass ? 'text' : 'password'}
+                                        placeholder="Mật khẩu"
+                                        name="password"
+                                        value={pass}
+                                        onChange={(e) => setPass(e.target.value)}
+                                        className={cx('inputInfo')}
+                                    />
+                                    {showPass ? (
+                                        <FaEye className={cx('eye-icon')} onClick={handleShowAndHidePass} />
+                                    ) : (
+                                        <FaEyeSlash className={cx('eye-icon')} onClick={handleShowAndHidePass} />
+                                    )}
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', height: '70px', marginTop: '10px' }}>
+                                <div className={cx('container-pass')}>
+                                    <input
+                                        type={showConfirmPass ? 'text' : 'password'}
+                                        placeholder="Xác nhận lại mật khẩu"
+                                        name="confirmPassword"
+                                        value={confirmPass}
+                                        onChange={(e) => setConfirmPass(e.target.value)}
+                                        className={cx('inputInfo')}
+                                    />
+                                    {showConfirmPass ? (
+                                        <FaEye className={cx('eye-icon')} onClick={handleShowAndHideConfirmPass} />
+                                    ) : (
+                                        <FaEyeSlash className={cx('eye-icon')} onClick={handleShowAndHideConfirmPass} />
+                                    )}
+                                </div>
 
-            {validUrl === false && <NotFound />}
-        </div>
+
+                            </div>
+
+                            {error && <div className={cx('error_msg')}>{error}</div>}
+                            {msg && <div className={cx('success_msg')}>{msg}</div>}
+                            {
+                                showButtonAccept &&
+                                <button type="submit" className={cx('green_btn')}>
+                                    Xác nhận
+                                </button>
+                            }
+                        </form>
+                    </>
+                )}
+
+                {validUrl === false && <NotFound />}
+            </div>
+        </>
     );
 }
 

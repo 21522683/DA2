@@ -24,7 +24,7 @@ export const publicRoutes = [
     { path: '/sign-up', component: SignUp },
     { path: '/login', component: Login },
     { path: '/forgot', component: ForgetPassword },
-    { path: '/forgot-password', component: ResetPassword },
+    { path: '/user/:id/update-new-password/:tokenResetPassword', component: ResetPassword },
     { path: '/verify-email', component: TemplateEmailVerify },
     { path: '/not-found', component: NotFound },
     { path: '/users/verify/:tokenLinkVerifyEmail', component: TemplateEmailVerify},
