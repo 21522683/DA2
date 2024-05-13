@@ -6,6 +6,11 @@ import ModalUpdateInfo from './ModalUpdateInfo';
 const cx = classNames.bind(styles);
 
 function PrivateInfomation() {
+    const handleClickLogout = () => {
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
+        window.location.href = '/'
+    }
     return (
         <div className={cx('container_main')}>
             <div className={cx('container_body')}>
@@ -55,7 +60,7 @@ function PrivateInfomation() {
             </div>
 
             <div className={cx('container_btn')}>
-                <div className={cx('btn_red')}>Đăng xuất</div>
+                <div className={cx('btn_red')} onClick={handleClickLogout}>Đăng xuất</div>
                 <div className={cx('btn_main')}>Gửi yêu cầu xác minh</div>
                 <div className={cx('btn_main')}>Chỉnh sửa thông tin</div>
             </div>
