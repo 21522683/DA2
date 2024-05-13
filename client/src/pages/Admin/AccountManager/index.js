@@ -268,7 +268,7 @@ function AccountManager() {
           <thead>
             <tr className={cx('header_table')}>
               <th className={cx('item_header_table')}>Họ tên</th>
-              <th className={cx('item_header_table')}>Tên doanh nghiệp</th>
+              <th className={cx('item_header_table')}>Địa chỉ email</th>
               <th className={cx('item_header_table')}>Trạng thái hoạt động</th>
               <th className={cx('item_header_table')}>Thao tác</th>
             </tr>
@@ -280,7 +280,7 @@ function AccountManager() {
                 return (
                   <tr className={cx('row_table')} key={index}>
                     <td className={cx('item_row_table')}>{item.representative.hoten}</td>
-                    <td className={cx('item_row_table')}>{item.tenDoanhNghiep}</td>
+                    <td className={cx('item_row_table')}>{item.email}</td>
                     {
                       item.status === "Đang hoạt động" && <td className={cx(['item_row_table', 'active'])}>{item.status}</td>
                     }

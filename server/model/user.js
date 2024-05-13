@@ -22,13 +22,13 @@ export default mongoose.model('User',
             default: false
         },
         infoVerify: {
-            soDienThoai: String,
             maSoDN: String,
-            diaChi: String,
             tenDoanhNghiep: String,
-            stk: String,
+            diaChi: String,
+            STK: String,
             nganHang: String,
             soFAX: String,
+            soDienThoai: String,
         },
         isVerifiedEmail: { 
             type: Boolean, 

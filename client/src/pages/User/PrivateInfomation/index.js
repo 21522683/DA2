@@ -1,16 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import classNames from "classnames/bind";
 import styles from './PrivateInfomation.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
 import ModalUpdateInfo from './ModalUpdateInfo';
+import { fetchDataGetCurrentUser } from '../../../redux/slices/userSlice';
 
 const cx = classNames.bind(styles);
 
 function PrivateInfomation() {
+
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.userManagement.currentUser);
+
+
     const handleClickLogout = () => {
         localStorage.removeItem('accessToken')
         localStorage.removeItem('refreshToken')
         window.location.href = '/'
     }
+    useEffect(() => {
+        dispatch(fetchDataGetCurrentUser());
+        console.log(currentUser);
+    }, []);
+
     return (
         <div className={cx('container_main')}>
             <div className={cx('container_body')}>
@@ -68,4 +80,4 @@ function PrivateInfomation() {
     )
 }
 
-export default PrivateInfomation
+export default PrivateInfomation;

@@ -164,7 +164,154 @@ const updateNewPassword = async (req, res) => {
     }
 };
 
+const sendRequireVerifyInfo = async (req, res) => {
+    const { id } = req.params;
+    const { maSoDN, tenDoanhNghiep, diaChi, STK, nganHang, soFAX, soDienThoai } = req.body;
 
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const newInfoVerify = {
+            maSoDN,
+            tenDoanhNghiep,
+            diaChi,
+            STK,
+            nganHang,
+            soFAX,
+            soDienThoai,
+        };
+
+        user.infoVerify = newInfoVerify;
+
+        await user.save();
+
+        res.status(200).json({ message: "Require verify info sent successfully", user });
+    } catch (error) {
+        console.error("Error sending require verify info:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+const getUserById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.status(200).json({ message: "Get infomation of user successfully", user });
+    } catch (error) {
+        console.error("Error when get infomation of user:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+
+const verifyInfomationUser = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        user.isVerify = true;
+        res.status(200).json({ message: "Verify infomation of user successfully", user });
+    } catch (error) {
+        console.error("Error when get infomation of user:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+const updateInfomationUser = async (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(id, {hoten: updateData.hoten, infoVerify: updateData.infoVerify}, {
+            new: true, // Trả về người dùng sau khi cập nhật
+        });
+
+        res.status(200).json({ message: "Update infomation of user successfully", updatedUser });
+    } catch (error) {
+        console.error("Error when get infomation of user:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+const updateStatusAccount = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        user.status = !user.status;
+        res.status(200).json({ message: "Update status account of user successfully", user });
+    } catch (error) {
+        console.error("Error when get infomation of user:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+const getAllUser = async (req, res) => {
+    try {
+        const isAdmin = req.isAdmin;
+        if (isAdmin) {
+            let { searchString = '', status = 'Tất cả' } = req.query;
+            let filter = {};
+
+            switch (status) {
+                case 'Đang hoạt động':
+                    filter = { status: true, isVerify: true };
+                    break;
+                case 'Chờ xác minh':
+                    filter = { status: true, isVerify: false, 'infoVerify.maSoDN': { $ne: null } };
+                    break;
+                case 'Đang bị khóa':
+                    filter = { status: false };
+                    break;
+                default:
+                    break;
+            }
+
+            // Thêm điều kiện tìm kiếm vào filter
+            if (searchString) {
+                filter.$or = [
+                    { hoten: { $regex: `.*${searchString}.*`, $options: 'i' } },
+                    { email: { $regex: `.*${searchString}.*`, $options: 'i' } }
+                ];
+            }
+
+            const filterUsers = await User.find(filter).select('-password -refreshToken -isVerifiedEmail');
+
+            res.status(200).json({
+                message: 'Lấy thông tin tất cả người dùng thành công',
+                data: {
+                    users: filterUsers,
+                },
+            });
+        } else {
+            throw new Error('Bạn không có quyền truy cập');
+        }
+    } catch (error) {
+        res.status(400).json({
+            message: error.message,
+        });
+    }
+};
 
 
 export default {
@@ -174,5 +321,11 @@ export default {
     getInfoCurrentUser,
     forgotPassword,
     verifyLinkForgotPassword,
-    updateNewPassword
+    updateNewPassword,
+    sendRequireVerifyInfo,
+    getUserById,
+    verifyInfomationUser,
+    updateInfomationUser,
+    updateStatusAccount,
+    getAllUser,
 }
