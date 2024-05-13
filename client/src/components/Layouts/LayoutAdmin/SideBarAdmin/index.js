@@ -13,6 +13,12 @@ function SideBarAdmin() {
         setActiveItem(item);
     }
 
+    const handleClickLogout = () => {
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
+        window.location.href = '/'
+    }
+
     return (
         <div className={cx('container_sidebar')}>
             <div className={cx('header')}>
@@ -47,7 +53,7 @@ function SideBarAdmin() {
                 </Link>
             </div>
 
-            <div className={cx('btn-logout')}>ĐĂNG XUẤT</div>
+            <div className={cx('btn-logout')} onClick={handleClickLogout}>ĐĂNG XUẤT</div>
         </div>
     )
 }
