@@ -35,7 +35,7 @@ function AccountManager() {
     setFilter((prev) => ({ ...prev, textSearch: value }));
   }
   const handleChangeFilterVerify = (value) => {
-    setFilter((prev) => ({ ...prev, isVeriy: value }));
+    setFilter((prev) => ({ ...prev, isVerify: value }));
   };
   const handleChangeFilterStatus = (value) => {
     setFilter((prev) => ({ ...prev, status: value }));
@@ -54,6 +54,7 @@ function AccountManager() {
     const queryString = new URLSearchParams(queryParams).toString();
     const pathWithQuery = `${baseURL}/user/getAllUser?${queryString}`;
     setPathWithQuery(pathWithQuery);
+    console.log(filter);
   }, [filter]);
 
   useEffect(() => {

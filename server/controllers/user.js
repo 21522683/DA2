@@ -293,14 +293,19 @@ const getAllUser = async (req, res) => {
             let { searchString = '', status = 'Tất cả', isVerify = 'Tất cả' } = req.query;
             let filter = {};
 
-            if (status === 'Tất cả' || isVerify === 'Tất cả' || (status === 'Tất cả' && isVerify === 'Tất cả')) {
-                // Không áp dụng bất kỳ điều kiện lọc nào
-            } else {
-                // Áp dụng điều kiện lọc cho status
+            if (status !== 'Tất cả') {
                 filter.status = status === 'Đang bị khóa' ? false : true;
-
-                // Áp dụng điều kiện lọc cho isVerify
-                filter.isVerify = isVerify === 'Đã xác minh' ? true : false;
+            }
+            if (isVerify !== 'Tất cả') {
+                if (isVerify === 'Đã xác minh') {
+                    filter.isVerify = true;
+                } else if (isVerify === 'Chưa xác minh') {
+                    filter.isVerify = false;
+                    filter.infoVerify = { $exists: false };
+                } else if (isVerify === 'Chờ xác minh') {
+                    filter.isVerify = false;
+                    filter.infoVerify = { $exists: true };
+                }
             }
 
             if (searchString) {
