@@ -143,7 +143,7 @@ function Header() {
 
       <div className={cx('container-end')}>
         {
-          flat ? (
+          flat && currentUser.isAdmin === false ? (
             <div className={cx('container-auth')} onClick={handleNameLink}>
               <Link to={'/user/info'}>
                 <span className={cx('text-btn')}>{currentUser.hoten}</span>

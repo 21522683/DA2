@@ -99,30 +99,16 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            margin: 10px 10px 20px;
+            margin: 20px 10px 20px;
 
             .btn_rejected {
                 background-color: #FF0000;
-                width: 120px;
+                width: 140px;
                 padding: 6px 0;
                 text-align: center;
                 margin: 0 10px;
                 border-radius: 4px;
 
-                &:hover {
-                    cursor: pointer;
-                    opacity: 0.7;
-                }
-            }
-
-            .btn_accept {
-                background-color: #0088AF;
-                width: 160px;
-                padding: 6px 0;
-                text-align: center;
-                margin: 0 10px;
-                border-radius: 4px;
-                
                 &:hover {
                     cursor: pointer;
                     opacity: 0.7;

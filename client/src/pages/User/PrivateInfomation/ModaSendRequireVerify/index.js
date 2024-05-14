@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import classNames from "classnames/bind";
-import styles from './ModalUpdateInfo.module.scss';
+import styles from './ModalSendRequireVerify.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDataGetCurrentUser, setIsOpenModalUpdateInfo, setLoading } from '../../../../redux/slices/userSlice';
+import { setIsOpenModalSendRequireVerify, setLoading } from '../../../../redux/slices/userSlice';
 import DropdownBanks from '../DropdownBanks';
 import baseUrl from '../../../../utils';
 import customAxios from '../../../../utils/customAxios';
 import { toast } from 'react-toastify';
 
+
 const cx = classNames.bind(styles);
 
-function ModalUpdateInfo() {
+function ModalSendRequireVerify() {
 
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.userManagement.currentUser);
@@ -22,8 +23,6 @@ function ModalUpdateInfo() {
   const [nganHang, setNganHang] = useState(currentUser.infoVerify ? currentUser.infoVerify.nganHang : "Chọn ngân hàng");
   const [soFAX, setSoFAX] = useState(currentUser.infoVerify ? currentUser.infoVerify.soFAX : "");
   const [soDienThoai, setSoDienThoai] = useState(currentUser.infoVerify ? currentUser.infoVerify.soDienThoai : "");
-  const [hoten, setHoten] = useState(currentUser.hoten);
-  const [email, setEmail] = useState(currentUser.email);
 
   const [showMsgValidateMaSoDN, setShowMsgValidateMaSoDN] = useState(false);
   const [msgMaSoDN, setMsgMaSoDN] = useState('');
@@ -96,19 +95,16 @@ function ModalUpdateInfo() {
   const [showMsgValidateNganHang, setShowMsgValidateNganHang] = useState(false);
   const [msgNganHang, setMsgNganHang] = useState('');
   const handleSelectOptionBank = (value) => {
-    setNganHang(prev => value);
-    if (value === 'Chọn ngân hàng') {
+    setNganHang(value);
+  }
+  useEffect(() => {
+    if (nganHang === 'Chọn ngân hàng') {
       setShowMsgValidateNganHang(true);
       setMsgNganHang('Vui lòng chọn ngân hàng đại diện của doanh nghiệp');
-      return false;
     } else {
       setShowMsgValidateNganHang(false);
       setMsgNganHang('');
-      return true;
     }
-  }
-  useEffect(() => {
-    let temp = handleSelectOptionBank(nganHang);
   }, [nganHang])
 
   const [showMsgValidateSoFAX, setShowMsgValidateSoFAX] = useState(false);
@@ -127,23 +123,6 @@ function ModalUpdateInfo() {
   useEffect(() => {
     let temp = handleValidateSoFAX(soFAX);
   }, [soFAX])
-
-  const [showMsgValidateHoTen, setShowMsgValidateHoTen] = useState(false);
-  const [msgHoTen, setMsgHoTen] = useState('');
-  const handleValidateHoTen = (value) => {
-    if (value.trim().length === 0 || value.trim() === '') {
-      setShowMsgValidateHoTen(true);
-      setMsgHoTen('Vui lòng nhập họ tên người đại diện');
-      return false;
-    } else {
-      setShowMsgValidateHoTen(false);
-      setMsgHoTen('');
-      return true;
-    }
-  }
-  useEffect(() => {
-    let temp = handleValidateHoTen(hoten);
-  }, [hoten])
 
   const [showMsgValidateSoDienThoai, setShowMsgValidateSoDienThoai] = useState(false);
   const [msgSoDienThoai, setMsgSoDienThoai] = useState('');
@@ -170,55 +149,22 @@ function ModalUpdateInfo() {
     let temp = handleValidateSoDienThoai(soDienThoai);
   }, [soDienThoai])
 
-  const [showMsgValidateEmail, setShowMsgValidateEmail] = useState(false);
-  const [msgEmail, setMsgEmail] = useState('');
-  const handleValidateEmail = (value) => {
-    if (value.trim().length === 0 || value.trim() === '') {
-      setShowMsgValidateEmail(true);
-      setMsgEmail('Vui lòng nhập email người đại diện');
-      return false;
-    } else {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (re.test(value) === false) {
-        setShowMsgValidateEmail(true);
-        setMsgEmail('Email không đúng định dạng, vui lòng nhập email khác');
-        return false;
-      }
-      else {
-        setShowMsgValidateEmail(false);
-        setMsgEmail('');
-        return true;
-      }
-    }
-  }
-  useEffect(() => {
-    let temp = handleValidateEmail(email);
-  }, [email])
-
-
-  useEffect(() => {
-    dispatch(fetchDataGetCurrentUser());
-  }, []);
-
   const handleClose = () => {
-    dispatch(setIsOpenModalUpdateInfo(false));
+    dispatch(setIsOpenModalSendRequireVerify(false));
   }
 
-  const hanldeClickSave = async () => {
-    // call API lưu
+  const handleSend = async () => {
+    // call API send
     if (handleValidateMaSoDN(maSoDN) &&
       handleValidateTenDoanhNghiep(tenDoanhNghiep) &&
       handleValidateDiaChi(diaChi) &&
       handleValidateSTK(STK) &&
       nganHang !== 'Chọn ngân hàng' &&
       handleValidateSoFAX(soFAX) &&
-      handleValidateSoDienThoai(soDienThoai) &&
-      handleValidateHoTen(hoten) &&
-      handleValidateEmail(email)
-    ) {
+      handleValidateSoDienThoai(soDienThoai)) {
       let data = {
-        hoten: hoten,
-        infoVerify: {
+        id: currentUser._id,
+        info: {
           maSoDN: maSoDN,
           tenDoanhNghiep: tenDoanhNghiep,
           diaChi: diaChi,
@@ -226,15 +172,14 @@ function ModalUpdateInfo() {
           nganHang: nganHang,
           soFAX: soFAX,
           soDienThoai: soDienThoai,
-        },
-        email: email,
+        }
       }
-      const url = `${baseUrl}/user/updateInfomationUser/${currentUser._id}`;
+      const url = `${baseUrl}/user/sendRequireVerifyInfo/${data.id}`;
       dispatch(setLoading(true));
       try {
-        const response = await customAxios.patch(url, data);
+        const response = await customAxios.patch(url, data.info);
         dispatch(setLoading(false));
-        toast.success('Cập nhật thành công', {
+        toast.success('Gửi yêu cầu thành công', {
           position: "top-right"
         }
         );
@@ -246,14 +191,14 @@ function ModalUpdateInfo() {
           error.response.status >= 400 &&
           error.response.status <= 500
         ) {
-          console.log(error.response.data.error);
+          console.log();
           toast.error(error.response.data.error, {
             position: "top-right"
-          });
+          }
+          );
         }
       }
-      dispatch(setIsOpenModalUpdateInfo(false));
-      
+      dispatch(setIsOpenModalSendRequireVerify(false));
     }
   }
 
@@ -262,7 +207,7 @@ function ModalUpdateInfo() {
       <div className={cx('container-body')} onClick={(e) => e.stopPropagation()}>
 
         <div className={cx('container-header')}>
-          <span className={cx('title_modal')}>CẬP NHẬT THÔNG TIN</span>
+          <span className={cx('title_modal')}>XÁC MINH THÔNG TIN</span>
           <span className={cx('btn_close')} onClick={handleClose}>&times;</span>
         </div>
 
@@ -356,22 +301,6 @@ function ModalUpdateInfo() {
               }
             </div>
           </div>
-
-          <div className={cx('container_input')}>
-            <span className={cx('title_input')}>Họ và tên:</span>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <input
-                type="text"
-                className={cx('content_input')}
-                placeholder='Nhập họ và tên'
-                value={hoten}
-                onChange={(e) => setHoten(e.target.value)}
-              />
-              {
-                showMsgValidateHoTen && <span className={cx('text_validate')}>{msgHoTen}</span>
-              }
-            </div>
-          </div>
           <div className={cx('container_input')}>
             <span className={cx('title_input')}>Số điện thoại:</span>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -387,29 +316,14 @@ function ModalUpdateInfo() {
               }
             </div>
           </div>
-          <div className={cx('container_input')}>
-            <span className={cx('title_input')}>Địa chỉ email:</span>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <input
-                type="text"
-                className={cx('content_input')}
-                placeholder='Nhập địa chỉ email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              {
-                showMsgValidateEmail && <span className={cx('text_validate')}>{msgEmail}</span>
-              }
-            </div>
-          </div>
         </div>
 
         <div className={cx('container_btn')}>
-          <div className={cx('btn_save')} onClick={hanldeClickSave}>Lưu thông tin này</div>
+          <div className={cx('btn_save')} onClick={handleSend}>Gửi yêu cầu xác minh thông tin</div>
         </div>
       </div>
     </div>
   )
 }
 
-export default ModalUpdateInfo;
+export default ModalSendRequireVerify;

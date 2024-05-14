@@ -16,8 +16,13 @@ const userSlice = createSlice({
     indexSelected: -1,
     isOpenModalReview: false,
     isOpenModalChangeStatus: false,
+    isOpenMessageBoxNotify: false,
     isOpenMessagebox: false,
+    isOpenModalNotVerify: false,
+    isOpenModalUpdateInfo: false,
+    isOpenModalSendRequireVerify: false,
     isLoading: false,
+    error: '',
 
   },
   reducers: {
@@ -29,6 +34,18 @@ const userSlice = createSlice({
     },
     setIsOpenModalChangeStatus: (state, action) => {
       state.isOpenModalChangeStatus = action.payload;
+    },
+    setIsOpenModalNotVerify: (state, action) => {
+      state.isOpenModalNotVerify = action.payload;
+    },
+    setIsOpenModalUpdateInfo: (state, action) => {
+      state.isOpenModalUpdateInfo = action.payload;
+    },
+    setIsOpenModalSendRequireVerify: (state, action) => {
+      state.isOpenModalSendRequireVerify = action.payload;
+    },
+    setIsOpenMessageBoxNotify: (state, action) => {
+      state.isOpenMessageBoxNotify = action.payload;
     },
     setIsOpenMessageBox: (state, action) => {
       state.isOpenMessagebox = action.payload;
@@ -43,6 +60,9 @@ const userSlice = createSlice({
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -51,7 +71,7 @@ const userSlice = createSlice({
 
     });
     builder.addCase(fetchDataGetCurrentUser.fulfilled, (state, action) => {
-      state.currentUser = {...action.payload};
+      state.currentUser = { ...action.payload };
     });
     builder.addCase(fetchDataGetCurrentUser.rejected, (state, action) => {
       state.error = action.error.message;
@@ -59,7 +79,20 @@ const userSlice = createSlice({
   }
 });
 
-export const { setListUser, setIsOpenModalReview, setIsOpenModalChangeStatus, setIsOpenMessageBox, setIndexUserSelected, setCurrentUser, setLoading } = userSlice.actions;
+export const {
+  setListUser,
+  setIsOpenModalReview,
+  setIsOpenModalChangeStatus,
+  setIsOpenModalNotVerify,
+  setIsOpenMessageBoxNotify,
+  setIsOpenMessageBox,
+  setIndexUserSelected,
+  setCurrentUser,
+  setLoading,
+  setIsOpenModalUpdateInfo,
+  setIsOpenModalSendRequireVerify,
+  setError
+} = userSlice.actions;
 export default userSlice.reducer;
 export {
   fetchDataGetCurrentUser,

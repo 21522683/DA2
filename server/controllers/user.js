@@ -172,7 +172,7 @@ const sendRequireVerifyInfo = async (req, res) => {
         const user = await User.findById(id);
 
         if (!user) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: "User not found", success: false});
         }
 
         const newInfoVerify = {
@@ -189,10 +189,10 @@ const sendRequireVerifyInfo = async (req, res) => {
 
         await user.save();
 
-        res.status(200).json({ message: "Require verify info sent successfully", user });
+        res.status(200).json({ message: "Require verify info sent successfully", user , success: true});
     } catch (error) {
         console.error("Error sending require verify info:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error", success: false});
     }
 };
 
@@ -218,13 +218,14 @@ const verifyInfomationUser = async (req, res) => {
         const user = await User.findById(id);
 
         if (!user) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: "User not found", success: false });
         }
         user.isVerify = true;
-        res.status(200).json({ message: "Verify infomation of user successfully", user });
+        await user.save();
+        res.status(200).json({ message: "Verify infomation of user successfully", user, success: true });
     } catch (error) {
         console.error("Error when get infomation of user:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error", success: false });
     }
 };
 
@@ -239,16 +240,34 @@ const updateInfomationUser = async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         }
 
-        const updatedUser = await User.findByIdAndUpdate(id, {hoten: updateData.hoten, infoVerify: updateData.infoVerify}, {
-            new: true, // Trả về người dùng sau khi cập nhật
-        });
+        // Check if the email is already taken by another user
+        if (updateData.email) {
+            const existingUser = await User.findOne({ email: updateData.email });
 
-        res.status(200).json({ message: "Update infomation of user successfully", updatedUser });
+            if (existingUser && existingUser._id.toString() !== id) {
+                return res.status(400).json({ error: "Cấp nhật thất bại. Do email đã tồn tại rồi", success: false });
+            }
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            id, 
+            { 
+                hoten: updateData.hoten, 
+                infoVerify: updateData.infoVerify, 
+                email: updateData.email 
+            }, 
+            {
+                new: true, // Return the user after the update
+            }
+        );
+
+        res.status(200).json({ message: "Update information of user successfully", success: true, updatedUser });
     } catch (error) {
-        console.error("Error when get infomation of user:", error);
-        res.status(500).json({ error: "Internal server error" });
+        console.error("Error when updating information of user:", error);
+        res.status(500).json({ error: "Internal server error", success: false });
     }
 };
+
 
 const updateStatusAccount = async (req, res) => {
     const { id } = req.params;
@@ -256,13 +275,14 @@ const updateStatusAccount = async (req, res) => {
         const user = await User.findById(id);
 
         if (!user) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: "User not found", success: false });
         }
         user.status = !user.status;
-        res.status(200).json({ message: "Update status account of user successfully", user });
+        await user.save();
+        res.status(200).json({ message: "Thay đổi trạng thái tài khoản thành công", user , success: true});
     } catch (error) {
         console.error("Error when get infomation of user:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error" , success: false});
     }
 };
 
@@ -270,24 +290,19 @@ const getAllUser = async (req, res) => {
     try {
         const isAdmin = req.isAdmin;
         if (isAdmin) {
-            let { searchString = '', status = 'Tất cả' } = req.query;
+            let { searchString = '', status = 'Tất cả', isVerify = 'Tất cả' } = req.query;
             let filter = {};
 
-            switch (status) {
-                case 'Đang hoạt động':
-                    filter = { status: true, isVerify: true };
-                    break;
-                case 'Chờ xác minh':
-                    filter = { status: true, isVerify: false, 'infoVerify.maSoDN': { $ne: null } };
-                    break;
-                case 'Đang bị khóa':
-                    filter = { status: false };
-                    break;
-                default:
-                    break;
+            if (status === 'Tất cả' || isVerify === 'Tất cả' || (status === 'Tất cả' && isVerify === 'Tất cả')) {
+                // Không áp dụng bất kỳ điều kiện lọc nào
+            } else {
+                // Áp dụng điều kiện lọc cho status
+                filter.status = status === 'Đang bị khóa' ? false : true;
+
+                // Áp dụng điều kiện lọc cho isVerify
+                filter.isVerify = isVerify === 'Đã xác minh' ? true : false;
             }
 
-            // Thêm điều kiện tìm kiếm vào filter
             if (searchString) {
                 filter.$or = [
                     { hoten: { $regex: `.*${searchString}.*`, $options: 'i' } },
@@ -295,7 +310,9 @@ const getAllUser = async (req, res) => {
                 ];
             }
 
-            const filterUsers = await User.find(filter).select('-password -refreshToken -isVerifiedEmail');
+            const filterUsers = await User.find(filter)
+                .select('-password -refreshToken -isVerifiedEmail')
+                .exec();
 
             res.status(200).json({
                 message: 'Lấy thông tin tất cả người dùng thành công',
@@ -314,6 +331,24 @@ const getAllUser = async (req, res) => {
 };
 
 
+const sendEmailNotifyToUser = async (req, res) => {
+    try {
+        const { email, reason } = req.body;
+        const url = `Thông tin bạn gửi để xác minh trên website seaport của chúng tôi bị sai hoặc không hợp lệ. Với lý do là (${reason}). CHÚNG TÔI YÊU CẦU BẠN KIỂM TRA LẠI THÔNG TIN VÀ GỬI YÊU CẦU XÁC MINH LẠI.`;
+        await sendEmail(email, 'Xác minh thông tin', url);
+        console.log(url)
+        return res.status(201).json({
+            message: `Gửi mail thành công`,
+        });
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message,
+        });
+    }
+};
+
+
+
 export default {
     checkRegisterEmail,
     registerUser,
@@ -328,4 +363,5 @@ export default {
     updateInfomationUser,
     updateStatusAccount,
     getAllUser,
+    sendEmailNotifyToUser,
 }

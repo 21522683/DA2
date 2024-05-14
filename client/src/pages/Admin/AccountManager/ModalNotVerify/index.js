@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import classNames from "classnames/bind";
-import styles from './ModalChangeStatus.module.scss'
+import styles from './ModalNotVerify.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalChangeStatus, setLoading } from '../../../../redux/slices/userSlice';
+import { setIsOpenModalNotVerify , setLoading} from '../../../../redux/slices/userSlice';
 import baseUrl from '../../../../utils';
 import customAxios from '../../../../utils/customAxios';
 import { toast } from 'react-toastify';
 
-
 const cx = classNames.bind(styles)
 
-function ModalChangeStatus() {
+function ModalNotVerify() {
 
   const dispatch = useDispatch();
   const listUsers = useSelector(state => state.userManagement.usersList);
   const indexSelected = useSelector(state => state.userManagement.indexSelected);
   const itemSelected = listUsers[indexSelected];
 
-  const handleChangeStatusAccount = async () => {
+  const handleClose = () => {
+    dispatch(setIsOpenModalNotVerify(false));
+  }
+
+  const handleLockAccount = async () => {
     const url = `${baseUrl}/user/updateStatusAccount/${itemSelected._id}`;
     dispatch(setLoading(true));
     try {
@@ -44,11 +47,8 @@ function ModalChangeStatus() {
     }
   }
 
-  const handleClose = () => {
-    dispatch(setIsOpenModalChangeStatus(false));
-  }
-  return (
 
+  return (
     <div className={cx('wrapper')} onClick={handleClose}>
       <div className={cx('container-body')} onClick={(e) => e.stopPropagation()}>
         <div className={cx('container-header')}>
@@ -72,32 +72,32 @@ function ModalChangeStatus() {
             <span className={cx('title_body_1')}>THÔNG TIN DOANH NGHIỆP</span>
             <div className={cx('container_body_1')}>
               <span className={cx('title_content')}>Mã số doanh nghiệp:</span>
-              <span className={cx('content_body_1')}>{itemSelected.infoVerify ? itemSelected.infoVerify.maSoDN : "Thông tin chưa được người dùng cung cấp"}</span>
+              <span className={cx('content_body_1')}>Thông tin chưa được người dùng cung cấp</span>
             </div>
 
             <div className={cx('container_body_1')}>
               <span className={cx('title_content')}>Tên doanh nghiệp:</span>
-              <span className={cx('content_body_1')}>{itemSelected.infoVerify ? itemSelected.infoVerify.tenDoanhNghiep : "Thông tin chưa được người dùng cung cấp"}</span>
+              <span className={cx('content_body_1')}>Thông tin chưa được người dùng cung cấp</span>
             </div>
 
             <div className={cx('container_body_1')}>
               <span className={cx('title_content')}>Địa chỉ doanh nghiệp:</span>
-              <span className={cx('content_body_1')}>{itemSelected.infoVerify ? itemSelected.infoVerify.diaChi : "Thông tin chưa được người dùng cung cấp"}</span>
+              <span className={cx('content_body_1')}>Thông tin chưa được người dùng cung cấp</span>
             </div>
 
             <div className={cx('container_body_1')}>
               <span className={cx('title_content')}>Số tài khoản (AC/No):</span>
-              <span className={cx('content_body_1')}>{itemSelected.infoVerify ? itemSelected.infoVerify.STK : "Thông tin chưa được người dùng cung cấp"}</span>
+              <span className={cx('content_body_1')}>Thông tin chưa được người dùng cung cấp</span>
             </div>
 
             <div className={cx('container_body_1')}>
               <span className={cx('title_content')}>Ngân hàng:</span>
-              <span className={cx('content_body_1')}>{itemSelected.infoVerify ? itemSelected.infoVerify.nganHang : "Thông tin chưa được người dùng cung cấp"}</span>
+              <span className={cx('content_body_1')}>Thông tin chưa được người dùng cung cấp</span>
             </div>
 
             <div className={cx('container_body_1')}>
               <span className={cx('title_content')}>Số FAX:</span>
-              <span className={cx('content_body_1')}>{itemSelected.infoVerify ? itemSelected.infoVerify.soFAX : "Thông tin chưa được người dùng cung cấp"}</span>
+              <span className={cx('content_body_1')}>Thông tin chưa được người dùng cung cấp</span>
             </div>
           </div>
 
@@ -115,28 +115,19 @@ function ModalChangeStatus() {
 
             <div className={cx('container_body_1')}>
               <span className={cx('title_content')}>Số điện thoại:</span>
-              <span className={cx('content_body_1')}>{itemSelected.infoVerify ? itemSelected.infoVerify.soDienThoai : "Thông tin chưa được người dùng cung cấp"}</span>
+              <span className={cx('content_body_1')}>Thông tin chưa được người dùng cung cấp</span>
             </div>
           </div>
         </div>
 
         <div className={cx('container_btn')}>
-          {
-            itemSelected.status ? (
-              <div className={cx('btn_rejected')} onClick={handleChangeStatusAccount}>
-                <span className={cx('title_btn')}>Khóa tài khoản</span>
-              </div>
-            ) : (
-              <div className={cx('btn_accept')} onClick={handleChangeStatusAccount}>
-                <span className={cx('title_btn')}>Mở khóa tài khoản</span>
-              </div>
-            )
-          }
-
+          <div className={cx('btn_rejected')} onClick={handleLockAccount}>
+            <span className={cx('title_btn')}>Khóa tài khoản</span>
+          </div>
         </div>
       </div>
     </div>
   )
 }
 
-export default ModalChangeStatus;
+export default ModalNotVerify;

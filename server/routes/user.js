@@ -11,12 +11,13 @@ router.get('/getInfoCurrentUser', checkToken, UserController.getInfoCurrentUser)
 router.post('/forgot-password', UserController.forgotPassword);
 router.get('/forgot-password/:id/verify-link/:tokenVerifyLinkForgotPassword', UserController.verifyLinkForgotPassword);
 router.patch('/forgot-password/update-new-password', UserController.updateNewPassword);
+
 router.patch('/sendRequireVerifyInfo/:id', checkToken, UserController.sendRequireVerifyInfo);
 router.get('/getUserById/:id', UserController.getUserById);
 router.patch('/verifyInfomationUser/:id', UserController.verifyInfomationUser);
 router.patch('/updateInfomationUser/:id', checkToken, UserController.updateInfomationUser);
 router.patch('/updateStatusAccount/:id', UserController.updateStatusAccount);
 router.get('/getAllUser', checkToken, UserController.getAllUser);
-
+router.post('/sendEmailNotifyToUser', UserController.sendEmailNotifyToUser);
 
 export default router;
