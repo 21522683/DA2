@@ -1,4 +1,3 @@
-import cloudinary from '../utils/cloudinary.js';
 import { User } from '../model/index.js';
 import bcrypt from 'bcrypt';
 import sendEmail from '../utils/sendMail.js';

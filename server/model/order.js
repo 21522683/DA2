@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import { Schema } from "mongoose"
 export default mongoose.model('Order',
     new Schema({
-        loaiHinh: String, // "Xuất khẩu" hoặc  "Nhập khẩu"
+        loaiHinh: String, 
         hangHoa: [
             {
                 type: mongoose.Schema.Types.ObjectId,

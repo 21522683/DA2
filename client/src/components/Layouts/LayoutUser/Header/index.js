@@ -95,8 +95,6 @@ function Header() {
     else setFlat(false)
   }, [])
 
-
-
   return (
     <div className={cx('container-header')}>
       <div className={cx('container-start')}>

@@ -19,6 +19,8 @@ import YourOrder from "../pages/User/YourOrder/index.js"
 import YourContract from "../pages/User/YourContract/index.js"
 import YourBillHistory from "../pages/User/YourBillHistory/index.js"
 import PrivateInfomation from "../pages/User/PrivateInfomation/index.js"
+import WarningNotLogin from "../pages/Generals/WarningNotLogin/index.js"
+import WarningVerify from "../pages/Generals/WarningVerify/index.js"
 
 export const publicRoutes = [
     { path: '/sign-up', component: SignUp },
@@ -28,6 +30,8 @@ export const publicRoutes = [
     { path: '/verify-email', component: TemplateEmailVerify },
     { path: '/not-found', component: NotFound },
     { path: '/users/verify/:tokenLinkVerifyEmail', component: TemplateEmailVerify},
+    { path: '/warning/un-login', component: WarningNotLogin },
+    { path: '/warning/un-verify', component: WarningVerify },
 ]
 
 export const customerRoutes = [

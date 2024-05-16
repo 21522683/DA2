@@ -19,7 +19,7 @@
         display: flex;
         flex-direction: column;
         padding: 10px 40px;
-        margin-top: 20px;
+        margin-top: 10px;
 
         .container-header {
             display: flex;
@@ -55,7 +55,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            margin: 24px 20px 10px;
+            margin: 14px 8px 10px;
 
             .text_message {
                 color: #007b9d;
@@ -86,8 +86,8 @@
 
 .delete-img {
     position: absolute;
-    top: -16px;
-    right: -4px;
+    top: -14px;
+    right: -2px;
     font-size: 30px;
     cursor: pointer;
     margin-top: 4px;
@@ -99,9 +99,10 @@
     display: flex;
     margin-left: -8px;
     position: relative;
+
     img {
-        width: 70px;
-        height: 70px;
+        width: 60px;
+        height: 60px;
         position: relative;
         margin: 0 16px;
     }
@@ -110,7 +111,7 @@
 .btn_choose_img {
     width: 80px;
     height: 40px;
-    padding: 10px;
+    padding: 2px 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,22 +121,24 @@
     font-size: 10px;
     font-style: italic;
     text-decoration: underline;
-    background-color: #00243d;
+    background-color: #007b9d;
     color: #ffffff;
+
     &:hover {
         cursor: pointer;
         box-shadow: 0 0 2px 2px #cccccc;
     }
 }
+
 .detail_goods {
     display: flex;
     flex-direction: column;
 
     .container_hh {
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        margin: 10px 0;
+        margin: 8px 0;
+
         .title {
             font-size: 14px;
             color: #000000;
@@ -151,7 +154,23 @@
             padding: 6px 20px;
             width: 620px;
             border-radius: 4px;
+            outline: none;
+
+            &::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            &[type=number] {
+                -moz-appearance: textfield;
+            }
         }
+
         .content-script {
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -163,11 +182,12 @@
             margin-left: 10px;
         }
     }
+
     .container_hh2 {
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        margin: 10px 0;
+        margin: 8px 0;
+
         .title {
             font-size: 14px;
             color: #000000;
@@ -184,7 +204,21 @@
             padding: 6px 20px;
             width: 120px;
             border-radius: 4px;
+            &::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            &[type=number] {
+                -moz-appearance: textfield;
+            }
         }
+
         .content-script {
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -197,4 +231,9 @@
             width: 90%;
         }
     }
+}
+
+.text_validate {
+    color: red;
+    font-size: 10px;
 }
