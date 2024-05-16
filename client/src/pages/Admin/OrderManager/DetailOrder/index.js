@@ -4,7 +4,11 @@ import styles from './DetailOrder.module.scss';
 import ItemDetailOrder from './ItemDetailOrder';
 import MessageBox from './ItemDetailOrder/MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenMessageBox, setIsOpenModalDetail } from '../../../../redux/slices/orderSlice';
+import { setIsOpenMessageBox, setIsOpenModalDetail, setLoading } from '../../../../redux/slices/orderSlice';
+import convertDate from '../../../../utils/convertDate';
+import baseUrl from '../../../../utils';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -17,6 +21,7 @@ function DetailOrder() {
   const itemSelected = listOrders[indexSelected];
   const isOpenMessagebox = useSelector(state => state.orderManagement.isOpenMessagebox);
 
+
   const handleClose = () => {
     dispatch(setIsOpenModalDetail(false));
   }
@@ -25,13 +30,46 @@ function DetailOrder() {
     dispatch(setIsOpenMessageBox(true));
   }
 
-  const handleAccept = () => {
-    // dispatch hành động trong này
+  const handleAccept = async () => {
+    dispatch(setLoading(true));
+    try {
+      const url = `${baseUrl}/order/updateStatusOrder/${itemSelected._id}`;
+      const response = await axios.patch(url);
+      console.log(response);
+      if (response.data.success) {
+        toast.success(response.data.message, {
+          position: "top-right"
+        }
+        );
+        window.location.href = "http://localhost:3000/admin/order";
+      }
+      else {
+        toast.error(response.data.message, {
+          position: "top-right"
+        })
+      }
+      dispatch(setLoading(false));
+      dispatch(setIsOpenModalDetail(false));
+    } catch (error) {
+      console.error('Error in handleAccept:', error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        toast.error(error.response.message, {
+          position: "top-right"
+        }
+        );
+      }
+      dispatch(setLoading(false));
+      dispatch(setIsOpenModalDetail(false));
+    }
   }
 
   return (
     <div className={cx('wrapper')} onClick={handleClose}>
-      {isOpenMessagebox && <MessageBox/>}
+      {isOpenMessagebox && <MessageBox />}
       <div className={cx('container-body')} onClick={(e) => e.stopPropagation()}>
 
         <div className={cx('container-header')}>
@@ -49,12 +87,12 @@ function DetailOrder() {
 
           <div className={cx('container-status')}>
             <span className={cx('title')}>Mã đơn hàng: </span>
-            <span className={cx('content')}>DH0927226372</span>
+            <span className={cx('content')}>{itemSelected._id}</span>
           </div>
 
           <div className={cx('container-status')}>
             <span className={cx('title')}>Ngày tạo đơn: </span>
-            <span className={cx('content')}>{itemSelected.ngayTaoDon}</span>
+            <span className={cx('content')}>{convertDate(itemSelected.ngayTaoDon)}</span>
           </div>
         </div>
 
@@ -63,12 +101,12 @@ function DetailOrder() {
           <div className={cx('container_1')}>
             <div className={cx('container-date')}>
               <span className={cx('title')}>Ngày đi dự kiến: </span>
-              <span className={cx('content')}>{itemSelected.ngayDiDuKien}</span>
+              <span className={cx('content')}>{convertDate(itemSelected.ngayDiDuKien)}</span>
             </div>
 
             <div className={cx('container-date')}>
               <span className={cx('title')}>Ngày đến dự kiến: </span>
-              <span className={cx('content')}>{itemSelected.ngayDenDuKien}</span>
+              <span className={cx('content')}>{convertDate(itemSelected.ngayDenDuKien)}</span>
             </div>
 
             <div className={cx('container-type')}>

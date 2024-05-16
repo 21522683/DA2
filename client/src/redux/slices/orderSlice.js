@@ -1,5 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import baseUrl from '../../utils/index';
+import axios from 'axios';
 
+
+const fetchDataGetAllOrder = createAsyncThunk('fetchDataGetAllOrder', async () => {
+  const response = await axios.get(`${baseUrl}/order/getAllOrders`);
+  return response;
+})
 
 const orderSlice = createSlice({
   name: 'orders',
@@ -52,6 +59,18 @@ const orderSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    // getCurentUser 
+    builder.addCase(fetchDataGetAllOrder.pending, (state, action) => {
+
+    });
+    builder.addCase(fetchDataGetAllOrder.fulfilled, (state, action) => {
+      state.ordersList = [...action.payload];
+    });
+    builder.addCase(fetchDataGetAllOrder.rejected, (state, action) => {
+      state.error = action.error.message;
+    });
+  }
 });
 
 export const {
@@ -68,4 +87,8 @@ export const {
 } = orderSlice.actions;
 
 export default orderSlice.reducer;
+export {
+  fetchDataGetAllOrder,
+}
+
 

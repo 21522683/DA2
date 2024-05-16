@@ -6,5 +6,8 @@ const router = express.Router();
 
 
 router.post('/createOrderUser', checkToken, OrderController.createOrderUser);
+router.get('/getAllOrders', OrderController.getAllOrders);
+router.get('/getAllOrdersByUserId/:userId', OrderController.getAllOrdersByUserId);
+router.patch('/updateStatusOrder/:id', OrderController.updateStatusOrder);
 
 export default router;
