@@ -1,6 +1,6 @@
 import cloudinary from '../utils/cloudinary.js';
 import { Goods, GoodsDeclaration, Order } from '../model/index.js';
-
+import mongoose from 'mongoose';
 
 const createOrderUser = async (req, res) => {
     try {
@@ -135,20 +135,93 @@ const getAllOrders = async (req, res) => {
 
 const getAllOrdersByUserId = async (req, res) => {
     const userId = req.params.userId;
+    // Validate the userId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ message: 'Invalid user ID' });
+    }
     try {
-        const orders = await Order.find({ user: userId }).populate('hangHoa').populate('user');
-        res.json({ message: `Lấy tất cả đơn hàng của user ${userId} thành công`, orders });
+        const { searchString, status, ngayTaoDon } = req.query;
+        const matchConditions = { user: new mongoose.Types.ObjectId(userId) };
+
+        if (status) {
+            if (status === "Chờ xét duyệt") {
+                matchConditions.trangThaiXetDuyet = false;
+                matchConditions.trangThaiHuy = false;
+            } else if (status === "Đã xét duyệt") {
+                matchConditions.trangThaiXetDuyet = true;
+                matchConditions.trangThaiHuy = false;
+            } else if (status === "Đã bị hủy") {
+                matchConditions.trangThaiHuy = true;
+            }
+        }
+
+        if (ngayTaoDon) {
+            const [day, month, year] = ngayTaoDon.split('/');
+            const formattedDate = new Date(`${year}-${month}-${day}`);
+            matchConditions.ngayTaoDon = {
+                $gte: new Date(formattedDate.setHours(0, 0, 0, 0)),
+                $lt: new Date(formattedDate.setHours(23, 59, 59, 999))
+            };
+        }
+
+        const pipeline = [
+            {
+                $match: matchConditions
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'user',
+                    foreignField: '_id',
+                    as: 'user'
+                }
+            },
+            {
+                $unwind: '$user'
+            },
+            {
+                $lookup: {
+                    from: 'goods',
+                    localField: 'hangHoa',
+                    foreignField: '_id',
+                    as: 'hangHoa'
+                }
+            },
+            {
+                $addFields: {
+                    idString: { $toString: '$_id' }
+                }
+            }
+        ];
+
+        if (searchString) {
+            const searchConditions = {
+                $or: [
+                    { idString: { $regex: new RegExp(searchString, 'i') } },
+                    { 'user.hoten': { $regex: new RegExp(searchString, 'i') } }
+                ]
+            };
+
+            pipeline.push({
+                $match: searchConditions
+            });
+        }
+
+        const orders = await Order.aggregate(pipeline);
+
+        res.status(200).json({ message: "Lấy tất cả đơn hàng của user thành công", orders });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: 'Server error' });
     }
 }
+
 
 const updateStatusOrder = async (req, res) => {
     const { id } = req.params;
     try {
         const order = await Order.findById(id);
-        
+
         if (order.trangThaiHuy) {
             return res.status(400).json({ message: "Đơn hàng đã bị hủy nên không thể xét duyệt", success: false });
         }
@@ -170,9 +243,31 @@ const updateStatusOrder = async (req, res) => {
     }
 };
 
+const cancelOrder = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const order = await Order.findById(id);
+
+        if (order.trangThaiXetDuyet) {
+            return res.status(400).json({ message: "Đơn hàng đã xét duyệt nên không thể hủy", success: false });
+        }
+
+        order.trangThaiHuy = true;
+
+        await order.save();
+
+        res.status(200).json({ message: "Hủy đơn hàng thành công", success: true });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', success: false });
+    }
+};
+
+
 export default {
     createOrderUser,
     getAllOrders,
     getAllOrdersByUserId,
-    updateStatusOrder
+    updateStatusOrder,
+    cancelOrder
 }

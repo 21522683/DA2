@@ -6,20 +6,25 @@ import Dropdown from './DropDown';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from 'react-redux';
-import { setIndexOrderSelected, setIsOpenModalDetail, setListOrder } from '../../../redux/slices/orderSlice';
+import { setIndexSelectedOrderUser, setIsOpenModalDetail, setListOrdersUser } from '../../../redux/slices/orderSlice';
 import baseUrl from '../../../utils';
 import { toast } from 'react-toastify';
 import customAxios from '../../../utils//customAxios';
 import convertDate from '../../../utils/convertDate';
 import DetailOrder from './DetailOrder'
+import MessageBox from './DetailOrder/ItemDetailOrder/MessageBox';
+import HashLoader from "react-spinners/HashLoader";
 
 const cx = classNames.bind(styles);
 
 function YourOrder() {
 
   const dispatch = useDispatch();
-  const listOrders = useSelector(state => state.orderManagement.ordersList);
+  const listOrdersUser = useSelector(state => state.orderManagement.listOrdersUser);
   const isOpenModalDetail = useSelector(state => state.orderManagement.isOpenModalDetail);
+  const currentUser = useSelector(state => state.userManagement.currentUser);
+  const isOpenMessagebox = useSelector(state => state.orderManagement.isOpenMessagebox);
+  const loading = useSelector(state => state.orderManagement.isLoading);
 
   const [filter, setFilter] = useState({
     textSearch: '',
@@ -44,7 +49,7 @@ function YourOrder() {
   const getAllOrders = async () => {
     try {
       const response = await customAxios.get(pathWithQuery);
-      dispatch(setListOrder(response.data.orders));
+      dispatch(setListOrdersUser(response.data.orders));
     } catch (error) {
       if (
         error.response &&
@@ -62,7 +67,7 @@ function YourOrder() {
   useEffect(() => {
     const queryParams = { searchString: filter.textSearch, status: filter.status, ngayTaoDon: filter.ngayTaoDon };
     const queryString = new URLSearchParams(queryParams).toString();
-    const pathWithQuery = `${baseUrl}/order/getAllOrders?${queryString}`;
+    const pathWithQuery = `${baseUrl}/order/getAllOrdersByUserId/${currentUser._id}/?${queryString}`;
     setPathWithQuery(pathWithQuery);
     console.log(filter);
   }, [filter]);
@@ -74,13 +79,30 @@ function YourOrder() {
   }, [pathWithQuery]);
   const handleClickSeeDetail = (index) => {
     dispatch(setIsOpenModalDetail(true));
-    dispatch(setIndexOrderSelected(index));
+    dispatch(setIndexSelectedOrderUser(index));
   }
 
   return (
     <div className={cx('container_main')}>
       {
+        loading && (
+          <div className={cx("container-loader")}>
+            <HashLoader
+              color="#0088af"
+              loading={loading}
+              size={80}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+              className={cx("loader-feedback")}
+            />
+          </div>
+        )
+      }
+      {
         isOpenModalDetail && <DetailOrder />
+      }
+      {
+        isOpenMessagebox && <MessageBox/>
       }
       <div className={cx('title_page')}>ĐƠN HÀNG CỦA BẠN</div>
       <div className={cx('header')}>
@@ -90,14 +112,16 @@ function YourOrder() {
             <SearchBar handleChangeInput={handleChangeInputSearch} />
           </div>
 
-          <div className={cx('container_dropdown')}>
-            <span className={cx('title_search')}>Ngày tạo đơn</span>
-            <DatePicker className={cx('date_picker')} selected={startDateFilter} onChange={(date) => handleChangeDate(date)} />
-          </div>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <div className={cx('container_dropdown')} style={{marginRight: '80px'}}>
+              <span className={cx('title_search')}>Ngày tạo đơn</span>
+              <DatePicker dateFormat="dd/MM/YYYY" className={cx('date_picker')} selected={startDateFilter} onChange={(date) => handleChangeDate(date)} />
+            </div>
 
-          <div className={cx('container_dropdown')}>
-            <span className={cx('title_search')}>Trạng thái đơn hàng</span>
-            <Dropdown handleSelectOption={handleChangeFilter} />
+            <div className={cx('container_dropdown')}>
+              <span className={cx('title_search')}>Trạng thái đơn hàng</span>
+              <Dropdown handleSelectOption={handleChangeFilter} />
+            </div>
           </div>
         </div>
       </div>
@@ -107,6 +131,7 @@ function YourOrder() {
           <thead>
             <tr className={cx('header_table')}>
               <th className={cx('item_header_table')}>Mã đơn hàng</th>
+              <th className={cx('item_header_table')}>Người tạo đơn</th>
               <th className={cx('item_header_table')}>Ngày tạo đơn</th>
               <th className={cx('item_header_table')}>Trạng thái</th>
               <th className={cx('item_header_table')}>Thao tác</th>
@@ -115,20 +140,27 @@ function YourOrder() {
 
           <tbody className={cx('body_table')}>
             {
-              listOrders.map((item, index) => {
-                return (
-                  <tr className={cx('row_table')}>
-                    <td className={cx('item_row_table')}>{item._id}</td>
-                    <td className={cx('item_row_table')}>{convertDate(item.ngayTaoDon)}</td>
-                    {
-                      item.trangThaiXetDuyet ? (<td className={cx(['item_row_table', 'active'])}>Đã xét duyệt</td>) : (<td className={cx(['item_row_table', 'lock'])}>Chờ xét duyệt</td>)
-                    }
-                    <td className={cx('item_row_table')} onClick={() => handleClickSeeDetail(index)}>
-                      <span className={cx('text_row')}>Xem chi tiết</span>
-                    </td>
-                  </tr>
-                )
-              })
+              listOrdersUser.length === 0 ? (
+                <tr className={cx('row_table')}>
+                  <td colSpan={5} className={cx('item_row_table')} style={{ textAlign: 'center' }}>Không có đơn hàng nào trong danh sách</td>
+                </tr>
+              ) : (
+                listOrdersUser.map((item, index) => {
+                  return (
+                    <tr className={cx('row_table')} key={item._id}>
+                      <td className={cx('item_row_table')}>{item._id}</td>
+                      <td className={cx('item_row_table')}>{item.user.hoten}</td>
+                      <td className={cx('item_row_table')}>{convertDate(item.ngayTaoDon)}</td>
+                      {
+                         item.trangThaiHuy ? (<td className={cx(['item_row_table', 'lock'])}>Đã bị hủy</td>) : (item.trangThaiXetDuyet ? (<td className={cx(['item_row_table', 'active'])}>Đã xét duyệt</td>) : (<td className={cx(['item_row_table', 'waiting'])}>Chờ xét duyệt</td>))
+                      }
+                      <td className={cx('item_row_table')} onClick={() => handleClickSeeDetail(index)}>
+                        <span className={cx('text_row')}>Xem chi tiết</span>
+                      </td>
+                    </tr>
+                  )
+                })
+              )
             }
           </tbody>
         </table>

@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from './DetailOrder.module.scss';
 import ItemDetailOrder from './ItemDetailOrder';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalDetail } from '../../../../redux/slices/orderSlice';
+import { setIsOpenMessageBox, setIsOpenModalDetail } from '../../../../redux/slices/orderSlice';
 import convertDate from '../../../../utils/convertDate';
 
 const cx = classNames.bind(styles);
@@ -12,21 +12,16 @@ const cx = classNames.bind(styles);
 function DetailOrder() {
 
   const dispatch = useDispatch();
-  const listOrders = useSelector(state => state.orderManagement.ordersList);
-  const indexSelected = useSelector(state => state.orderManagement.indexSelected);
+  const listOrders = useSelector(state => state.orderManagement.listOrdersUser);
+  const indexSelected = useSelector(state => state.orderManagement.indexSelectedOrderUser);
   const itemSelected = listOrders[indexSelected];
-  const isOpenMessagebox = useSelector(state => state.orderManagement.isOpenMessagebox);
 
   const handleClose = () => {
     dispatch(setIsOpenModalDetail(false));
   }
 
   const handleRejected = () => {
-
-  }
-
-  const handleAccept = () => {
-    // dispatch hành động trong này
+    dispatch(setIsOpenMessageBox(true));
   }
 
   return (
@@ -42,7 +37,7 @@ function DetailOrder() {
             <span className={cx('title')}>Trạng thái đơn hàng: </span>
 
             {
-              itemSelected.trangThaiXetDuyet ? (<span className={cx('accept')}>Đã xét duyệt</span>) : (<span className={cx('status')}>Chờ xét duyệt</span>)
+              itemSelected.trangThaiHuy ? (<span className={cx('status')}>Đã bị hủy</span>) : (itemSelected.trangThaiXetDuyet ? (<span className={cx('accept')}>Đã xét duyệt</span>) : (<span className={cx('waiting')}>Chờ xét duyệt</span>))
             }
           </div>
 
@@ -104,7 +99,7 @@ function DetailOrder() {
 
         <div className={cx('container-btn')}>
           {
-            itemSelected.trangThaiXetDuyet ? (
+            itemSelected.trangThaiXetDuyet || itemSelected.trangThaiHuy ? (
               <div className={cx('btn-accept')} onClick={handleClose}>
                 Đóng
               </div>

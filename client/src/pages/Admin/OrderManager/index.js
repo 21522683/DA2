@@ -135,21 +135,27 @@ function OrderManager() {
 
           <tbody className={cx('body_table')}>
             {
-              listOrders.map((item, index) => {
-                return (
-                  <tr className={cx('row_table')} key={item._id}>
-                    <td className={cx('item_row_table')}>{item._id}</td>
-                    <td className={cx('item_row_table')}>{item.user.hoten}</td>
-                    <td className={cx('item_row_table')}>{convertDate(item.ngayTaoDon)}</td>
-                    {
-                      item.trangThaiHuy ? (<td className={cx(['item_row_table', 'lock'])}>Đã bị hủy</td>) : (item.trangThaiXetDuyet ? (<td className={cx(['item_row_table', 'active'])}>Đã xét duyệt</td>) : (<td className={cx(['item_row_table', 'waiting'])}>Chờ xét duyệt</td>))
-                    }
-                    <td className={cx('item_row_table')} onClick={() => handleClickSeeDetail(index)}>
-                      <span className={cx('text_row')}>Xem chi tiết</span>
-                    </td>
-                  </tr>
-                )
-              })
+              listOrders.length === 0 ? (
+                <tr className={cx('row_table')}>
+                  <td colSpan={5} className={cx('item_row_table')} style={{ textAlign: 'center' }}>Không có đơn hàng nào trong danh sách</td>
+                </tr>
+              ) : (
+                listOrders.map((item, index) => {
+                  return (
+                    <tr className={cx('row_table')} key={item._id}>
+                      <td className={cx('item_row_table')}>{item._id}</td>
+                      <td className={cx('item_row_table')}>{item.user.hoten}</td>
+                      <td className={cx('item_row_table')}>{convertDate(item.ngayTaoDon)}</td>
+                      {
+                        item.trangThaiHuy ? (<td className={cx(['item_row_table', 'lock'])}>Đã bị hủy</td>) : (item.trangThaiXetDuyet ? (<td className={cx(['item_row_table', 'active'])}>Đã xét duyệt</td>) : (<td className={cx(['item_row_table', 'waiting'])}>Chờ xét duyệt</td>))
+                      }
+                      <td className={cx('item_row_table')} onClick={() => handleClickSeeDetail(index)}>
+                        <span className={cx('text_row')}>Xem chi tiết</span>
+                      </td>
+                    </tr>
+                  )
+                })
+              )
             }
           </tbody>
 

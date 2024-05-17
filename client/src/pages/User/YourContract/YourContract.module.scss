@@ -29,7 +29,7 @@
             padding: 0 20px;
 
             .container_search {
-                width: 45%;
+                width: 550px;
 
                 .title_search {
                     font-size: 14px;
@@ -41,7 +41,6 @@
             .container_dropdown {
                 width: 200px;
                 position: relative;
-                /* Đặt position: relative */
                 z-index: 999;
 
                 .title_search {

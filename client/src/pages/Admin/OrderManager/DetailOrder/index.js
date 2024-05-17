@@ -81,7 +81,7 @@ function DetailOrder() {
           <div className={cx('container-status')}>
             <span className={cx('title')}>Trạng thái đơn hàng: </span>
             {
-              itemSelected.trangThaiXetDuyet ? (<span className={cx('accept')}>Đã xét duyệt</span>) : (<span className={cx('status')}>Chờ xét duyệt</span>)
+               itemSelected.trangThaiHuy ? (<span className={cx('status')}>Đã bị hủy</span>) : (itemSelected.trangThaiXetDuyet ? (<span className={cx('accept')}>Đã xét duyệt</span>) : (<span className={cx('waiting')}>Chờ xét duyệt</span>))
             }
           </div>
 
@@ -142,7 +142,7 @@ function DetailOrder() {
         </div>
 
         {
-          itemSelected.trangThaiXetDuyet ? (
+          itemSelected.trangThaiXetDuyet || itemSelected.trangThaiHuy ? (
             <div className={cx('container-btn')}>
               <div className={cx('btn-rejected')} onClick={handleClose}>
                 Đóng

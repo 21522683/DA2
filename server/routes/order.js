@@ -9,5 +9,5 @@ router.post('/createOrderUser', checkToken, OrderController.createOrderUser);
 router.get('/getAllOrders', OrderController.getAllOrders);
 router.get('/getAllOrdersByUserId/:userId', OrderController.getAllOrdersByUserId);
 router.patch('/updateStatusOrder/:id', OrderController.updateStatusOrder);
-
+router.patch('/cancelOrder/:id', OrderController.cancelOrder);
 export default router;

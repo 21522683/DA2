@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import classNames from "classnames/bind";
 import styles from './ItemDetailOrder.module.scss';
-import images from '../../../../../assets/images/index';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import convertDate from '../../../../../utils/convertDate';
 

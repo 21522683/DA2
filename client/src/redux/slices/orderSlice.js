@@ -19,6 +19,8 @@ const orderSlice = createSlice({
     isLoading: false,
     listCreateGoods: [],
     indexGoodsSelected: -1,
+    listOrdersUser: [],
+    indexSelectedOrderUser: -1,
 
   },
   reducers: {
@@ -39,6 +41,12 @@ const orderSlice = createSlice({
     },
     setIndexGoodsSelected: (state, action) => {
       state.indexGoodsSelected = action.payload;
+    },
+    setListOrdersUser: (state, action) => {
+      state.listOrdersUser = [...action.payload];
+    },
+    setIndexSelectedOrderUser: (state, action) => {
+      state.indexSelectedOrderUser = action.payload;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -84,6 +92,8 @@ export const {
   updateGoods,
   deleteGoods,
   setLoading,
+  setListOrdersUser,
+  setIndexSelectedOrderUser
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

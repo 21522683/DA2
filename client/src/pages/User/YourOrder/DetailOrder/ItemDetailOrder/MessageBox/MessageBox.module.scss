@@ -5,7 +5,10 @@
     display: flex;
     background-color: rgba(0, 0, 0, 0.5);
     top: 0;
-    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5000;
     align-items: center;
     justify-content: center;
 
@@ -103,21 +106,5 @@
                 }
             }
         }
-    }
-}
-
-.container-loader {
-    background-color: transparent;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    z-index: 1200;
-    .loader-feedback {
-        margin-top: calc(16% + 30px);
     }
 }

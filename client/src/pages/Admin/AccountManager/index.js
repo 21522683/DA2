@@ -151,25 +151,31 @@ function AccountManager() {
 
           <tbody className={cx('body_table')}>
             {
-              listUsers.map((item, index) => {
-                return (
-                  item.isAdmin === false && (
-                    <tr className={cx('row_table')} key={index}>
-                      <td className={cx('item_row_table')}>{item.hoten}</td>
-                      <td className={cx('item_row_table')}>{item.email}</td>
-                      {
-                        item.status === true ? (<td className={cx(['item_row_table', 'active'])}>Đang hoạt động</td>) : (<td className={cx(['item_row_table', 'lock'])}>Đang bị khóa</td>)
-                      }
-                      {
-                        item.isVerify === true ? (<td className={cx(['item_row_table', 'active'])}>Đã xác minh</td>) : (item.isVerify === false && item.infoVerify ? (<td className={cx(['item_row_table', 'waiting'])}>Chờ xác minh</td>) : (<td className={cx(['item_row_table', 'lock'])}>Chưa xác minh</td>))
-                      }
-                      <td className={cx('item_row_table')}>
-                        <span className={cx('text_row')} onClick={() => handleClickSeeDetail(index)}>Xem chi tiết</span>
-                      </td>
-                    </tr>
+              listUsers.length === 0 ? (
+                <tr className={cx('row_table')}>
+                  <td colSpan={5} className={cx('item_row_table')} style={{ textAlign: 'center' }}>Không có đơn hàng nào trong danh sách</td>
+                </tr>
+              ) : (
+                listUsers.map((item, index) => {
+                  return (
+                    item.isAdmin === false && (
+                      <tr className={cx('row_table')} key={index}>
+                        <td className={cx('item_row_table')}>{item.hoten}</td>
+                        <td className={cx('item_row_table')}>{item.email}</td>
+                        {
+                          item.status === true ? (<td className={cx(['item_row_table', 'active'])}>Đang hoạt động</td>) : (<td className={cx(['item_row_table', 'lock'])}>Đang bị khóa</td>)
+                        }
+                        {
+                          item.isVerify === true ? (<td className={cx(['item_row_table', 'active'])}>Đã xác minh</td>) : (item.isVerify === false && item.infoVerify ? (<td className={cx(['item_row_table', 'waiting'])}>Chờ xác minh</td>) : (<td className={cx(['item_row_table', 'lock'])}>Chưa xác minh</td>))
+                        }
+                        <td className={cx('item_row_table')}>
+                          <span className={cx('text_row')} onClick={() => handleClickSeeDetail(index)}>Xem chi tiết</span>
+                        </td>
+                      </tr>
+                    )
                   )
-                )
-              })
+                })
+              )
             }
           </tbody>
         </table>

@@ -33,14 +33,16 @@ function YourBillHistory() {
             <SearchBar handleChangeInput={handleChangeInputSearch} />
           </div>
 
-          <div className={cx('container_dropdown')}>
-            <span className={cx('title_search')}>Ngày tạo hóa đơn</span>
-            <DatePicker className={cx('date_picker')} selected={startDateFilter} onChange={(date) => setStartDateFilter(date)} />
-          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div className={cx('container_dropdown')} style={{marginRight: '80px'}}>
+              <span className={cx('title_search')}>Ngày tạo hóa đơn</span>
+              <DatePicker dateFormat="dd/MM/YYYY" className={cx('date_picker')} selected={startDateFilter} onChange={(date) => setStartDateFilter(date)} />
+            </div>
 
-          <div className={cx('container_dropdown')}>
-            <span className={cx('title_search')}>Trạng thái hóa đơn</span>
-            <Dropdown handleSelectOption={handleChangeFilter} />
+            <div className={cx('container_dropdown')}>
+              <span className={cx('title_search')}>Trạng thái hóa đơn</span>
+              <Dropdown handleSelectOption={handleChangeFilter} />
+            </div>
           </div>
         </div>
       </div>

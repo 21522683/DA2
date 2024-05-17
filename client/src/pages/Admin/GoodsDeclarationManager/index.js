@@ -119,21 +119,27 @@ function GoodsDeclarationManager() {
 
                     <tbody className={cx('body_table')}>
                         {
-                            listGoodsDeclaration.map((item, index) => {
-                                return (
-                                    <tr className={cx('row_table')} key={index}>
-                                        <td className={cx('item_row_table')}>{item._id}</td>
-                                        <td className={cx('item_row_table')}>{item.donHang._id}</td>
-                                        <td className={cx('item_row_table')}>{convertDate(item.ngayTao)}</td>
-                                        {
-                                            item.trangThai ? (<td className={cx(['item_row_table', 'active'])}>Đã tạo hóa đơn</td>) : (<td className={cx(['item_row_table', 'lock'])}>Chưa tạo hóa đơn</td>)
-                                        }
-                                        <td className={cx('item_row_table')} onClick={() => handleClickSeeDetail(index)}>
-                                            <span className={cx('text_row')}>Xem chi tiết</span>
-                                        </td>
-                                    </tr>
-                                )
-                            })
+                            listGoodsDeclaration.length === 0 ? (
+                                <tr className={cx('row_table')}>
+                                    <td colSpan={5} className={cx('item_row_table')} style={{ textAlign: 'center' }}>Không có đơn hàng nào trong danh sách</td>
+                                </tr>
+                            ) : (
+                                listGoodsDeclaration.map((item, index) => {
+                                    return (
+                                        <tr className={cx('row_table')} key={index}>
+                                            <td className={cx('item_row_table')}>{item._id}</td>
+                                            <td className={cx('item_row_table')}>{item.donHang._id}</td>
+                                            <td className={cx('item_row_table')}>{convertDate(item.ngayTao)}</td>
+                                            {
+                                                item.trangThai ? (<td className={cx(['item_row_table', 'active'])}>Đã tạo hóa đơn</td>) : (<td className={cx(['item_row_table', 'lock'])}>Chưa tạo hóa đơn</td>)
+                                            }
+                                            <td className={cx('item_row_table')} onClick={() => handleClickSeeDetail(index)}>
+                                                <span className={cx('text_row')}>Xem chi tiết</span>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            )
                         }
                     </tbody>
 
