@@ -1,29 +1,87 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classNames from "classnames/bind";
 import styles from './YourOrder.module.scss';
 import SearchBar from './SearchBar';
 import Dropdown from './DropDown';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { setIndexOrderSelected, setIsOpenModalDetail, setListOrder } from '../../../redux/slices/orderSlice';
+import baseUrl from '../../../utils';
+import { toast } from 'react-toastify';
+import customAxios from '../../../utils//customAxios';
+import convertDate from '../../../utils/convertDate';
+import DetailOrder from './DetailOrder'
 
 const cx = classNames.bind(styles);
 
 function YourOrder() {
 
+  const dispatch = useDispatch();
+  const listOrders = useSelector(state => state.orderManagement.ordersList);
+  const isOpenModalDetail = useSelector(state => state.orderManagement.isOpenModalDetail);
+
+  const [filter, setFilter] = useState({
+    textSearch: '',
+    status: 'Tất cả',
+    ngayTaoDon: convertDate(new Date()).toString(),
+  });
   const [startDateFilter, setStartDateFilter] = useState(new Date());
+  const [pathWithQuery, setPathWithQuery] = useState('');
 
   const handleChangeInputSearch = (value) => {
-
+    setFilter((prev) => ({ ...prev, textSearch: value.trim() }));
   }
   const handleChangeFilter = (value) => {
-
+    setFilter((prev) => ({ ...prev, status: value }));
   }
-  const handleClickSeeDetail = (index) => {
+  const handleChangeDate = (date) => {
+    const formattedDate = convertDate(date);
+    setStartDateFilter(date);
+    setFilter(prev => ({ ...prev, ngayTaoDon: formattedDate }));
+  }
 
+  const getAllOrders = async () => {
+    try {
+      const response = await customAxios.get(pathWithQuery);
+      dispatch(setListOrder(response.data.orders));
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        toast.error(error.response.message, {
+          position: "top-right"
+        }
+        );
+      }
+    }
+  }
+
+  useEffect(() => {
+    const queryParams = { searchString: filter.textSearch, status: filter.status, ngayTaoDon: filter.ngayTaoDon };
+    const queryString = new URLSearchParams(queryParams).toString();
+    const pathWithQuery = `${baseUrl}/order/getAllOrders?${queryString}`;
+    setPathWithQuery(pathWithQuery);
+    console.log(filter);
+  }, [filter]);
+
+  useEffect(() => {
+    if (pathWithQuery) {
+      getAllOrders();
+    }
+  }, [pathWithQuery]);
+  const handleClickSeeDetail = (index) => {
+    dispatch(setIsOpenModalDetail(true));
+    dispatch(setIndexOrderSelected(index));
   }
 
   return (
     <div className={cx('container_main')}>
+      {
+        isOpenModalDetail && <DetailOrder />
+      }
       <div className={cx('title_page')}>ĐƠN HÀNG CỦA BẠN</div>
       <div className={cx('header')}>
         <div className={cx('container_filter')}>
@@ -34,11 +92,11 @@ function YourOrder() {
 
           <div className={cx('container_dropdown')}>
             <span className={cx('title_search')}>Ngày tạo đơn</span>
-            <DatePicker className={cx('date_picker')} selected={startDateFilter} onChange={(date) => setStartDateFilter(date)} />
+            <DatePicker className={cx('date_picker')} selected={startDateFilter} onChange={(date) => handleChangeDate(date)} />
           </div>
 
           <div className={cx('container_dropdown')}>
-            <span className={cx('title_search')}>Trạng thái hoạt động</span>
+            <span className={cx('title_search')}>Trạng thái đơn hàng</span>
             <Dropdown handleSelectOption={handleChangeFilter} />
           </div>
         </div>
@@ -57,15 +115,14 @@ function YourOrder() {
 
           <tbody className={cx('body_table')}>
             {
-              [1, 2, 3, 4, 5].map((item, index) => {
+              listOrders.map((item, index) => {
                 return (
                   <tr className={cx('row_table')}>
-                    <td className={cx('item_row_table')}>DH001</td>
-                    <td className={cx('item_row_table')}>11/02/2025</td>
-                    <td className={cx(['item_row_table', 'active'])}>Đã xét duyệt</td>
-                    {/* {
-                      item.trangThaiXetDuyet ? () : (<td className={cx(['item_row_table', 'lock'])}>Chờ xét duyệt</td>)
-                    } */}
+                    <td className={cx('item_row_table')}>{item._id}</td>
+                    <td className={cx('item_row_table')}>{convertDate(item.ngayTaoDon)}</td>
+                    {
+                      item.trangThaiXetDuyet ? (<td className={cx(['item_row_table', 'active'])}>Đã xét duyệt</td>) : (<td className={cx(['item_row_table', 'lock'])}>Chờ xét duyệt</td>)
+                    }
                     <td className={cx('item_row_table')} onClick={() => handleClickSeeDetail(index)}>
                       <span className={cx('text_row')}>Xem chi tiết</span>
                     </td>

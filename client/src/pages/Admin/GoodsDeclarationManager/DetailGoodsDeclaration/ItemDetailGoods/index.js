@@ -1,11 +1,12 @@
 import React from 'react'
 import classNames from "classnames/bind";
 import styles from './ItemDetailGoods.module.scss';
+import convertDate from '../../../../../utils/convertDate';
 
 const cx = classNames.bind(styles);
 
 
-function ItemDetailGoods({itemHangHoa}) {
+function ItemDetailGoods({ itemHangHoa }) {
 
   return (
     <div className={cx('detail_goods')}>
@@ -17,12 +18,13 @@ function ItemDetailGoods({itemHangHoa}) {
         <span className={cx('title')}>Nhà cung cấp:</span>
         <span className={cx('content')}>{itemHangHoa.nhaCungCap}</span>
       </div>
+      <div className={cx('container_hh')}>
+        <span className={cx('title')}>Lĩnh vực:</span>
+        <span className={cx('content')}>{itemHangHoa.linhVuc}</span>
+      </div>
 
       <div className={cx('container_mutilple')}>
-        <div className={cx('container_hh')}>
-          <span className={cx('title')}>Lĩnh vực:</span>
-          <span className={cx('content')}>{itemHangHoa.linhVuc.tenLinhVuc}</span>
-        </div>
+
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Số lượng:</span>
           <span className={cx('content')}>{itemHangHoa.soluong}</span>
@@ -40,11 +42,11 @@ function ItemDetailGoods({itemHangHoa}) {
       <div className={cx('container_mutilple')}>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Ngày SX:</span>
-          <span className={cx('content')}>{itemHangHoa.ngaySX}</span>
+          <span className={cx('content')}>{convertDate(itemHangHoa.ngaySX)}</span>
         </div>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>HSD:</span>
-          <span className={cx('content')}>{itemHangHoa.HSD}</span>
+          <span className={cx('content')}>{convertDate(itemHangHoa.HSD)}</span>
         </div>
       </div>
 

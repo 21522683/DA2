@@ -1,6 +1,5 @@
 import cloudinary from '../utils/cloudinary.js';
 import { Goods, GoodsDeclaration, Order } from '../model/index.js';
-import mongoose from 'mongoose'
 
 
 const createOrderUser = async (req, res) => {
@@ -160,7 +159,6 @@ const updateStatusOrder = async (req, res) => {
         const newGoodsDeclaration = new GoodsDeclaration({
             donHang: order._id,
             ngayTao: new Date(),
-            trangThai: order.trangThaiXetDuyet
         });
 
         await newGoodsDeclaration.save();

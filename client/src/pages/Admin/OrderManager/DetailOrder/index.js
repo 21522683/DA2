@@ -133,7 +133,7 @@ function DetailOrder() {
             {
               itemSelected.hangHoa.map((item, index) => {
                 return (
-                  <ItemDetailOrder itemHH={item} key={index} />
+                  <ItemDetailOrder itemHH={item} key={item._id} />
                 )
               })
             }

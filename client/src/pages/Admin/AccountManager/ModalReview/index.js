@@ -28,7 +28,7 @@ function ModalReview() {
     try {
       const response = await customAxios.patch(url);
       dispatch(setLoading(false));
-      toast.success(response.data.message, {
+      toast.success("Xác minh thành công", {
         position: "top-right"
       }
       );

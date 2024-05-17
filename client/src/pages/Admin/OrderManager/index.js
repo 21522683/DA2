@@ -111,7 +111,7 @@ function OrderManager() {
 
           <div className={cx('container_dropdown')}>
             <span className={cx('title_search')}>Ngày tạo đơn</span>
-            <DatePicker className={cx('date_picker')} selected={startDateFilter} onChange={(date) => handleChangeDate(date)} />
+            <DatePicker dateFormat="dd/MM/YYYY" className={cx('date_picker')} selected={startDateFilter} onChange={(date) => handleChangeDate(date)} />
           </div>
 
           <div className={cx('container_dropdown')}>

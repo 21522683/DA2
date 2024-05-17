@@ -8,631 +8,72 @@ import "react-datepicker/dist/react-datepicker.css";
 import DetailGoodsDeclaration from './DetailGoodsDeclaration';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIndexGoodDeclarationSelected, setIsOpenModalDetail, setListGoodsDeclaration } from '../../../redux/slices/goodsDeclarationSlice';
+import HashLoader from "react-spinners/HashLoader";
+import baseUrl from '../../../utils';
+import { toast } from 'react-toastify';
+import customAxios from '../../../utils//customAxios';
+import convertDate from '../../../utils/convertDate';
 
 const cx = classNames.bind(styles);
-
-const list = [
-    {
-        donHang: {
-            loaiHinh: "Xuất khẩu",
-            hangHoa: [
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 1",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 2",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 3",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 4",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-            ],
-            cangDi: "Cảng Đôn An Sài Gòn",
-            cangDen: "Cảng Hà nội",
-            ngayDiDuKien: "28/01/2024",
-            ngayDenDuKien: "03/05/2024",
-            user: {
-                diaChi: 'Thành phố Hồ Chí Minh',
-                tenDoanhNghiep: 'Công ty thương mại cổ phần A',
-                stk: '1020637570',
-                nganHang: 'VIETCOMBANK',
-                soFAX: '024.98568476847',
-                status: "Đang hoạt động",
-                representative: {
-                    hoten: 'Phan Trọng Tính',
-                    email: "phantrongtinh1508@gmail.com",
-                    password: "phantrongtinh",
-                    soDienThoai: "0379361210",
-                }
-            },
-            ngayTaoDon: "29/04/2024",
-            trangThaiXetDuyet: false,
-            trangThaiHuy: false,
-        },
-        ngayTao: '11/02/2024',
-        trangThai: false,
-    },
-    {
-        donHang: {
-            loaiHinh: "Nhập khẩu",
-            hangHoa: [
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 1",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 2",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 3",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 4",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-            ],
-            cangDi: "Cảng Đôn An Sài Gòn",
-            cangDen: "Cảng Hà nội",
-            ngayDiDuKien: "28/01/2024",
-            ngayDenDuKien: "03/05/2024",
-            user: {
-                diaChi: 'Thành phố Hồ Chí Minh',
-                tenDoanhNghiep: 'Công ty thương mại cổ phần A',
-                stk: '1020637570',
-                nganHang: 'VIETCOMBANK',
-                soFAX: '024.98568476847',
-                status: "Đang hoạt động",
-                representative: {
-                    hoten: 'Phan Trọng Tính',
-                    email: "phantrongtinh1508@gmail.com",
-                    password: "phantrongtinh",
-                    soDienThoai: "0379361210",
-                }
-            },
-            ngayTaoDon: "30/04/2024",
-            trangThaiXetDuyet: true,
-            trangThaiHuy: false,
-        },
-        ngayTao: '17/04/2024',
-        trangThai: false,
-    },
-    {
-        donHang: {
-            loaiHinh: "Xuất khẩu",
-            hangHoa: [
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 1",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 2",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 3",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 4",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-            ],
-            cangDi: "Cảng Đôn An Sài Gòn",
-            cangDen: "Cảng Hà nội",
-            ngayDiDuKien: "28/01/2024",
-            ngayDenDuKien: "03/05/2024",
-            user: {
-                diaChi: 'Thành phố Hồ Chí Minh',
-                tenDoanhNghiep: 'Công ty thương mại cổ phần A',
-                stk: '1020637570',
-                nganHang: 'VIETCOMBANK',
-                soFAX: '024.98568476847',
-                status: "Đang hoạt động",
-                representative: {
-                    hoten: 'Phan Trọng Tính',
-                    email: "phantrongtinh1508@gmail.com",
-                    password: "phantrongtinh",
-                    soDienThoai: "0379361210",
-                }
-            },
-            ngayTaoDon: "02/05/2024",
-            trangThaiXetDuyet: false,
-            trangThaiHuy: false,
-        },
-        ngayTao: '22/04/2024',
-        trangThai: true,
-    },
-    {
-        donHang: {
-            loaiHinh: "Xuất khẩu",
-            hangHoa: [
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 1",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 2",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 3",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-                {
-                    tenHH: "Thuốc trị cảm ho sốt Para... 4",
-                    hinhAnh: [
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        },
-                        {
-                            url: "https://iso-logistics.vn/wp-content/uploads/2021/11/CACH-TINH-CUOC-CHO-HANG-AIR-CARGO-HINH-ANH.jpg",
-                        }
-                    ],
-                    linhVuc: {
-                        tenLinhVuc: "Y tế"
-                    },
-                    soluong: 1244,
-                    moTa: "Mô tả của sản phẩm phẩm.......(VD: Dây là sản phẩm của bộ y tế đã có chứng nhận, một loại thuốc trị cảm dành cho người tiêu dùng trên 16 tuổi, thuốc không có tác dụng phụ và không thể thay thế thuốc chữa bệnh)",
-                    donViTinh: "kg",
-                    khoiLuong: 1.44,
-                    ngaySX: "11/01/2023",
-                    HSD: "11/01/2027",
-                    chieuDai: 0.23,
-                    chieuRong: 0.14,
-                    chieuCao: 0.02,
-                    nhaCungCap: "Công ty cổ phần Dược phẩm ABNC",
-                },
-            ],
-            cangDi: "Cảng Đôn An Sài Gòn",
-            cangDen: "Cảng Hà nội",
-            ngayDiDuKien: "28/01/2024",
-            ngayDenDuKien: "03/05/2024",
-            user: {
-                diaChi: 'Thành phố Hồ Chí Minh',
-                tenDoanhNghiep: 'Công ty thương mại cổ phần A',
-                stk: '1020637570',
-                nganHang: 'VIETCOMBANK',
-                soFAX: '024.98568476847',
-                status: "Đang hoạt động",
-                representative: {
-                    hoten: 'Phan Trọng Tính',
-                    email: "phantrongtinh1508@gmail.com",
-                    password: "phantrongtinh",
-                    soDienThoai: "0379361210",
-                }
-            },
-            ngayTaoDon: "04/05/2024",
-            trangThaiXetDuyet: false,
-            trangThaiHuy: false,
-        },
-        ngayTao: '12/09/2024',
-        trangThai: true,
-    },
-];
 
 function GoodsDeclarationManager() {
 
     const dispatch = useDispatch();
     const listGoodsDeclaration = useSelector(state => state.goodsDeclarationManagement.goodsDeclarationsList);
     const isOpenModalDetail = useSelector(state => state.goodsDeclarationManagement.isOpenModalDetail);
+    const loading = useSelector(state => state.orderManagement.isLoading);
 
-    useEffect(() => {
-        dispatch(setListGoodsDeclaration(list));
-    }, []);
-
-
+    const [filter, setFilter] = useState({
+        textSearch: '',
+        status: 'Tất cả',
+        ngayTao: convertDate(new Date()).toString(),
+    });
     const [startDateFilter, setStartDateFilter] = useState(new Date());
+    const [pathWithQuery, setPathWithQuery] = useState('');
 
     const handleChangeInputSearch = (value) => {
-
+        setFilter((prev) => ({ ...prev, textSearch: value.trim() }));
     }
     const handleChangeFilter = (value) => {
-
+        setFilter((prev) => ({ ...prev, status: value }));
     }
+    const handleChangeDate = (date) => {
+        const formattedDate = convertDate(date);
+        setStartDateFilter(date);
+        setFilter(prev => ({ ...prev, ngayTao: formattedDate }));
+    }
+
+    const getAllGoodsDeclaration = async () => {
+        try {
+            const response = await customAxios.get(pathWithQuery);
+            dispatch(setListGoodsDeclaration(response.data.goodsDeclaration));
+        } catch (error) {
+            if (
+                error.response &&
+                error.response.status >= 400 &&
+                error.response.status <= 500
+            ) {
+                toast.error(error.response.message, {
+                    position: "top-right"
+                }
+                );
+            }
+        }
+    }
+
+    useEffect(() => {
+        const queryParams = { searchString: filter.textSearch, status: filter.status, ngayTao: filter.ngayTao };
+        const queryString = new URLSearchParams(queryParams).toString();
+        const pathWithQuery = `${baseUrl}/goodsDeclaration/getAllGoodsDeclaration?${queryString}`;
+        setPathWithQuery(pathWithQuery);
+        console.log(filter);
+    }, [filter]);
+
+    useEffect(() => {
+        if (pathWithQuery) {
+            getAllGoodsDeclaration();
+        }
+    }, [pathWithQuery]);
 
     const handleClickSeeDetail = (index) => {
         dispatch(setIndexGoodDeclarationSelected(index));
@@ -654,7 +95,7 @@ function GoodsDeclarationManager() {
 
                     <div className={cx('container_dropdown')}>
                         <span className={cx('title_search')}>Ngày tạo</span>
-                        <DatePicker className={cx('date_picker')} selected={startDateFilter} onChange={(date) => setStartDateFilter(date)} />
+                        <DatePicker dateFormat="dd/MM/YYYY" className={cx('date_picker')} selected={startDateFilter} onChange={(date) => handleChangeDate(date)} />
                     </div>
 
                     <div className={cx('container_dropdown')}>
@@ -681,9 +122,9 @@ function GoodsDeclarationManager() {
                             listGoodsDeclaration.map((item, index) => {
                                 return (
                                     <tr className={cx('row_table')} key={index}>
-                                        <td className={cx('item_row_table')}>KK001</td>
-                                        <td className={cx('item_row_table')}>DH001</td>
-                                        <td className={cx('item_row_table')}>{item.ngayTao}</td>
+                                        <td className={cx('item_row_table')}>{item._id}</td>
+                                        <td className={cx('item_row_table')}>{item.donHang._id}</td>
+                                        <td className={cx('item_row_table')}>{convertDate(item.ngayTao)}</td>
                                         {
                                             item.trangThai ? (<td className={cx(['item_row_table', 'active'])}>Đã tạo hóa đơn</td>) : (<td className={cx(['item_row_table', 'lock'])}>Chưa tạo hóa đơn</td>)
                                         }
