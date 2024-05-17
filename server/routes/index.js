@@ -1,3 +1,5 @@
 export { default as UserRouter } from './user.js'
 export { default as OrderRouter } from './order.js'
 export { default as GoodsDeclarationRouter } from './goodsDeclaration.js'
+export { default as ContainerRouter } from './container.js'
+export { default as VesselRouter } from './vessel.js'

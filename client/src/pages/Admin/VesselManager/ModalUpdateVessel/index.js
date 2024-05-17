@@ -77,18 +77,6 @@ function ModalUpdateContainer() {
 
                 <div className={cx('container_body_modal')}>
                     <div className={cx('container_input_2')}>
-                        <div className={cx('container_input_2_ten')}>
-                            <span className={cx('title_input')}>Tên tàu</span>
-                            <input
-                                type="text"
-                                className={cx('input_number')}
-                                placeholder='Nhập tên tàu'
-                                value={tenTau}
-                                onChange={(e) => handleChangeTenTau(e.target.value)} />
-                            <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>Vui lòng nhập thông tin</span>
-                        </div>
-                    </div>
-                    <div className={cx('container_input_2')}>
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Số hiệu tàu</span>
                             <input
@@ -104,6 +92,30 @@ function ModalUpdateContainer() {
                             <span className={cx('title_input')}>Trạng thái hoạt động</span>
                             <Dropdown handleSelectOption={handleChangeFilter} />
                             <span style={{color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px'}}>Vui lòng nhập thông tin</span>
+                        </div>
+                    </div>
+
+                    <div className={cx('container_input_2')}>
+                        <div className={cx('container_input_2_a')}>
+                            <span className={cx('title_input')}>Tên tàu</span>
+                            <input
+                                type="text"
+                                className={cx('input_number')}
+                                placeholder='Nhập tên tàu'
+                                value={tenTau}
+                                onChange={(e) => handleChangeTenTau(e.target.value)} />
+                            <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>Vui lòng nhập thông tin</span>
+                        </div>
+
+                        <div className={cx('container_input_2_a')}>
+                            <span className={cx('title_input')}>Giá thuê tàu</span>
+                            <input
+                                type="text"
+                                className={cx('input_number')}
+                                placeholder='Nhập giá thuê tàu'
+                                value={tenTau}
+                                onChange={(e) => handleChangeTenTau(e.target.value)} />
+                            <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>Vui lòng nhập thông tin</span>
                         </div>
                     </div>
 

@@ -10,10 +10,6 @@ export default mongoose.model('Vessel',
             default: true
         },
         trongLuong: Number,
-        soLuong: {
-            type: Number,
-            default: 0
-        },
         giaThue: Number,
     })
 )

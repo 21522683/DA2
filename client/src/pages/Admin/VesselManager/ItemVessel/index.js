@@ -49,6 +49,11 @@ function ItemVessel({ itemVessel, indexItem }) {
                         <span className={cx('title')}>Trọng lượng (tấn):</span>
                         <span className={cx('content')}>{itemVessel.trongLuong}</span>
                     </div>
+
+                    <div className={cx('container_volume')}>
+                        <span className={cx('title')}>Giá thuê:</span>
+                        <span className={cx('content')}>100000000</span>
+                    </div>
                 </div>
             </div>
 
