@@ -2,13 +2,14 @@ import React, { useEffect } from 'react'
 import classNames from "classnames/bind";
 import styles from './ContainerManager.module.scss';
 import SearchBar from './SearchBar';
-import Dropdown from './DropDown';
+import DropDownStatus from './DropDownStatus/index.js';
 import ItemContainer from './ItemContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsOpenModalAdd, setListContainer } from '../../../redux/slices/containerSlice';
 import ModalAddContainer from './ModalAddContainer';
 import ModalUpdateContainer from './ModalUpdateContainer';
 import MessageBox from './MessageBox';
+import DropDownType from './DropDownType/index.js';
 const cx = classNames.bind(styles);
 
 function ContainerManager() {
@@ -98,7 +99,10 @@ function ContainerManager() {
   const handleChangeInputSearch = (value) => {
 
   }
-  const handleChangeFilter = (value) => {
+  const handleChangeFilterType = (value) => {
+
+  }
+  const handleChangeFilterStatus = (value) => {
 
   }
 
@@ -125,7 +129,12 @@ function ContainerManager() {
 
             <div className={cx('container_dropdown')}>
               <span className={cx('title_search')}>Trạng thái hoạt động</span>
-              <Dropdown handleSelectOption={handleChangeFilter} />
+              <DropDownStatus handleSelectOptionStatus={handleChangeFilterStatus} />
+            </div>
+
+            <div className={cx('container_dropdown')}>
+              <span className={cx('title_search')}>Loại container</span>
+              <DropDownType handleSelectOptionType={handleChangeFilterType} />
             </div>
           </div>
 

@@ -41,15 +41,15 @@ function ModalUpdateContainer() {
     const handleChangeFilter = (value) => {
         setTrangThai(value === 'Đang trống' ? false : true);
     };
-    
+
     const handleChangeTaiTrong = (value) => {
         setTaiTrong(value);
     };
-    
+
     const handleChangeTrongLuong = (value) => {
         setTrongLuong(value);
     };
-    
+
 
     const handleClose = () => {
         dispatch(setIsOpenModalUpdate(false));
@@ -65,7 +65,7 @@ function ModalUpdateContainer() {
         console.log(itemUpdate);
         // dispatch hành động xử lý
     }
-    
+
 
     return (
         <div className={cx('wrapper')} onClick={handleClose}>
@@ -76,7 +76,7 @@ function ModalUpdateContainer() {
                 </div>
 
                 <div className={cx('container_body_modal')}>
-                <div className={cx('container_input_2')}>
+                    <div className={cx('container_input_2')}>
                         <div className={cx('container_input_2_ten')}>
                             <span className={cx('title_input')}>Tên tàu</span>
                             <input
@@ -85,6 +85,7 @@ function ModalUpdateContainer() {
                                 placeholder='Nhập tên tàu'
                                 value={tenTau}
                                 onChange={(e) => handleChangeTenTau(e.target.value)} />
+                            <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>Vui lòng nhập thông tin</span>
                         </div>
                     </div>
                     <div className={cx('container_input_2')}>
@@ -96,33 +97,37 @@ function ModalUpdateContainer() {
                                 placeholder='Nhập số hiệu tàu'
                                 value={soHieu}
                                 onChange={(e) => handleChangeSoHieu(e.target.value)} />
+                                <span style={{color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px'}}>Vui lòng nhập thông tin</span>
                         </div>
 
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Trạng thái hoạt động</span>
                             <Dropdown handleSelectOption={handleChangeFilter} />
+                            <span style={{color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px'}}>Vui lòng nhập thông tin</span>
                         </div>
                     </div>
 
                     <div className={cx('container_input_2')}>
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Tải trọng (tấn)</span>
-                            <input 
-                                type="number" 
-                                className={cx('input_number')} 
-                                placeholder='Nhập thể tích' 
+                            <input
+                                type="number"
+                                className={cx('input_number')}
+                                placeholder='Nhập thể tích'
                                 value={taiTrong}
-                                onChange={(e) => handleChangeTaiTrong(e.target.value)}/>
+                                onChange={(e) => handleChangeTaiTrong(e.target.value)} />
+                                <span style={{color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px'}}>Vui lòng nhập thông tin</span>
                         </div>
 
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Trọng lượng (tấn)</span>
-                            <input 
-                                type="number" 
-                                className={cx('input_number')} 
-                                placeholder='Nhập trọng lượng' 
+                            <input
+                                type="number"
+                                className={cx('input_number')}
+                                placeholder='Nhập trọng lượng'
                                 value={trongLuong}
-                                onChange={(e) => handleChangeTrongLuong(e.target.value)}/>
+                                onChange={(e) => handleChangeTrongLuong(e.target.value)} />
+                                <span style={{color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px'}}>Vui lòng nhập thông tin</span>
                         </div>
                     </div>
 

@@ -7,7 +7,7 @@ import { setIndexVesselSelected, setIsOpenMessageBox, setIsOpenModalUpdate } fro
 const cx = classNames.bind(styles);
 
 
-function ItemVessel({itemVessel, indexItem}) {
+function ItemVessel({ itemVessel, indexItem }) {
 
     const dispatch = useDispatch();
 
@@ -52,15 +52,20 @@ function ItemVessel({itemVessel, indexItem}) {
                 </div>
             </div>
 
-            <div className={cx('item_hover')}>
-                <div className={cx('btn_update')} onClick={handleClickUpdate}>
-                    Cập nhật
-                </div>
+            {
+                itemVessel.trangThai === false && (
+                    <div className={cx('item_hover')}>
+                        <div className={cx('btn_update')} onClick={handleClickUpdate}>
+                            Cập nhật
+                        </div>
 
-                <div className={cx('btn_delete')} onClick={handleClickDelete}>
-                    Xóa
-                </div>
-            </div>
+                        <div className={cx('btn_delete')} onClick={handleClickDelete}>
+                            Xóa
+                        </div>
+                    </div>
+                )
+            }
+
         </div>
     )
 }

@@ -7,7 +7,7 @@ import { setIndexContainerSelected, setIsOpenMessageBox, setIsOpenModalUpdate } 
 const cx = classNames.bind(styles);
 
 
-function ItemContainer({itemContainer, indexItem}) {
+function ItemContainer({ itemContainer, indexItem }) {
 
     const dispatch = useDispatch();
 
@@ -37,6 +37,14 @@ function ItemContainer({itemContainer, indexItem}) {
 
                 <div className={cx('container_info')}>
                     <div className={cx('container_volume')}>
+                        <span className={cx('title')}>Loại:</span>
+                        <span className={cx('content')}>TC (20 feet)</span>
+                    </div>
+                    <div className={cx('container_volume')}>
+                        <span className={cx('title')}>Giá thuê:</span>
+                        <span className={cx('content')}>2000000</span>
+                    </div>
+                    <div className={cx('container_volume')}>
                         <span className={cx('title')}>Thể tích (m3):</span>
                         <span className={cx('content')}>{itemContainer.theTichChua}</span>
                     </div>
@@ -47,16 +55,20 @@ function ItemContainer({itemContainer, indexItem}) {
                     </div>
                 </div>
             </div>
+            {
+                itemContainer.trangThai === false && (
+                    <div className={cx('item_hover')}>
+                        <div className={cx('btn_update')} onClick={handleClickUpdate}>
+                            Cập nhật
+                        </div>
 
-            <div className={cx('item_hover')}>
-                <div className={cx('btn_update')} onClick={handleClickUpdate}>
-                    Cập nhật
-                </div>
 
-                <div className={cx('btn_delete')} onClick={handleClickDelete}>
-                    Xóa
-                </div>
-            </div>
+                        <div className={cx('btn_delete')} onClick={handleClickDelete}>
+                            Xóa
+                        </div>
+                    </div>
+                )
+            }
         </div>
     )
 }

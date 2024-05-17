@@ -3,6 +3,8 @@ import classNames from 'classnames/bind';
 import styles from './ModalAddContainer.module.scss';
 import { useDispatch } from 'react-redux';
 import { setIsOpenModalAdd } from '../../../../redux/slices/containerSlice';
+import DropDown from './DropDown';
+
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +20,10 @@ function ModalAddContainer() {
         // dispatch hành động xử lý
     }
 
+    const handleSelectFilter = (value) => {
+
+    }
+
     return (
         <div className={cx('wrapper')} onClick={handleClose}>
             <div className={cx('container-body')} onClick={(e) => e.stopPropagation()}>
@@ -28,22 +34,15 @@ function ModalAddContainer() {
 
                 <div className={cx('container_body_modal')}>
                     <div className={cx('container_input_1')}>
+                        <span className={cx('title_input')}>Loại container</span>
+                        <DropDown handleSelectOption={handleSelectFilter} />
+                    </div>
+
+                    <div className={cx('container_input_1')} style={{ marginTop: '20px' }}>
                         <span className={cx('title_input')}>Số hiệu container</span>
-                        <input type="text" className={cx('input_number')} placeholder='Nhập số hiệu container'/>
+                        <input type="text" className={cx('input_number')} placeholder='Nhập số hiệu container' />
                     </div>
-
-                    <div className={cx('container_input_2')}>
-                        <div className={cx('container_input_2_a')}>
-                            <span className={cx('title_input')}>Thể tích (m3)</span>
-                            <input type="text" className={cx('input_number')} placeholder='Nhập thể tích'/>
-                        </div>
-
-                        <div className={cx('container_input_2_a')}>
-                            <span className={cx('title_input')}>Trọng lượng (tấn)</span>
-                            <input type="text" className={cx('input_number')} placeholder='Nhập trọng lượng'/>
-                        </div>
-                    </div>
-
+                    <span style={{color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px'}}>Vui lòng nhập thông tin</span>
                     <div className={cx('container_btn')}>
                         <div className={cx('btn_accept')} onClick={handleAdd}>
                             Thêm container

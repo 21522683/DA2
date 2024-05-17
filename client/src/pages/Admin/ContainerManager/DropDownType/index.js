@@ -1,35 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import classNames from "classnames/bind";
-import styles from './DropDown.module.scss';
+import styles from './DropDownType.module.scss';
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 const cx = classNames.bind(styles);
-function Dropdown({handleSelectOption}) {
+function DropDownType({handleSelectOptionType}) {
     const [selectedOption, setSelectedOption] = useState('Tất cả');
     const[showOption, setShowOption] = useState(false);
 
     const handleClickOption1 = () => {
         setSelectedOption('Tất cả');
         setShowOption(false);
-        handleSelectOption('Tất cả');
+        handleSelectOptionType('Tất cả');
     }
     const handleClickOption2 = () => {
-        setSelectedOption('Đang trống');
+        setSelectedOption('TC (20 feet)');
         setShowOption(false);
-        handleSelectOption('Đang trống');
+        handleSelectOptionType('TC (20 feet)');
     }
 
     const handleClickOption3 = () => {
-        setSelectedOption('Đang sử dụng');
+        setSelectedOption('TC (40 feet)');
         setShowOption(false);
-        handleSelectOption('Đang sử dụng');
+        handleSelectOptionType('TC (40 feet)');
+    }
+
+    const handleClickOption4 = () => {
+        setSelectedOption('TC (45 feet)');
+        setShowOption(false);
+        handleSelectOptionType('TC (45 feet)');
     }
 
     return (
         <div className={cx("dropdown")}>
             <div className={cx('dropdown_selected')} onClick={() => setShowOption(!showOption)}>
                 <span className={cx('text_selected')}>{selectedOption}</span>
-                <FiChevronDown className={cx('icon_select')} />
+                {
+                    showOption ? (<FiChevronDown className={cx('icon_select')} />) : (<FiChevronUp className={cx('icon_select')} />)
+                }
+                
             </div>
             {
                 showOption && (
@@ -38,10 +47,13 @@ function Dropdown({handleSelectOption}) {
                             <span className={cx('text_dropdown')}>Tất cả</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption2}>
-                            <span className={cx('text_dropdown')}>Đang trống</span>
+                            <span className={cx('text_dropdown')}>TC (20 feet)</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption3}>
-                            <span className={cx('text_dropdown')}>Đang sử dụng</span>
+                            <span className={cx('text_dropdown')}>TC (40 feet)</span>
+                        </div>
+                        <div className={cx('dropdown_option')} onClick={handleClickOption4}>
+                            <span className={cx('text_dropdown')}>TC (50 feet)</span>
                         </div>
                     </div>
                 )
@@ -51,4 +63,4 @@ function Dropdown({handleSelectOption}) {
     );
 };
 
-export default Dropdown;
+export default DropDownType;

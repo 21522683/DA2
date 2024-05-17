@@ -1,42 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import classNames from "classnames/bind";
-import styles from './DropDown.module.scss';
+import styles from './DropDownStatus.module.scss';
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 const cx = classNames.bind(styles);
-function Dropdown({handleSelectOption}) {
-    const [selectedOption, setSelectedOption] = useState('Tất cả');
-    const[showOption, setShowOption] = useState(false);
 
-    const handleClickOption1 = () => {
-        setSelectedOption('Tất cả');
-        setShowOption(false);
-        handleSelectOption('Tất cả');
-    }
+
+function DropDownStatus({ handleSelectOptionStatus }) {
+    const [selectedOption, setSelectedOption] = useState('Đang trống');
+    const [showOption, setShowOption] = useState(false);
+
     const handleClickOption2 = () => {
         setSelectedOption('Đang trống');
         setShowOption(false);
-        handleSelectOption('Đang trống');
+        handleSelectOptionStatus('Đang trống');
     }
 
     const handleClickOption3 = () => {
         setSelectedOption('Đang sử dụng');
         setShowOption(false);
-        handleSelectOption('Đang sử dụng');
+        handleSelectOptionStatus('Đang sử dụng');
     }
 
     return (
         <div className={cx("dropdown")}>
             <div className={cx('dropdown_selected')} onClick={() => setShowOption(!showOption)}>
                 <span className={cx('text_selected')}>{selectedOption}</span>
-                <FiChevronDown className={cx('icon_select')} />
+                {
+                    showOption ? (<FiChevronDown className={cx('icon_select')} />) : (<FiChevronUp className={cx('icon_select')} />)
+                }
+
             </div>
             {
                 showOption && (
                     <div className={cx("dropdown__content")}>
-                        <div className={cx('dropdown_option')} onClick={handleClickOption1}>
-                            <span className={cx('text_dropdown')}>Tất cả</span>
-                        </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption2}>
                             <span className={cx('text_dropdown')}>Đang trống</span>
                         </div>
@@ -51,4 +48,4 @@ function Dropdown({handleSelectOption}) {
     );
 };
 
-export default Dropdown;
+export default DropDownStatus;
