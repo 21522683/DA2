@@ -4,7 +4,10 @@ import styles from './ModalUpdateContainer.module.scss';
 import DropDownStatus from './DropDownStatus';
 import DropdownType from './DropDownType';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalUpdate } from '../../../../redux/slices/containerSlice';
+import { setIsOpenModalUpdate, setLoading } from '../../../../redux/slices/containerSlice';
+import { toast } from 'react-toastify'
+import customAxios from '../../../../utils//customAxios';
+import baseUrl from '../../../../utils/index.js';
 
 const cx = classNames.bind(styles);
 
@@ -16,30 +19,63 @@ function ModalUpdateContainer() {
     const itemSelected = listContainers[indexSelected];
 
     const [soHieu, setSoHieu] = useState(itemSelected.soHieu);
-    const [trangThai, setTrangThai] = useState(itemSelected.trangThai);
+    const [trangThai, setTrangThai] = useState(itemSelected.trangThai === true ? "Đang sử dụng" : "Đang trống");
+    const [type, setType] = useState(itemSelected.loaiContainer.tenLoai);
+    const [textValidate, setTextValidate] = useState('');
 
+    const validation = (value) => {
+        if (value.trim() === '' || value.trim().length === 0) {
+            setTextValidate('Vui lòng nhập số hiệu container');
+            return false;
+        } else {
+            setTextValidate('');
+            return true;
+        }
+    }
 
-    const handleChangeSoHieu = (value) => {
-        setSoHieu(value);
-    };
+    useEffect(() => {
+        let temp = validation(soHieu);
+    }, [soHieu]);
+
     const handleChangeFilterType = (value) => {
-
+        setType(value);
     };
 
     const handleChangeFilterStatus = (value) => {
-
+        setTrangThai(value);
     };
 
     const handleClose = () => {
         dispatch(setIsOpenModalUpdate(false));
     }
-    const handleSave = () => {
-        const itemUpdate = {
-            soHieu: soHieu,
-            trangThai: trangThai,
+    const handleSave = async () => {
+        dispatch(setLoading(true));
+        if (validation(soHieu)) {
+            const data = { 
+                loaiContainer: type,
+                trangThai: trangThai,
+                soHieu: soHieu,
+            }
+            try {
+                const url = `${baseUrl}/container/updateContainer/${itemSelected._id}`;
+                const res = await customAxios.put(url, data);
+                if (res.data.container) {
+                    toast.success('Thêm container thành công', {
+                        position: "top-right"
+                    });
+                }
+                dispatch(setLoading(false));
+                dispatch(setIsOpenModalUpdate(false));
+                window.location.reload("http://localhost:3000/admin/container");
+            } catch (error) {
+                toast.error(error.message, {
+                    position: "top-right"
+                });
+                dispatch(setLoading(false));
+                dispatch(setIsOpenModalUpdate(false));
+                console.log(error.message);
+            }
         }
-        console.log(itemUpdate);
-        // dispatch hành động xử lý
     }
 
 
@@ -71,8 +107,8 @@ function ModalUpdateContainer() {
                                 className={cx('input_number')}
                                 placeholder='Nhập số hiệu container'
                                 value={soHieu}
-                                onChange={(e) => handleChangeSoHieu(e.target.value)} />
-                            <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>Vui lòng nhập thông tin</span>
+                                onChange={(e) => setSoHieu(e.target.value)} />
+                            <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidate}</span>
                         </div>
                     </div>
 

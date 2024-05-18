@@ -54,7 +54,6 @@ function AccountManager() {
     const queryString = new URLSearchParams(queryParams).toString();
     const pathWithQuery = `${baseURL}/user/getAllUser?${queryString}`;
     setPathWithQuery(pathWithQuery);
-    console.log(filter);
   }, [filter]);
 
   useEffect(() => {

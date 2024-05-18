@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind';
 import styles from './ModalAddContainer.module.scss';
 import { useDispatch } from 'react-redux';
-import { setIsOpenModalAdd } from '../../../../redux/slices/containerSlice';
+import { setIsOpenModalAdd, setLoading } from '../../../../redux/slices/containerSlice';
 import DropDown from './DropDown';
-
+import { toast } from 'react-toastify'
+import customAxios from '../../../../utils//customAxios';
+import baseUrl from '../../../../utils/index.js';
 
 const cx = classNames.bind(styles);
 
@@ -13,15 +15,58 @@ function ModalAddContainer() {
 
     const dispatch = useDispatch();
 
+    const [loaiContainer, setLoaiContainer] = useState('TC (20 feet)');
+    const [soHieu, setSoHieu] = useState('');
+    const [textValidate, setTextValidate] = useState('');
+
+    const validation = (value) => {
+        if (value.trim() === '' || value.trim().length === 0) {
+            setTextValidate('Vui lòng nhập số hiệu container');
+            return false;
+        } else {
+            setTextValidate('');
+            return true;
+        }
+    }
+
+    useEffect(() => {
+        let temp = validation(soHieu);
+    }, [soHieu]);
+
     const handleClose = () => {
         dispatch(setIsOpenModalAdd(false));
     }
-    const handleAdd = () => {
-        // dispatch hành động xử lý
+    const handleAdd = async () => {
+        dispatch(setLoading(true));
+        if (validation(soHieu)) {
+            const data = {
+                soHieu: soHieu,
+                loaiContainer: loaiContainer,
+            }
+            try {
+                const url = `${baseUrl}/container/createContainer`;
+                const res = await customAxios.post(url, data);
+                if (res.data.container) {
+                    toast.success('Thêm container thành công', {
+                        position: "top-right"
+                    });
+                }
+                dispatch(setLoading(false));
+                dispatch(setIsOpenModalAdd(false));
+                window.location.reload("http://localhost:3000/admin/container");
+            } catch (error) {
+                toast.error(error.message, {
+                    position: "top-right"
+                });
+                dispatch(setLoading(false));
+                dispatch(setIsOpenModalAdd(false));
+                console.log(error.message);
+            }
+        }
     }
 
     const handleSelectFilter = (value) => {
-
+        setLoaiContainer(value);
     }
 
     return (
@@ -40,9 +85,9 @@ function ModalAddContainer() {
 
                     <div className={cx('container_input_1')} style={{ marginTop: '20px' }}>
                         <span className={cx('title_input')}>Số hiệu container</span>
-                        <input type="text" className={cx('input_number')} placeholder='Nhập số hiệu container' />
+                        <input type="text" className={cx('input_number')} placeholder='Nhập số hiệu container' value={soHieu} onChange={(e) => setSoHieu(e.target.value)} />
                     </div>
-                    <span style={{color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px'}}>Vui lòng nhập thông tin</span>
+                    <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidate}</span>
                     <div className={cx('container_btn')}>
                         <div className={cx('btn_accept')} onClick={handleAdd}>
                             Thêm container

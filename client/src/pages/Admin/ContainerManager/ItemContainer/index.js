@@ -3,6 +3,8 @@ import classNames from "classnames/bind";
 import styles from './ItemContainer.module.scss';
 import { useDispatch } from 'react-redux';
 import { setIndexContainerSelected, setIsOpenMessageBox, setIsOpenModalUpdate } from '../../../../redux/slices/containerSlice';
+import formatMoney from '../../../../utils/formatMoney'
+
 
 const cx = classNames.bind(styles);
 
@@ -38,20 +40,20 @@ function ItemContainer({ itemContainer, indexItem }) {
                 <div className={cx('container_info')}>
                     <div className={cx('container_volume')}>
                         <span className={cx('title')}>Loại:</span>
-                        <span className={cx('content')}>TC (20 feet)</span>
+                        <span className={cx('content')}>{itemContainer.loaiContainer.tenLoai}</span>
                     </div>
                     <div className={cx('container_volume')}>
                         <span className={cx('title')}>Giá thuê:</span>
-                        <span className={cx('content')}>2000000</span>
+                        <span className={cx('content')}>{formatMoney(itemContainer.loaiContainer.giaThue)}</span>
                     </div>
                     <div className={cx('container_volume')}>
                         <span className={cx('title')}>Thể tích (m3):</span>
-                        <span className={cx('content')}>{itemContainer.theTichChua}</span>
+                        <span className={cx('content')}>{itemContainer.loaiContainer.theTichChua}</span>
                     </div>
 
                     <div className={cx('container_volume')}>
                         <span className={cx('title')}>Trọng lượng (tấn):</span>
-                        <span className={cx('content')}>{itemContainer.trongLuong}</span>
+                        <span className={cx('content')}>{itemContainer.loaiContainer.trongLuong}</span>
                     </div>
                 </div>
             </div>

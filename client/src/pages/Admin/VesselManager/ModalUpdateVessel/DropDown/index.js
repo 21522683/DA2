@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import classNames from "classnames/bind";
 import styles from './DropDown.module.scss';
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 function Dropdown({ handleSelectOption }) {
-    const [selectedOption, setSelectedOption] = useState('Đang trống');
+
+    const listVissels = useSelector(state => state.vesselManagement.vesselsList);
+    const indexSelected = useSelector(state => state.vesselManagement.indexSelected);
+    const itemSelected = listVissels[indexSelected];
+
+    const [selectedOption, setSelectedOption] = useState(itemSelected.trangThai ? "Đang sử dụng" : "Đang trống");
     const [showOption, setShowOption] = useState(false);
 
     const handleClickOption2 = () => {

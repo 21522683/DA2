@@ -8,11 +8,11 @@ export default mongoose.model('TypeContainer',
         },
         theTichChua: {
             type: Number,
-            default: 28 // 28 tấn
+            default: 33.1 
         },
         trongLuong: {
             type: Number,
-            default: 2.2 // 2.2 tấn
+            default: 26.68
         },
         giaThue: {
             type: Number,
@@ -26,11 +26,11 @@ export default mongoose.model('TypeContainer',
         },
         theTichChua: {
             type: Number,
-            default: 38 // 38 tấn
+            default: 67.7 
         },
         trongLuong: {
             type: Number,
-            default: 4.2 // 4.2 tấn
+            default: 28.28 
         },
         giaThue: {
             type: Number,
@@ -44,11 +44,11 @@ export default mongoose.model('TypeContainer',
         },
         theTichChua: {
             type: Number,
-            default: 45 // 45 tấn
+            default: 86.6
         },
         trongLuong: {
             type: Number,
-            default: 4.9 // 4.9 tấn
+            default: 32.5
         },
         giaThue: {
             type: Number,

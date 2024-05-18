@@ -7,9 +7,8 @@ export default mongoose.model('Vessel',
         taiTrong: Number,
         trangThai: {
             type: Boolean,
-            default: true
+            default: false
         },
-        trongLuong: Number,
         giaThue: Number,
     })
 )

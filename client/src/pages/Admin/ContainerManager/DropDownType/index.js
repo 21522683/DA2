@@ -53,7 +53,7 @@ function DropDownType({handleSelectOptionType}) {
                             <span className={cx('text_dropdown')}>TC (40 feet)</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption4}>
-                            <span className={cx('text_dropdown')}>TC (50 feet)</span>
+                            <span className={cx('text_dropdown')}>TC (45 feet)</span>
                         </div>
                     </div>
                 )

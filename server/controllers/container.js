@@ -26,19 +26,17 @@ const updateContainer = async (req, res) => {
         const { id } = req.params;
         const { loaiContainer, trangThai, soHieu } = req.body;
         const existsContainer = await Container.findOne({ soHieu }).exec();
-        if (existsContainer) {
+        if (existsContainer && existsContainer.soHieu !== soHieu) {
             return res.status(400).json({ message: 'Số hiệu đã tồn tại, hãy nhập số hiệu khác' });
         }
         const typeContainer = await TypeContainer.findOne({ tenLoai: loaiContainer }).exec();
-        if (!typeContainer) {
-            return res.status(404).json({ message: 'TypeContainer not found' });
-        }
+        const status = trangThai === "Đang trống" ? false : true;
         const updatedContainer = await Container.findByIdAndUpdate(
             id,
             {
                 soHieu,
                 loaiContainer: typeContainer._id,
-                trangThai: trangThai === "Đang trống" ? false : true,
+                trangThai: status,
             },
             { new: true }
         );

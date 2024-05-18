@@ -28,10 +28,13 @@ const vesselSlice = createSlice({
     },
     setIndexVesselSelected: (state, action) => {
       state.indexSelected = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
     }
   },
 });
 
-export const { setListVessel, setIsOpenModalAdd, setIsOpenModalUpdate, setIsOpenMessageBox, setIndexVesselSelected} = vesselSlice.actions;
+export const { setListVessel, setIsOpenModalAdd, setIsOpenModalUpdate, setIsOpenMessageBox, setIndexVesselSelected, setLoading} = vesselSlice.actions;
 export default vesselSlice.reducer;
 

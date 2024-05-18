@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import styles from './ItemVessel.module.scss';
 import { useDispatch } from 'react-redux';
 import { setIndexVesselSelected, setIsOpenMessageBox, setIsOpenModalUpdate } from '../../../../redux/slices/vesselSlice';
+import formatMoney from '../../../../utils/formatMoney';
 
 const cx = classNames.bind(styles);
 
@@ -46,13 +47,8 @@ function ItemVessel({ itemVessel, indexItem }) {
                     </div>
 
                     <div className={cx('container_volume')}>
-                        <span className={cx('title')}>Trọng lượng (tấn):</span>
-                        <span className={cx('content')}>{itemVessel.trongLuong}</span>
-                    </div>
-
-                    <div className={cx('container_volume')}>
                         <span className={cx('title')}>Giá thuê:</span>
-                        <span className={cx('content')}>100000000</span>
+                        <span className={cx('content')}>{formatMoney(itemVessel.giaThue)}</span>
                     </div>
                 </div>
             </div>

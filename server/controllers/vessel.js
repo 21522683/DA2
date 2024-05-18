@@ -3,14 +3,13 @@ import { Vessel } from "../model/index.js";
 
 const createVessel = async (req, res) => {
     try {
-        const { tenTau, soHieu, taiTrong, trongLuong, giaThue } = req.body;
+        const { tenTau, soHieu, taiTrong, giaThue } = req.body;
         const existsVessel = await Vessel.findOne({ soHieu: soHieu }).exec();
         if (!existsVessel) {
             const vessel = await Vessel.create({
                 soHieu: soHieu,
                 tenTau: tenTau,
                 taiTrong: taiTrong,
-                trongLuong: trongLuong,
                 giaThue: giaThue,
             });
             await vessel.save();
@@ -26,9 +25,9 @@ const createVessel = async (req, res) => {
 const updateVessel = async (req, res) => {
     try {
         const { id } = req.params;
-        const { tenTau, soHieu, taiTrong, trongLuong, giaThue , trangThai} = req.body;
+        const { tenTau, soHieu, taiTrong, giaThue , trangThai} = req.body;
         const existsVessel = await Vessel.findOne({ soHieu }).exec();
-        if (existsVessel) {
+        if (existsVessel && existsVessel.soHieu !== soHieu) {
             return res.status(400).json({ message: 'Số hiệu đã tồn tại, hãy nhập số hiệu khác' });
         }
         const updatedVessel = await Vessel.findByIdAndUpdate(
@@ -37,7 +36,6 @@ const updateVessel = async (req, res) => {
                 soHieu,
                 tenTau,
                 taiTrong,
-                trongLuong,
                 giaThue,
                 trangThai: trangThai === "Đang trống" ? false : true,
             },
@@ -80,8 +78,10 @@ const getAllVessel = async (req, res) => {
         }
 
         if (searchString) {
-            filter.soHieu = { $regex: `.*${searchString}.*`, $options: 'i' };
-            filter.tenTau = { $regex: `.*${searchString}.*`, $options: 'i' };
+            filter.$or = [
+                { soHieu: { $regex: `.*${searchString}.*`, $options: 'i' } },
+                { tenTau: { $regex: `.*${searchString}.*`, $options: 'i' } }
+            ];
         }
 
         const filterVessels = await Vessel.find(filter).exec();

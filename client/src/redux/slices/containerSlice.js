@@ -28,10 +28,13 @@ const containerSlice = createSlice({
     },
     setIndexContainerSelected: (state, action) => {
       state.indexSelected = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
     }
   },
 });
 
-export const { setListContainer, setIsOpenModalAdd, setIsOpenModalUpdate, setIsOpenMessageBox, setIndexContainerSelected } = containerSlice.actions;
+export const { setListContainer, setIsOpenModalAdd, setIsOpenModalUpdate, setIsOpenMessageBox, setIndexContainerSelected, setLoading } = containerSlice.actions;
 export default containerSlice.reducer;
 
