@@ -52,6 +52,7 @@ function YourBillHistory() {
           <thead>
             <tr className={cx('header_table')}>
               <th className={cx('item_header_table')}>Mã hóa đơn</th>
+              <th className={cx('item_header_table')}>Mã đơn hàng</th>
               <th className={cx('item_header_table')}>Ngày tạo hóa đơn</th>
               <th className={cx('item_header_table')}>Trạng thái</th>
               <th className={cx('item_header_table')}>Thao tác</th>
@@ -63,6 +64,7 @@ function YourBillHistory() {
               [1, 2, 3, 4, 5].map((item, index) => {
                 return (
                   <tr className={cx('row_table')}>
+                    <td className={cx('item_row_table')}>DH001</td>
                     <td className={cx('item_row_table')}>DH001</td>
                     <td className={cx('item_row_table')}>11/02/2025</td>
                     <td className={cx(['item_row_table', 'active'])}>Đã thanh toán</td>

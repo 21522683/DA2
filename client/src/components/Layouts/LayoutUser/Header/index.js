@@ -123,17 +123,17 @@ function Header() {
             }
           </Link>
 
-          <Link className={cx('btn-link')} to='/user/your-contract' onClick={handleContractLink}>
-            <span className={cx('text-navigate')}>Hợp đồng</span>
-            {
-              selectedNavigateThree && <div className={cx('bar-selected')}></div>
-            }
-          </Link>
-
           <Link className={cx('btn-link')} to='/user/you-history-bill' onClick={handleBillLink}>
             <span className={cx('text-navigate')}>Hóa đơn</span>
             {
               selectedNavigateLast && <div className={cx('bar-selected')}></div>
+            }
+          </Link>
+
+          <Link className={cx('btn-link')} to='/user/your-contract' onClick={handleContractLink}>
+            <span className={cx('text-navigate')}>Hợp đồng</span>
+            {
+              selectedNavigateThree && <div className={cx('bar-selected')}></div>
             }
           </Link>
         </div>
