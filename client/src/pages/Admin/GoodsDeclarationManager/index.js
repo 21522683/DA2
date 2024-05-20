@@ -13,6 +13,8 @@ import baseUrl from '../../../utils';
 import { toast } from 'react-toastify';
 import customAxios from '../../../utils//customAxios';
 import convertDate from '../../../utils/convertDate';
+import ModalCreateBill from './ModalCreateBill';
+import MessageBox from './MessageBox';
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +23,9 @@ function GoodsDeclarationManager() {
     const dispatch = useDispatch();
     const listGoodsDeclaration = useSelector(state => state.goodsDeclarationManagement.goodsDeclarationsList);
     const isOpenModalDetail = useSelector(state => state.goodsDeclarationManagement.isOpenModalDetail);
-    const loading = useSelector(state => state.orderManagement.isLoading);
+    const isOpenModalCreateBill = useSelector(state => state.goodsDeclarationManagement.isOpenModalCreateBill);
+    const isOpenMessagebox = useSelector(state => state.goodsDeclarationManagement.isOpenMessagebox);
+    const loading = useSelector(state => state.goodsDeclarationManagement.isLoading);
 
     const [filter, setFilter] = useState({
         textSearch: '',
@@ -83,7 +87,27 @@ function GoodsDeclarationManager() {
     return (
         <div className={cx('container_main')}>
             {
+                true && <MessageBox/>
+            }
+            {
                 isOpenModalDetail && <DetailGoodsDeclaration />
+            }
+            {
+                isOpenModalCreateBill && <ModalCreateBill />
+            }
+            {
+                loading && (
+                    <div className={cx("container-loader")}>
+                        <HashLoader
+                            color="#0088af"
+                            loading={loading}
+                            size={80}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                            className={cx("loader-feedback")}
+                        />
+                    </div>
+                )
             }
             <div className={cx('header')}>
                 <span className={cx('title_header')}>QUẢN LÝ KÊ KHAI HÀNG HÓA</span>

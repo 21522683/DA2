@@ -32,7 +32,8 @@ function HistoryBillManager() {
 
   return (
     <div className={cx('container_main')}>
-      {/* <DetailBill/> */}
+      {/* <MessageBox/>
+      <InfoBill/> */}
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ HÓA ĐƠN VÀ LỊCH SỬ GIAO DỊCH</span>
         <div className={cx('container_filter')}>

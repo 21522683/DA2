@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from './DetailGoodsDeclaration.module.scss';
 import ItemDetailGoods from './ItemDetailGoods';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalDetail } from '../../../../redux/slices/goodsDeclarationSlice';
+import { setIsOpenModalCreateBill, setIsOpenModalDetail } from '../../../../redux/slices/goodsDeclarationSlice';
 import convertDate from '../../../../utils/convertDate';
 
 const cx = classNames.bind(styles);
@@ -22,7 +22,7 @@ function DetailGoodsDeclaration() {
   }
 
   const handleAccept = () => {
-    // xử lý chỗ này sau
+    dispatch(setIsOpenModalCreateBill(true));
   }
 
   return (

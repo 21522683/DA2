@@ -111,12 +111,12 @@ function CreateOrder() {
 
   const handleClickCreateOrder = async () => {
     console.log(currentUser);
-    if (!currentUser || currentUser.isAmin) {
-      window.open('http://localhost:3000/warning/un-login');
+    if (currentUser.isAmin === true || currentUser.isAmin === undefined) {
+      window.location.href = 'http://localhost:3000/warning/un-login';
     }
     else {
       if (currentUser.isVerify === false) {
-        window.open('http://localhost:3000/warning/un-verify');
+        window.location.href = 'http://localhost:3000/warning/un-verify';
       }
       else {
         const flagDate = validateNgayDen(startDateFilter, endDateFilter);

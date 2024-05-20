@@ -5,6 +5,7 @@ import containerSlice from './slices/containerSlice';
 import vesselSlice from './slices/vesselSlice';
 import goodsDeclarationSlice from './slices/goodsDeclarationSlice';
 import globalAppReducer from './slices/globalApp';
+import billSlice from './slices/billSlice';
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     vesselManagement: vesselSlice,
     goodsDeclarationManagement: goodsDeclarationSlice,
     globalApp: globalAppReducer,
+    billManagement: billSlice,
   },
 });
 

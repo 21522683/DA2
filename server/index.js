@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import connect from './database/database.js'
-import { ContainerRouter, GoodsDeclarationRouter, OrderRouter, UserRouter, VesselRouter } from './routes/index.js'
+import { BillRouter, ContainerRouter, GoodsDeclarationRouter, OrderRouter, UserRouter, VesselRouter } from './routes/index.js'
     
 const PORT = process.env.PORT || 4000
 const app = express();
@@ -20,7 +20,7 @@ app.use('/order', OrderRouter);
 app.use('/goodsDeclaration', GoodsDeclarationRouter);
 app.use('/container', ContainerRouter); 
 app.use('/vessel', VesselRouter); 
-
+app.use('/bill', BillRouter); 
 
 app.get('/', (req,res) => {
     res.send('Hello from server side')

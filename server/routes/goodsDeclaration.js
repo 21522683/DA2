@@ -5,7 +5,7 @@ import checkToken from '../middlewares/auth.js'
 const router = express.Router();
 
 router.get('/getAllGoodsDeclaration', GoodsDeclarationController.getAllGoodsDeclaration);
-// router.post('/createOrderUser', checkToken, GoodsDeclarationController.createOrderUser);
+router.post('/createBillUser/:idKKHH', GoodsDeclarationController.createBillUser);
 // router.get('/getAllOrdersByUserId/:userId', GoodsDeclarationController.getAllOrdersByUserId);
 // router.patch('/updateStatusOrder/:id', GoodsDeclarationController.updateStatusOrder);
 

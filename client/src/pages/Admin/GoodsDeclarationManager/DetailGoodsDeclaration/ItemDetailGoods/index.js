@@ -27,7 +27,7 @@ function ItemDetailGoods({ itemHangHoa }) {
 
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Số lượng:</span>
-          <span className={cx('content')}>{itemHangHoa.soluong}</span>
+          <span className={cx('content')}>{itemHangHoa.soLuong}</span>
         </div>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Khối lượng:</span>
