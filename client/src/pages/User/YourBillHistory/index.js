@@ -24,7 +24,6 @@ function YourBillHistory() {
   const isOpenModalInfoBillOfUser = useSelector(state => state.billManagement.isOpenModalInfoBillOfUser);
   const currentUser = useSelector(state => state.userManagement.currentUser);
   const loading = useSelector(state => state.billManagement.isLoading);
-  const indexSelectedBillOfUser = useSelector(state => state.billManagement.indexSelectedBillOfUser);
 
   const [filter, setFilter] = useState({
     textSearch: '',

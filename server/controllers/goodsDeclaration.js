@@ -212,7 +212,7 @@ const createBillUser = async (req, res) => {
             phiThueTau: totalMoneyVessel,
             triGiaDonHang: triGia,
             ngayTao: Date.now(),
-            tongTien: triGia + phiVC + totalMoneyContainer + totalMoneyVessel + thue*totalMoneyHH,
+            tongTien: (triGia + phiVC + totalMoneyContainer + totalMoneyVessel + thue*totalMoneyHH).toFixed(1),
             dsContainer: listContainerChoose,
             dsVessel: listVesselChoose,
         }

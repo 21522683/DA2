@@ -69,8 +69,8 @@ function InfoBill() {
             </div>
 
             <div className={cx('container-status')}>
-              <span className={cx('title')}>Mã đơn hàng: </span>
-              <span className={cx('content')}>{itemSelected.keKhaiHH.donHang._id}</span>
+              <span className={cx('title')}>Mã hóa đơn: </span>
+              <span className={cx('content')}>{itemSelected._id}</span>
             </div>
 
             <div className={cx('container-status')}>

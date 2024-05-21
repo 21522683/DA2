@@ -1,18 +1,19 @@
-import { Bill, Contract } from '../model/index.js';
+import { Contract } from '../model/index.js';
 import mongoose from 'mongoose';
 
-const getAllBillOfUser = async (req, res) => {
+
+const getAllContractOfUser = async (req, res) => {
     const userId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(userId)) {
         return res.status(400).json({ message: 'Invalid user ID' });
     }
     try {
         const { searchString, status, ngayTao } = req.query;
-        const matchConditions = { 'keKhaiHH.donHang.user._id': new mongoose.Types.ObjectId(userId) };
+        const matchConditions = { 'hoaDon.keKhaiHH.donHang.user._id': new mongoose.Types.ObjectId(userId) };
         if (status) {
-            if (status === "Đã thanh toán") {
+            if (status === "Đã ký kết") {
                 matchConditions.trangThai = true;
-            } else if (status === "Chưa thanh toán") {
+            } else if (status === "Chưa ký kết") {
                 matchConditions.trangThai = false;
             }   
         }
@@ -27,99 +28,113 @@ const getAllBillOfUser = async (req, res) => {
         const pipeline = [
             {
                 $lookup: {
-                    from: 'goodsdeclarations',
-                    localField: 'keKhaiHH',
+                    from: 'bills',
+                    localField: 'hoaDon',
                     foreignField: '_id',
-                    as: 'keKhaiHH'
+                    as: 'hoaDon'
                 }
             },
             {
                 $unwind: {
-                    path: '$keKhaiHH',
+                    path: '$hoaDon',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: 'goodsdeclarations',
+                    localField: 'hoaDon.keKhaiHH',
+                    foreignField: '_id',
+                    as: 'hoaDon.keKhaiHH'
+                }
+            },
+            {
+                $unwind: {
+                    path: '$hoaDon.keKhaiHH',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'orders',
-                    localField: 'keKhaiHH.donHang',
+                    localField: 'hoaDon.keKhaiHH.donHang',
                     foreignField: '_id',
-                    as: 'keKhaiHH.donHang'
+                    as: 'hoaDon.keKhaiHH.donHang'
                 }
             },
             {
                 $unwind: {
-                    path: '$keKhaiHH.donHang',
+                    path: '$hoaDon.keKhaiHH.donHang',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'goods',
-                    localField: 'keKhaiHH.donHang.hangHoa',
+                    localField: 'hoaDon.keKhaiHH.donHang.hangHoa',
                     foreignField: '_id',
-                    as: 'keKhaiHH.donHang.hangHoa'
+                    as: 'hoaDon.keKhaiHH.donHang.hangHoa'
                 }
             },
             {
                 $unwind: {
-                    path: '$keKhaiHH.donHang.hangHoa',
+                    path: '$hoaDon.keKhaiHH.donHang.hangHoa',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'users',
-                    localField: 'keKhaiHH.donHang.user',
+                    localField: 'hoaDon.keKhaiHH.donHang.user',
                     foreignField: '_id',
-                    as: 'keKhaiHH.donHang.user'
+                    as: 'hoaDon.keKhaiHH.donHang.user'
                 }
             },
             {
                 $unwind: {
-                    path: '$keKhaiHH.donHang.user',
+                    path: '$hoaDon.keKhaiHH.donHang.user',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'containers',
-                    localField: 'dsContainer',
+                    localField: 'hoaDon.dsContainer',
                     foreignField: '_id',
-                    as: 'dsContainer'
+                    as: 'hoaDon.dsContainer'
                 }
             },
             {
                 $unwind: {
-                    path: '$dsContainer',
+                    path: '$hoaDon.dsContainer',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'typecontainers',
-                    localField: 'dsContainer.loaiContainer',
+                    localField: 'hoaDon.dsContainer.loaiContainer',
                     foreignField: '_id',
-                    as: 'dsContainer.loaiContainer'
+                    as: 'hoaDon.dsContainer.loaiContainer'
                 }
             },
             {
                 $unwind: {
-                    path: '$dsContainer.loaiContainer',
+                    path: '$hoaDon.dsContainer.loaiContainer',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'vessels',
-                    localField: 'dsVessel',
+                    localField: 'hoaDon.dsVessel',
                     foreignField: '_id',
-                    as: 'dsVessel'
+                    as: 'hoaDon.dsVessel'
                 }
             },
             {
                 $unwind: {
-                    path: '$dsVessel',
+                    path: '$hoaDon.dsVessel',
                     preserveNullAndEmptyArrays: true
                 }
             },
@@ -129,23 +144,23 @@ const getAllBillOfUser = async (req, res) => {
             {
                 $addFields: {
                     idString: { $toString: '$_id' },
-                    orderIdString: { $toString: '$keKhaiHH.donHang._id' }
+                    orderIdString: { $toString: '$hoaDon.keKhaiHH.donHang._id' }
                 }
             },
             {
                 $group: {
                     _id: '$_id',
                     originalDocument: { $first: '$$ROOT' },
-                    dsContainers: { $addToSet: '$dsContainer' },
-                    dsVessels: { $addToSet: '$dsVessel' },
-                    hangHoas: { $addToSet: '$keKhaiHH.donHang.hangHoa' }
+                    dsContainers: { $addToSet: '$hoaDon.dsContainer' },
+                    dsVessels: { $addToSet: '$hoaDon.dsVessel' },
+                    hangHoas: { $addToSet: '$hoaDon.keKhaiHH.donHang.hangHoa' }
                 }
             },
             {
                 $addFields: {
-                    'originalDocument.dsContainer': '$dsContainers',
-                    'originalDocument.dsVessel': '$dsVessels',
-                    'originalDocument.keKhaiHH.donHang.hangHoa': '$hangHoas'
+                    'originalDocument.hoaDon.dsContainer': '$dsContainers',
+                    'originalDocument.hoaDon.dsVessel': '$dsVessels',
+                    'originalDocument.hoaDon.keKhaiHH.donHang.hangHoa': '$hangHoas'
                 }
             },
             {
@@ -168,22 +183,26 @@ const getAllBillOfUser = async (req, res) => {
             });
         }
 
-        const bills = await Bill.aggregate(pipeline);
+        const contarcts = await Contract.aggregate(pipeline);
 
-        res.status(200).json({ message: "Lấy tất cả hóa đơn của user thành công", bills });
+        res.status(200).json({ message: "Lấy tất cả hợp đồng của user thành công", contarcts });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
 };
-const getAllBill = async (req, res) => {
+
+const getAllContract = async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ message: 'Invalid user ID' });
+    }
     try {
-        const matchConditions = {};
         const { searchString, status, ngayTao } = req.query;
+        const matchConditions = {};
         if (status) {
-            if (status === "Đã thanh toán") {
+            if (status === "Đã ký kết") {
                 matchConditions.trangThai = true;
-            } else if (status === "Chưa thanh toán") {
+            } else if (status === "Chưa ký kết") {
                 matchConditions.trangThai = false;
             }   
         }
@@ -198,99 +217,113 @@ const getAllBill = async (req, res) => {
         const pipeline = [
             {
                 $lookup: {
-                    from: 'goodsdeclarations',
-                    localField: 'keKhaiHH',
+                    from: 'bills',
+                    localField: 'hoaDon',
                     foreignField: '_id',
-                    as: 'keKhaiHH'
+                    as: 'hoaDon'
                 }
             },
             {
                 $unwind: {
-                    path: '$keKhaiHH',
+                    path: '$hoaDon',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: 'goodsdeclarations',
+                    localField: 'hoaDon.keKhaiHH',
+                    foreignField: '_id',
+                    as: 'hoaDon.keKhaiHH'
+                }
+            },
+            {
+                $unwind: {
+                    path: '$hoaDon.keKhaiHH',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'orders',
-                    localField: 'keKhaiHH.donHang',
+                    localField: 'hoaDon.keKhaiHH.donHang',
                     foreignField: '_id',
-                    as: 'keKhaiHH.donHang'
+                    as: 'hoaDon.keKhaiHH.donHang'
                 }
             },
             {
                 $unwind: {
-                    path: '$keKhaiHH.donHang',
+                    path: '$hoaDon.keKhaiHH.donHang',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'goods',
-                    localField: 'keKhaiHH.donHang.hangHoa',
+                    localField: 'hoaDon.keKhaiHH.donHang.hangHoa',
                     foreignField: '_id',
-                    as: 'keKhaiHH.donHang.hangHoa'
+                    as: 'hoaDon.keKhaiHH.donHang.hangHoa'
                 }
             },
             {
                 $unwind: {
-                    path: '$keKhaiHH.donHang.hangHoa',
+                    path: '$hoaDon.keKhaiHH.donHang.hangHoa',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'users',
-                    localField: 'keKhaiHH.donHang.user',
+                    localField: 'hoaDon.keKhaiHH.donHang.user',
                     foreignField: '_id',
-                    as: 'keKhaiHH.donHang.user'
+                    as: 'hoaDon.keKhaiHH.donHang.user'
                 }
             },
             {
                 $unwind: {
-                    path: '$keKhaiHH.donHang.user',
+                    path: '$hoaDon.keKhaiHH.donHang.user',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'containers',
-                    localField: 'dsContainer',
+                    localField: 'hoaDon.dsContainer',
                     foreignField: '_id',
-                    as: 'dsContainer'
+                    as: 'hoaDon.dsContainer'
                 }
             },
             {
                 $unwind: {
-                    path: '$dsContainer',
+                    path: '$hoaDon.dsContainer',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'typecontainers',
-                    localField: 'dsContainer.loaiContainer',
+                    localField: 'hoaDon.dsContainer.loaiContainer',
                     foreignField: '_id',
-                    as: 'dsContainer.loaiContainer'
+                    as: 'hoaDon.dsContainer.loaiContainer'
                 }
             },
             {
                 $unwind: {
-                    path: '$dsContainer.loaiContainer',
+                    path: '$hoaDon.dsContainer.loaiContainer',
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: 'vessels',
-                    localField: 'dsVessel',
+                    localField: 'hoaDon.dsVessel',
                     foreignField: '_id',
-                    as: 'dsVessel'
+                    as: 'hoaDon.dsVessel'
                 }
             },
             {
                 $unwind: {
-                    path: '$dsVessel',
+                    path: '$hoaDon.dsVessel',
                     preserveNullAndEmptyArrays: true
                 }
             },
@@ -300,23 +333,23 @@ const getAllBill = async (req, res) => {
             {
                 $addFields: {
                     idString: { $toString: '$_id' },
-                    orderIdString: { $toString: '$keKhaiHH.donHang._id' }
+                    orderIdString: { $toString: '$hoaDon.keKhaiHH.donHang._id' }
                 }
             },
             {
                 $group: {
                     _id: '$_id',
                     originalDocument: { $first: '$$ROOT' },
-                    dsContainers: { $addToSet: '$dsContainer' },
-                    dsVessels: { $addToSet: '$dsVessel' },
-                    hangHoas: { $addToSet: '$keKhaiHH.donHang.hangHoa' }
+                    dsContainers: { $addToSet: '$hoaDon.dsContainer' },
+                    dsVessels: { $addToSet: '$hoaDon.dsVessel' },
+                    hangHoas: { $addToSet: '$hoaDon.keKhaiHH.donHang.hangHoa' }
                 }
             },
             {
                 $addFields: {
-                    'originalDocument.dsContainer': '$dsContainers',
-                    'originalDocument.dsVessel': '$dsVessels',
-                    'originalDocument.keKhaiHH.donHang.hangHoa': '$hangHoas'
+                    'originalDocument.hoaDon.dsContainer': '$dsContainers',
+                    'originalDocument.hoaDon.dsVessel': '$dsVessels',
+                    'originalDocument.hoaDon.keKhaiHH.donHang.hangHoa': '$hangHoas'
                 }
             },
             {
@@ -339,51 +372,34 @@ const getAllBill = async (req, res) => {
             });
         }
 
-        const bills = await Bill.aggregate(pipeline);
+        const contarcts = await Contract.aggregate(pipeline);
 
-        res.status(200).json({ message: "Lấy tất cả hóa đơn thành công", bills });
+        res.status(200).json({ message: "Lấy tất cả hợp đồng thành công", contarcts });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
 };
 
-const updateStatusBill = async (req, res) => {
+const updateStatusContract = async (req, res) => {
     const { id } = req.params;
     try {
-        const bill = await Bill.findById(id);
+        const contract = await Contract.findById(id);
 
-        bill.trangThai = true;
-        bill.detailBill.ngayThanhToan = new Date();
-        await bill.save();
+        contract.trangThai = true;
+        contract.detailContract.ngayKyKet = new Date();
+        await contract.save();
 
-        res.status(200).json({ message: "Thanh toán đơn hàng và tạo chi tiết hóa đơn thành công", success: true });
+        res.status(200).json({ message: "Xác nhận ký kết thành công", success: true });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error', success: false });
     }
 }
 
-const createContractUser = async (req, res) => {
-    try {
-        const { idHD } = req.params;
-        const object = {
-            ngayTao: new Date(),
-            hoaDon: idHD,
-        }
-        const contract = await Contract.create(object);
-        await contract.save();
-        res.status(200).json({ message: 'Tạo hợp đồng và gửi đến người dùng xác nhận ký kết thành công', contract , success: true});
-    } catch (error) {
-        res.status(400).json({
-            message: error.message,
-        });
-    }
-}
 
 export default {
-    getAllBillOfUser,
-    updateStatusBill,
-    getAllBill,
-    createContractUser
+    getAllContractOfUser,
+    getAllContract,
+    updateStatusContract
 }
