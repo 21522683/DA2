@@ -210,7 +210,7 @@ function DetailBill() {
             </div>
 
             <div className={cx('container_hanghoa')}>
-              <span className={cx('title_container')}>Danh mục hàng hóa</span>
+              <span className={cx('title_container')}>DANH MỤC HÀNG HÓA</span>
               {
                 itemSelected.keKhaiHH.donHang.hangHoa.map((item, index) => {
                   return (

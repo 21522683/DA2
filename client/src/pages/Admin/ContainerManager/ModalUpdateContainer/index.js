@@ -11,7 +11,7 @@ import baseUrl from '../../../../utils/index.js';
 
 const cx = classNames.bind(styles);
 
-function ModalUpdateContainer() {
+function ModalUpdateContainer({getAllContainers}) {
 
     const dispatch = useDispatch();
     const listContainers = useSelector(state => state.containerManagement.containersList);
@@ -66,7 +66,7 @@ function ModalUpdateContainer() {
                 }
                 dispatch(setLoading(false));
                 dispatch(setIsOpenModalUpdate(false));
-                window.location.reload("http://localhost:3000/admin/container");
+                getAllContainers();
             } catch (error) {
                 toast.error(error.message, {
                     position: "top-right"

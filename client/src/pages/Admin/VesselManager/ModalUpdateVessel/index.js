@@ -10,7 +10,7 @@ import baseUrl from '../../../../utils/index.js';
 
 const cx = classNames.bind(styles);
 
-function ModalUpdateContainer() {
+function ModalUpdateContainer({getAllVessels}) {
 
     const dispatch = useDispatch();
     const listVissels = useSelector(state => state.vesselManagement.vesselsList);
@@ -121,7 +121,7 @@ function ModalUpdateContainer() {
                 }
                 dispatch(setLoading(false));
                 dispatch(setIsOpenModalUpdate(false));
-                window.location.reload("http://localhost:3000/admin/vessel");
+                getAllVessels();
             } catch (error) {
                 toast.error(error.message, {
                     position: "top-right"

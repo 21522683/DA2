@@ -10,7 +10,7 @@ import baseUrl from '../../../../utils/index.js';
 const cx = classNames.bind(styles);
 
 
-function ModalAddVessel() {
+function ModalAddVessel({getAllVessels}) {
 
     const dispatch = useDispatch();
 
@@ -112,7 +112,7 @@ function ModalAddVessel() {
                 }
                 dispatch(setLoading(false));
                 dispatch(setIsOpenModalAdd(false));
-                window.location.reload("http://localhost:3000/admin/vessel");
+                getAllVessels();
             } catch (error) {
                 toast.error(error.message, {
                     position: "top-right"

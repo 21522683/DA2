@@ -87,13 +87,13 @@ function GoodsDeclarationManager() {
     return (
         <div className={cx('container_main')}>
             {
-                isOpenMessagebox && <MessageBox/>
+                isOpenMessagebox && <MessageBox getAllGoodsDeclaration={getAllGoodsDeclaration}/>
             }
             {
-                isOpenModalDetail && <DetailGoodsDeclaration />
+                isOpenModalDetail && <DetailGoodsDeclaration/>
             }
             {
-                isOpenModalCreateBill && <ModalCreateBill />
+                isOpenModalCreateBill && <ModalCreateBill getAllGoodsDeclaration={getAllGoodsDeclaration}/>
             }
             {
                 loading && (

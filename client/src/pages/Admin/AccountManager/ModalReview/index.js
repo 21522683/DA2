@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles)
 
-function ModalReview() {
+function ModalReview({getAllUsers}) {
 
   const dispatch = useDispatch();
   const listUsers = useSelector(state => state.userManagement.usersList);
@@ -32,7 +32,7 @@ function ModalReview() {
         position: "top-right"
       }
       );
-      window.location.reload(`${baseUrl}/admin/account`);
+      getAllUsers();
     } catch (error) {
       dispatch(setLoading(false));
       if (
@@ -58,7 +58,7 @@ function ModalReview() {
         position: "top-right"
       }
       );
-      window.location.reload(`${baseUrl}/admin/account`);
+      getAllUsers();
     } catch (error) {
       dispatch(setLoading(false));
       if (
@@ -82,7 +82,7 @@ function ModalReview() {
   return (
     <div className={cx('wrapper')} onClick={handleClose}>
       {
-        isOpenMessagebox && <MessageBox />
+        isOpenMessagebox && <MessageBox getAllUsers={getAllUsers}/>
       }
       <div className={cx('container-body')} onClick={(e) => e.stopPropagation()}>
         <div className={cx('container-header')}>

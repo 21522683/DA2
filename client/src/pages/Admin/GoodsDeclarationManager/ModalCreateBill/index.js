@@ -10,7 +10,7 @@ import baseUrl from '../../../../utils/index.js';
 const cx = classNames.bind(styles);
 
 
-function ModalCreateBill() {
+function ModalCreateBill({getAllGoodsDeclaration}) {
 
     const dispatch = useDispatch();
     const listGoodsDeclaration = useSelector(state => state.goodsDeclarationManagement.goodsDeclarationsList);
@@ -106,7 +106,7 @@ function ModalCreateBill() {
                     dispatch(setLoading(false));
                     dispatch(setIsOpenModalCreateBill(false));
                     dispatch(setIsOpenModalDetail(false));
-                    window.location.reload("http://localhost:3000/admin/goods-declaration");
+                    getAllGoodsDeclaration();
                 }
                 else {
                     toast.error(res.data.message, {

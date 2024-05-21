@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from './MessageBox.module.scss';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenMessageBox, setLoading } from '../../../../../../redux/slices/orderSlice';
+import { setIsOpenMessageBox, setIsOpenModalDetail, setLoading } from '../../../../../../redux/slices/orderSlice';
 import baseUrl from '../../../../../../utils/index';
 import customAxios from '../../../../../../utils/customAxios'
 import { toast } from 'react-toastify';
@@ -11,7 +11,7 @@ import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
-function MessageBox() {
+function MessageBox({getAllOrders}) {
 
   const dispatch = useDispatch();
   const listOrders = useSelector(state => state.orderManagement.listOrdersUser);
@@ -28,9 +28,13 @@ function MessageBox() {
         position: "top-right"
       }
       );
-      window.location.reload("http://localhost:3000/user/your-order");
+      getAllOrders();
+      dispatch(setIsOpenMessageBox(false));
+      dispatch(setIsOpenModalDetail(false));
     } catch (error) {
       dispatch(setLoading(false));
+      dispatch(setIsOpenMessageBox(false));
+      dispatch(setIsOpenModalDetail(false));
       if (
         error.response &&
         error.response.status >= 400 &&

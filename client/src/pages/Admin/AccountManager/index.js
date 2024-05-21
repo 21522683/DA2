@@ -106,13 +106,13 @@ function AccountManager() {
         )
       }
       {
-        isOpenModalReview && <ModalReview />
+        isOpenModalReview && <ModalReview getAllUsers={getAllUsers}/>
       }
       {
-        isOpenModalChangeStatus && <ModalChangeStatus />
+        isOpenModalChangeStatus && <ModalChangeStatus getAllUsers={getAllUsers}/>
       }
       {
-        isOpenModalNotVerify && <ModalNotVerify />
+        isOpenModalNotVerify && <ModalNotVerify getAllUsers={getAllUsers}/>
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ TÀI KHOẢN NGƯỜI DÙNG</span>

@@ -107,10 +107,10 @@ function HistoryBillManager() {
         </div>
       )}
       {
-        isOpenModalDetail && <DetailBill />
+        isOpenModalDetail && <DetailBill getAllBill={getAllBill}/>
       }
       {
-        isOpenModalInfo && <InfoBill />
+        isOpenModalInfo && <InfoBill/>
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ HÓA ĐƠN VÀ LỊCH SỬ GIAO DỊCH</span>

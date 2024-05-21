@@ -99,7 +99,7 @@ function PrivateInfomation() {
                 </div>
                 <div className={cx('container_info')}>
                     <span className={cx('title')}>Số điện thoại:</span>
-                    <div className={cx('content')}>0379361211</div>
+                    <div className={cx('content')}>{currentUser.infoVerify ? currentUser.infoVerify.soDienThoai : "Thông tin chưa được xác minh"}</div>
                 </div>
                 <div className={cx('container_info')}>
                     <span className={cx('title')}>Địa chỉ email:</span>

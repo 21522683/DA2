@@ -11,7 +11,7 @@ import baseUrl from '../../../../utils/index.js';
 const cx = classNames.bind(styles);
 
 
-function ModalAddContainer() {
+function ModalAddContainer({getAllContainers}) {
 
     const dispatch = useDispatch();
 
@@ -53,7 +53,7 @@ function ModalAddContainer() {
                 }
                 dispatch(setLoading(false));
                 dispatch(setIsOpenModalAdd(false));
-                window.location.reload("http://localhost:3000/admin/container");
+                getAllContainers();
             } catch (error) {
                 toast.error(error.message, {
                     position: "top-right"

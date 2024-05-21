@@ -183,9 +183,9 @@ const getAllContractOfUser = async (req, res) => {
             });
         }
 
-        const contarcts = await Contract.aggregate(pipeline);
+        const contracts = await Contract.aggregate(pipeline);
 
-        res.status(200).json({ message: "Lấy tất cả hợp đồng của user thành công", contarcts });
+        res.status(200).json({ message: "Lấy tất cả hợp đồng của user thành công", contracts });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
@@ -193,9 +193,6 @@ const getAllContractOfUser = async (req, res) => {
 };
 
 const getAllContract = async (req, res) => {
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-        return res.status(400).json({ message: 'Invalid user ID' });
-    }
     try {
         const { searchString, status, ngayTao } = req.query;
         const matchConditions = {};
@@ -333,7 +330,7 @@ const getAllContract = async (req, res) => {
             {
                 $addFields: {
                     idString: { $toString: '$_id' },
-                    orderIdString: { $toString: '$hoaDon.keKhaiHH.donHang._id' }
+                    customerString: { $toString: '$hoaDon.keKhaiHH.donHang.user.hoten' }
                 }
             },
             {
@@ -363,7 +360,7 @@ const getAllContract = async (req, res) => {
             const searchConditions = {
                 $or: [
                     { idString: { $regex: new RegExp(searchString, 'i') } },
-                    { orderIdString: { $regex: new RegExp(searchString, 'i') } }
+                    { customerString: { $regex: new RegExp(searchString, 'i') } }
                 ]
             };
 
@@ -372,9 +369,9 @@ const getAllContract = async (req, res) => {
             });
         }
 
-        const contarcts = await Contract.aggregate(pipeline);
+        const contracts = await Contract.aggregate(pipeline);
 
-        res.status(200).json({ message: "Lấy tất cả hợp đồng thành công", contarcts });
+        res.status(200).json({ message: "Lấy tất cả hợp đồng thành công", contracts });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });

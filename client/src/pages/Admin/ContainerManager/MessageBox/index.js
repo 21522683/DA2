@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
-function MessageBox() {
+function MessageBox({getAllContainers}) {
 
   const dispatch = useDispatch();
   const listContainers = useSelector(state => state.containerManagement.containersList);
@@ -27,7 +27,7 @@ function MessageBox() {
       }
       dispatch(setLoading(false));
       dispatch(setIsOpenMessageBox(false));
-      window.location.reload("http://localhost:3000/admin/container");
+      getAllContainers();
     } catch (error) {
       toast.error(error.message, {
         position: "top-right"

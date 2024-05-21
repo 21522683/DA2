@@ -99,7 +99,7 @@ function OrderManager() {
         )
       }
       {
-        isOpenModalDetail && <DetailOrder />
+        isOpenModalDetail && <DetailOrder getAllOrders={getAllOrders}/>
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ ĐƠN HÀNG</span>

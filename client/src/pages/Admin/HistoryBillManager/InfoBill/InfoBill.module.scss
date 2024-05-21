@@ -13,7 +13,7 @@
     justify-content: center;
 
     .container-body {
-        width: 64%;
+        width: 60%;
         background-color: #fff;
         border-radius: 4px;
         display: flex;
@@ -98,7 +98,7 @@
             .info-order {
                 display: flex;
                 flex-direction: column;
-                margin: 14px 0;
+                margin: 20px 0;
 
 
                 .title-order {
@@ -111,7 +111,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    margin-top: 4px;
+                    margin-top: 6px;
 
                     .container-date {
                         display: flex;
@@ -151,7 +151,7 @@
                 .container_hanghoa {
                     display: flex;
                     flex-direction: column;
-                    margin: 6px 0;
+                    margin: 8px 0;
 
                     .title_container {
                         color: #000000;
@@ -225,7 +225,6 @@
             align-items: center;
             justify-content: center;
             margin: 20px 0 20px;
-
             .flag_content {
                 display: flex;
                 align-items: center;
@@ -234,15 +233,31 @@
                 font-weight: bold;
 
             }
+
+            .btn_accpet {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+                background-color: #008DB5;
+                font-weight: bold;
+                padding: 8px 20px;
+                border-radius: 4px;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: #005e78;
+                }
+            }
         }
 
         .info-pay {
             display: flex;
             flex-direction: column;
-            margin: 10px 0;
+            margin: 14px 0;
 
             .title_info {
-                font-size: 14px;
+                font-size: 16px;
                 color: #000000;
                 font-weight: bold;
                 margin: 10px 0;
@@ -259,6 +274,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    margin: 2px 0;
 
                     .title {
                         color: #6D6D6D;
@@ -283,6 +299,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    margin: 2px 0;
 
                     .title {
                         color: #000000;

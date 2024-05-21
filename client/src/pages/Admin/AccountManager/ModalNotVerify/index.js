@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles)
 
-function ModalNotVerify() {
+function ModalNotVerify({getAllUsers}) {
 
   const dispatch = useDispatch();
   const listUsers = useSelector(state => state.userManagement.usersList);
@@ -30,7 +30,7 @@ function ModalNotVerify() {
         position: "top-right"
       }
       );
-      window.location.reload(`${baseUrl}/admin/account`);
+      getAllUsers();
     } catch (error) {
       dispatch(setLoading(false));
       if (

@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
-function MessageBox() {
+function MessageBox({getAllVessels}) {
 
   const dispatch = useDispatch();
   const listVessels = useSelector(state => state.vesselManagement.vesselsList);
@@ -27,7 +27,7 @@ function MessageBox() {
       }
       dispatch(setLoading(false));
       dispatch(setIsOpenMessageBox(false));
-      window.location.reload("http://localhost:3000/admin/vessel");
+      getAllVessels();
     } catch (error) {
       toast.error(error.message, {
         position: "top-right"

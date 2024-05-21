@@ -29,6 +29,10 @@ export default mongoose.model('Bill',
             type: Boolean,
             default: false
         }, 
+        isHaveContract: {
+            type: Boolean,
+            default: false
+        },
         detailBill: {
             ngayThanhToan: Date,
         }

@@ -106,7 +106,7 @@ function YourBillHistory() {
         </div>
       )}
       {isOpenModalDetailBillOfUser && <DetailBill />}
-      {isOpenModalInfoBillOfUser && <InfoBill />}
+      {isOpenModalInfoBillOfUser && <InfoBill getAllBillUser={getAllBillUser}/>}
       <div className={cx('title_page')}>HÓA ĐƠN CỦA BẠN</div>
       <div className={cx('header')}>
         <div className={cx('container_filter')}>

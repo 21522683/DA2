@@ -12,7 +12,7 @@ import baseUrl from '../../../../utils/index.js';
 const cx = classNames.bind(styles);
 
 
-function DetailBill() {
+function DetailBill({ getAllBill }) {
   const dispatch = useDispatch();
   const billsList = useSelector(state => state.billManagement.billsList);
   const indexSelected = useSelector(state => state.billManagement.indexSelected);
@@ -33,7 +33,7 @@ function DetailBill() {
         });
         dispatch(setLoading(false));
         dispatch(setIsOpenModalDetail(false));
-        window.location.reload("http://localhost:3000/admin/bill");
+        getAllBill();
       }
       else {
         toast.error(res.data.message, {
@@ -239,7 +239,7 @@ function DetailBill() {
             </div>
 
             <div className={cx('container_hanghoa')}>
-              <span className={cx('title_container')}>Danh mục hàng hóa</span>
+              <span className={cx('title_container')}>DANH MỤC HÀNG HÓA</span>
               {
                 itemSelected.keKhaiHH.donHang.hangHoa.map((item, index) => {
                   return (
@@ -298,9 +298,15 @@ function DetailBill() {
         </div>
 
         <div className={cx('container-btn')}>
-          <div className={cx('btn_accpet')} onClick={handleCreateContract}>
-            Tạo hợp đồng cho đơn hàng
-          </div>
+          {
+            itemSelected.isHaveContract ? (<span className={cx('flag_content')}>Đã tạo hợp đồng và gửi đến người dùng</span>) : (
+              <div className={cx('btn_accpet')} onClick={handleCreateContract}>
+                Tạo hợp đồng cho đơn hàng
+              </div>
+            )
+          }
+
+
         </div>
 
       </div >

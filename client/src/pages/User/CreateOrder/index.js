@@ -18,6 +18,12 @@ import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 
 function CreateOrder() {
+  const getNextDay = () => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    return tomorrow;
+  };
 
   const dispatch = useDispatch();
   const listCreateGoods = useSelector(state => state.orderManagement.listCreateGoods);
@@ -27,7 +33,7 @@ function CreateOrder() {
 
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false);
   const [startDateFilter, setStartDateFilter] = useState(new Date());
-  const [endDateFilter, setEndDateFilter] = useState(new Date());
+  const [endDateFilter, setEndDateFilter] = useState(getNextDay());
   const [cangDi, setCangDi] = useState('');
   const [cangDen, setCangDen] = useState('');
   const [dichVu, setDichVu] = useState('');
@@ -110,8 +116,7 @@ function CreateOrder() {
   }
 
   const handleClickCreateOrder = async () => {
-    console.log(currentUser);
-    if (currentUser.isAmin === true || currentUser.isAmin === undefined) {
+    if (currentUser.isAmin === true || !currentUser) {
       window.location.href = 'http://localhost:3000/warning/un-login';
     }
     else {
@@ -144,7 +149,12 @@ function CreateOrder() {
               position: "top-right"
             }
             );
-            window.location.href = 'http://localhost:3000/user/your-order';
+            setDichVu('');
+            setCangDi('');
+            setCangDen('');
+            setStartDateFilter(new Date());
+            setEndDateFilter(getNextDay());
+            dispatch(setListCreateGoods([]));
           } catch (error) {
             dispatch(setLoading(false));
             if (

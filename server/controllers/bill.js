@@ -367,11 +367,14 @@ const updateStatusBill = async (req, res) => {
 const createContractUser = async (req, res) => {
     try {
         const { idHD } = req.params;
+        const bill = await Bill.findById(idHD);
         const object = {
             ngayTao: new Date(),
             hoaDon: idHD,
         }
         const contract = await Contract.create(object);
+        bill.isHaveContract = true;
+        await bill.save();
         await contract.save();
         res.status(200).json({ message: 'Tạo hợp đồng và gửi đến người dùng xác nhận ký kết thành công', contract , success: true});
     } catch (error) {

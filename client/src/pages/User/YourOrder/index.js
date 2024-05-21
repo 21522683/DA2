@@ -102,7 +102,7 @@ function YourOrder() {
         isOpenModalDetail && <DetailOrder />
       }
       {
-        isOpenMessagebox && <MessageBox/>
+        isOpenMessagebox && <MessageBox getAllOrders={getAllOrders}/>
       }
       <div className={cx('title_page')}>ĐƠN HÀNG CỦA BẠN</div>
       <div className={cx('header')}>

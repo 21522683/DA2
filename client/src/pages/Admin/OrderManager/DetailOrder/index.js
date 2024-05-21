@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 
 
-function DetailOrder() {
+function DetailOrder({getAllOrders}) {
 
   const dispatch = useDispatch();
   const listOrders = useSelector(state => state.orderManagement.ordersList);
@@ -41,7 +41,7 @@ function DetailOrder() {
           position: "top-right"
         }
         );
-        window.location.href = "http://localhost:3000/admin/order";
+        getAllOrders();
       }
       else {
         toast.error(response.data.message, {
@@ -69,7 +69,7 @@ function DetailOrder() {
 
   return (
     <div className={cx('wrapper')} onClick={handleClose}>
-      {isOpenMessagebox && <MessageBox />}
+      {isOpenMessagebox && <MessageBox getAllOrders={getAllOrders}/>}
       <div className={cx('container-body')} onClick={(e) => e.stopPropagation()}>
 
         <div className={cx('container-header')}>

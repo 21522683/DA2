@@ -81,13 +81,13 @@ function VesselManager() {
         )
       }
       {
-        isOpenModalAdd && <ModalAddVessel />
+        isOpenModalAdd && <ModalAddVessel getAllVessels={getAllVessels}/>
       }
       {
-        isOpenModalUpdate && <ModalUpdateVessel />
+        isOpenModalUpdate && <ModalUpdateVessel getAllVessels={getAllVessels}/>
       }
       {
-        isOpenMessagebox && <MessageBox />
+        isOpenMessagebox && <MessageBox getAllVessels={getAllVessels}/>
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ TÀU</span>

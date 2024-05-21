@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
-function MessageBox() {
+function MessageBox({getAllUsers}) {
 
   const dispatch = useDispatch();
   const listUsers = useSelector(state => state.userManagement.usersList);
@@ -35,7 +35,7 @@ function MessageBox() {
         position: "top-right"
       }
       );
-      window.location.reload(`${baseUrl}/admin/account`);
+      getAllUsers();
     } catch (error) {
       dispatch(setLoading(false));
       if (

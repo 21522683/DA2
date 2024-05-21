@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 
 
-function InfoBill() {
+function InfoBill({getAllBillUser}) {
 
   const dispatch = useDispatch();
   const billOfUserList = useSelector(state => state.billManagement.billOfUserList);
@@ -32,7 +32,7 @@ function InfoBill() {
           position: "top-right"
         }
         );
-        window.location.href = "http://localhost:3000/user/you-history-bill";
+        getAllBillUser();
       }
       dispatch(setLoading(false));
     } catch (error) {

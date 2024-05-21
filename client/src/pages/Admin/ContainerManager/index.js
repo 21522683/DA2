@@ -85,13 +85,13 @@ function ContainerManager() {
         )
       }
       {
-        isOpenModalAdd && <ModalAddContainer />
+        isOpenModalAdd && <ModalAddContainer getAllContainers={getAllContainers}/>
       }
       {
-        isOpenModalUpdate && <ModalUpdateContainer />
+        isOpenModalUpdate && <ModalUpdateContainer getAllContainers={getAllContainers}/>
       }
       {
-        isOpenMessagebox && <MessageBox />
+        isOpenMessagebox && <MessageBox getAllContainers={getAllContainers}/>
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ CONTAINER</span>

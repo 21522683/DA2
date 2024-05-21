@@ -10,7 +10,7 @@ import { toast } from'react-toastify';
 
 const cx = classNames.bind(styles);
 
-function MessageBox() {
+function MessageBox({getAllOrders}) {
 
   const dispatch = useDispatch();
   const listOrders = useSelector(state => state.orderManagement.ordersList);
@@ -32,7 +32,7 @@ function MessageBox() {
         position: "top-right"
       }
       );
-      window.location.reload("http://localhost:3000/admin/order");
+      getAllOrders();
     } catch (error) {
       dispatch(setLoading(false));
       if (

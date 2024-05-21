@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import classNames from "classnames/bind";
 import styles from './ModalUpdateInfo.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDataGetCurrentUser, setIsOpenModalUpdateInfo, setLoading } from '../../../../redux/slices/userSlice';
+import { fetchDataGetCurrentUser, setCurrentUser, setIsOpenModalUpdateInfo, setLoading } from '../../../../redux/slices/userSlice';
 import DropdownBanks from '../DropdownBanks';
 import baseUrl from '../../../../utils';
 import customAxios from '../../../../utils/customAxios';
@@ -203,6 +203,14 @@ function ModalUpdateInfo() {
   const handleClose = () => {
     dispatch(setIsOpenModalUpdateInfo(false));
   }
+  const getUser = async () => {
+    try {
+      const res = await customAxios.get(`${baseUrl}/user/getInfoCurrentUser`)
+      dispatch(setCurrentUser(res.data.data));
+    } catch (error) {
+      console.log("error");
+    }
+  }
 
   const hanldeClickSave = async () => {
     // call API lưu
@@ -238,7 +246,7 @@ function ModalUpdateInfo() {
           position: "top-right"
         }
         );
-        window.location.reload(`${baseUrl}/user/info`);
+        getUser();
       } catch (error) {
         dispatch(setLoading(false));
         if (
@@ -253,7 +261,7 @@ function ModalUpdateInfo() {
         }
       }
       dispatch(setIsOpenModalUpdateInfo(false));
-      
+
     }
   }
 
