@@ -13,6 +13,7 @@ const userSlice = createSlice({
 
     usersList: [],
     currentUser: {},
+    infoAdmin: {},
     indexSelected: -1,
     isOpenModalReview: false,
     isOpenModalChangeStatus: false,
@@ -58,6 +59,11 @@ const userSlice = createSlice({
         ...action.payload
       };
     },
+    setInfoAdmin: (state, action) => {
+      state.infoAdmin = {
+        ...action.payload
+      };
+    },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
@@ -91,7 +97,8 @@ export const {
   setLoading,
   setIsOpenModalUpdateInfo,
   setIsOpenModalSendRequireVerify,
-  setError
+  setError,
+  setInfoAdmin
 } = userSlice.actions;
 export default userSlice.reducer;
 export {

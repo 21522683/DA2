@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import customAxios from '../../../../utils/customAxios.js';
 import baseUrl from '../../../../utils/index.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser } from '../../../../redux/slices/userSlice.js';
+import { setCurrentUser, setInfoAdmin } from '../../../../redux/slices/userSlice.js';
 
 const cx = classNames.bind(styles);
 
@@ -86,11 +86,20 @@ function Header() {
       console.log("error");
     }
   }
+  const getAdmin = async () => {
+    try {
+      const res = await customAxios.get(`${baseUrl}/user/getInfoAdmin`);
+      dispatch(setInfoAdmin(res.data.user));
+    } catch (error) {
+      console.log("error");
+    }
+  }
   const [flat, setFlat] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem('accessToken') || false
     if (token) {
       getUser();
+      getAdmin();
     }
     else setFlat(false)
   }, [])

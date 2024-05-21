@@ -195,6 +195,19 @@ const sendRequireVerifyInfo = async (req, res) => {
     }
 };
 
+const getInfoAdmin = async (req, res) => {
+    try {
+        const user = await User.findOne({isAdmin: true});
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.status(200).json({ message: "Get infomation of admin successfully", user });
+    } catch (error) {
+        console.error("Error when get infomation of user:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
 const getUserById = async (req, res) => {
     const { id } = req.params;
     try {
@@ -368,4 +381,5 @@ export default {
     updateStatusAccount,
     getAllUser,
     sendEmailNotifyToUser,
+    getInfoAdmin
 }

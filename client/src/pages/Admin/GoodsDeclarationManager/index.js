@@ -87,7 +87,7 @@ function GoodsDeclarationManager() {
     return (
         <div className={cx('container_main')}>
             {
-                true && <MessageBox/>
+                isOpenMessagebox && <MessageBox/>
             }
             {
                 isOpenModalDetail && <DetailGoodsDeclaration />

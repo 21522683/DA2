@@ -25,7 +25,7 @@ function YourOrder() {
   const currentUser = useSelector(state => state.userManagement.currentUser);
   const isOpenMessagebox = useSelector(state => state.orderManagement.isOpenMessagebox);
   const loading = useSelector(state => state.orderManagement.isLoading);
-
+  
   const [filter, setFilter] = useState({
     textSearch: '',
     status: 'Tất cả',
@@ -69,7 +69,6 @@ function YourOrder() {
     const queryString = new URLSearchParams(queryParams).toString();
     const pathWithQuery = `${baseUrl}/order/getAllOrdersByUserId/${currentUser._id}/?${queryString}`;
     setPathWithQuery(pathWithQuery);
-    console.log(filter);
   }, [filter]);
 
   useEffect(() => {
@@ -77,6 +76,7 @@ function YourOrder() {
       getAllOrders();
     }
   }, [pathWithQuery]);
+  
   const handleClickSeeDetail = (index) => {
     dispatch(setIsOpenModalDetail(true));
     dispatch(setIndexSelectedOrderUser(index));
