@@ -15,7 +15,7 @@ const getAllContractOfUser = async (req, res) => {
                 matchConditions.trangThai = true;
             } else if (status === "Chưa ký kết") {
                 matchConditions.trangThai = false;
-            }   
+            }
         }
         if (ngayTao) {
             const [day, month, year] = ngayTao.split('/');
@@ -201,7 +201,7 @@ const getAllContract = async (req, res) => {
                 matchConditions.trangThai = true;
             } else if (status === "Chưa ký kết") {
                 matchConditions.trangThai = false;
-            }   
+            }
         }
         if (ngayTao) {
             const [day, month, year] = ngayTao.split('/');
@@ -394,9 +394,77 @@ const updateStatusContract = async (req, res) => {
     }
 }
 
+const getAllRevanueContract = async (req, res) => {
+    try {
+        const { month, year } = req.query;
+
+        let dateFilter = {};
+        if (month !== 'Tất cả' && year !== 'Tất cả') {
+            const parsedMonth = parseInt(month, 10);
+            const parsedYear = parseInt(year, 10);
+
+            if (!isNaN(parsedMonth) && !isNaN(parsedYear)) {
+                dateFilter = {
+                    $expr: {
+                        $and: [
+                            { $eq: [{ $month: '$ngayTao' }, parsedMonth] },
+                            { $eq: [{ $year: '$ngayTao' }, parsedYear] }
+                        ]
+                    }
+                };
+            }
+        } else if (month !== 'Tất cả') {
+            const parsedMonth = parseInt(month, 10);
+
+            if (!isNaN(parsedMonth)) {
+                dateFilter = {
+                    $expr: {
+                        $eq: [{ $month: '$ngayTao' }, parsedMonth]
+                    }
+                };
+            }
+        } else if (year !== 'Tất cả') {
+            const parsedYear = parseInt(year, 10);
+
+            if (!isNaN(parsedYear)) {
+                dateFilter = {
+                    $expr: {
+                        $eq: [{ $year: '$ngayTao' }, parsedYear]
+                    }
+                };
+            }
+        }
+
+        const contracts = await Contract.find(dateFilter).populate('hoaDon');
+
+        let resData = {
+            tongTriGia: 0,
+            tongThue: 0,
+            tongThueContainer: 0,
+            tongThueTau: 0,
+            tongPhiVanChuyen: 0
+        };
+
+        contracts.forEach(contract => {
+            if (contract.hoaDon) {
+                resData.tongTriGia += contract.hoaDon.triGiaDonHang || 0;
+                resData.tongThue += contract.hoaDon.thue || 0;
+                resData.tongThueContainer += contract.hoaDon.phiThueContainer || 0;
+                resData.tongThueTau += contract.hoaDon.phiThueTau || 0;
+                resData.tongPhiVanChuyen += contract.hoaDon.phiVanChuyen || 0;
+            }
+        });
+
+        res.json(resData);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 
 export default {
     getAllContractOfUser,
     getAllContract,
-    updateStatusContract
+    updateStatusContract,
+    getAllRevanueContract
 }

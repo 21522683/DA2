@@ -12,6 +12,10 @@ const contractSlice = createSlice({
     contractOfUserList: [],
     indexSelectedContractOfUser: -1,
     isOpenModalDetailContractOfUser: false,
+
+    contractListReport: [],
+    indexSelectedReport: -1,
+    isOpenModalDetailReport: false,
   },
   reducers: {
     setListContracts: (state, action) => {
@@ -20,14 +24,23 @@ const contractSlice = createSlice({
     setListContractsOfUser: (state, action) => {
       state.contractOfUserList = [...action.payload];
     },
+    setContractListReport: (state, action) => {
+      state.contractListReport = [...action.payload];
+    },
     setIsOpenModalDetail: (state, action) => {
       state.isOpenModalDetail = action.payload;
     },
     setIsOpenModalDetailContractOfUser: (state, action) => {
       state.isOpenModalDetailContractOfUser = action.payload;
     },
+    setIsOpenModalDetailReport: (state, action) => {
+      state.isOpenModalDetailReport = action.payload;
+    },
     setIndexContractSelected: (state, action) => {
       state.indexSelected = action.payload;
+    },
+    setIndexSelectedReport: (state, action) => {
+      state.indexSelectedReport = action.payload;
     },
     setIndexContractOfUserSelected: (state, action) => {
       state.indexSelectedContractOfUser = action.payload;
@@ -46,6 +59,9 @@ export const {
   setListContractsOfUser,
   setIndexContractOfUserSelected,
   setIsOpenModalDetailContractOfUser,
+  setIndexSelectedReport,
+  setContractListReport,
+  setIsOpenModalDetailReport
 
 } = contractSlice.actions;
 

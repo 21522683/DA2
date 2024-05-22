@@ -87,13 +87,13 @@ function GoodsDeclarationManager() {
     return (
         <div className={cx('container_main')}>
             {
-                isOpenMessagebox && <MessageBox getAllGoodsDeclaration={getAllGoodsDeclaration}/>
+                isOpenMessagebox && <MessageBox getAllGoodsDeclaration={getAllGoodsDeclaration} />
             }
             {
-                isOpenModalDetail && <DetailGoodsDeclaration/>
+                isOpenModalDetail && <DetailGoodsDeclaration />
             }
             {
-                isOpenModalCreateBill && <ModalCreateBill getAllGoodsDeclaration={getAllGoodsDeclaration}/>
+                isOpenModalCreateBill && <ModalCreateBill getAllGoodsDeclaration={getAllGoodsDeclaration} />
             }
             {
                 loading && (
@@ -168,6 +168,9 @@ function GoodsDeclarationManager() {
                     </tbody>
 
                 </table>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', margin: '10px 20px' }}>
+                <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {listGoodsDeclaration.length}</span>
             </div>
         </div>
     )

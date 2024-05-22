@@ -20,5 +20,7 @@ router.patch('/updateInfomationUser/:id', checkToken, UserController.updateInfom
 router.patch('/updateStatusAccount/:id', UserController.updateStatusAccount);
 router.get('/getAllUser', checkToken, UserController.getAllUser);
 router.post('/sendEmailNotifyToUser', UserController.sendEmailNotifyToUser);
+router.get('/getUsersWithContracts', UserController.getUsersWithContracts);
+
 
 export default router;

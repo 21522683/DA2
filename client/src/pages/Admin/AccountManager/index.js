@@ -106,13 +106,13 @@ function AccountManager() {
         )
       }
       {
-        isOpenModalReview && <ModalReview getAllUsers={getAllUsers}/>
+        isOpenModalReview && <ModalReview getAllUsers={getAllUsers} />
       }
       {
-        isOpenModalChangeStatus && <ModalChangeStatus getAllUsers={getAllUsers}/>
+        isOpenModalChangeStatus && <ModalChangeStatus getAllUsers={getAllUsers} />
       }
       {
-        isOpenModalNotVerify && <ModalNotVerify getAllUsers={getAllUsers}/>
+        isOpenModalNotVerify && <ModalNotVerify getAllUsers={getAllUsers} />
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ TÀI KHOẢN NGƯỜI DÙNG</span>
@@ -178,6 +178,9 @@ function AccountManager() {
             }
           </tbody>
         </table>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', margin: '10px 20px' }}>
+        <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {listUsers.length}</span>
       </div>
     </div>
   )

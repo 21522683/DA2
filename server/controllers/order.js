@@ -263,11 +263,78 @@ const cancelOrder = async (req, res) => {
     }
 };
 
+const getReportOrder = async (req, res) => {
+    try {
+        const { month, year } = req.query;
+
+        let dateFilter = {};
+        if (month !== 'Tất cả' && year !== 'Tất cả') {
+            const parsedMonth = parseInt(month, 10);
+            const parsedYear = parseInt(year, 10);
+
+            if (!isNaN(parsedMonth) && !isNaN(parsedYear)) {
+                dateFilter = {
+                    $expr: {
+                        $and: [
+                            { $eq: [{ $month: '$ngayTaoDon' }, parsedMonth] },
+                            { $eq: [{ $year: '$ngayTaoDon' }, parsedYear] }
+                        ]
+                    }
+                };
+            }
+        } else if (month !== 'Tất cả') {
+            const parsedMonth = parseInt(month, 10);
+
+            if (!isNaN(parsedMonth)) {
+                dateFilter = {
+                    $expr: {
+                        $eq: [{ $month: '$ngayTaoDon' }, parsedMonth]
+                    }
+                };
+            }
+        } else if (year !== 'Tất cả') {
+            const parsedYear = parseInt(year, 10);
+
+            if (!isNaN(parsedYear)) {
+                dateFilter = {
+                    $expr: {
+                        $eq: [{ $year: '$ngayTaoDon' }, parsedYear]
+                    }
+                };
+            }
+        }
+
+        const orders = await Order.find(dateFilter);
+
+        let resData = {
+            daHuy: 0,
+            chuaDuyet: 0,
+            daDuyet: 0
+        };
+
+        orders.forEach(order => {
+            if (order.trangThaiHuy) {
+                resData.daHuy += 1;
+            } else {
+                if (order.trangThaiXetDuyet) {
+                    resData.daDuyet += 1;
+                } else {
+                    resData.chuaDuyet += 1;
+                }
+            }
+        });
+
+        res.json(resData);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
 
 export default {
     createOrderUser,
     getAllOrders,
     getAllOrdersByUserId,
     updateStatusOrder,
-    cancelOrder
+    cancelOrder,
+    getReportOrder
 }

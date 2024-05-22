@@ -61,11 +61,17 @@ function PrivateInfomation() {
                 <span className={cx('title_body')}>TRẠNG THÁI XÁC MINH</span>
                 <div className={cx('container_info')}>
                     <span className={cx('title')}>Trạng thái hoạt động:</span>
-                    <div className={cx('content')}>{currentUser.status ? "Đang hoạt động" : "Đang bị khóa"}</div>
+                    {
+                        currentUser.status ? (<div className={cx('content', 'green')}>Đang hoạt động</div>) : (<div className={cx('content', 'red')}>Đang bị khóa</div>)
+                    }
                 </div>
                 <div className={cx('container_info')}>
                     <span className={cx('title')}>Trạng thái xác minh:</span>
-                    <div className={cx('content')}>{currentUser.isVerify ? "Đã xác minh" : (currentUser.infoVerify ? "Chờ xác minh" : "Chưa xác minh")}</div>
+                    {
+                        currentUser.isVerify ? (<div className={cx('content', 'green')}>Đã xác minh</div>) : (
+                                currentUser.infoVerify ? (<div className={cx('content', 'blue')}>Chờ xác minh</div>) : (<div className={cx('content', 'red')}>Chưa xác minh</div>)
+                        )
+                    }
                 </div>
                 <span className={cx('title_body')}>THÔNG TIN DOANH NGHIỆP</span>
                 <div className={cx('container_info')}>

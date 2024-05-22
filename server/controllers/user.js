@@ -1,7 +1,8 @@
-import { User } from '../model/index.js';
+import { Contract, User } from '../model/index.js';
 import bcrypt from 'bcrypt';
 import sendEmail from '../utils/sendMail.js';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 
 const checkRegisterEmail = async (req, res) => {
     try {
@@ -171,7 +172,7 @@ const sendRequireVerifyInfo = async (req, res) => {
         const user = await User.findById(id);
 
         if (!user) {
-            return res.status(404).json({ error: "User not found", success: false});
+            return res.status(404).json({ error: "User not found", success: false });
         }
 
         const newInfoVerify = {
@@ -188,16 +189,16 @@ const sendRequireVerifyInfo = async (req, res) => {
 
         await user.save();
 
-        res.status(200).json({ message: "Require verify info sent successfully", user , success: true});
+        res.status(200).json({ message: "Require verify info sent successfully", user, success: true });
     } catch (error) {
         console.error("Error sending require verify info:", error);
-        res.status(500).json({ error: "Internal server error", success: false});
+        res.status(500).json({ error: "Internal server error", success: false });
     }
 };
 
 const getInfoAdmin = async (req, res) => {
     try {
-        const user = await User.findOne({isAdmin: true});
+        const user = await User.findOne({ isAdmin: true });
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });
@@ -262,12 +263,12 @@ const updateInfomationUser = async (req, res) => {
         }
 
         const updatedUser = await User.findByIdAndUpdate(
-            id, 
-            { 
-                hoten: updateData.hoten, 
-                infoVerify: updateData.infoVerify, 
-                email: updateData.email 
-            }, 
+            id,
+            {
+                hoten: updateData.hoten,
+                infoVerify: updateData.infoVerify,
+                email: updateData.email
+            },
             {
                 new: true, // Return the user after the update
             }
@@ -291,10 +292,10 @@ const updateStatusAccount = async (req, res) => {
         }
         user.status = !user.status;
         await user.save();
-        res.status(200).json({ message: "Thay đổi trạng thái tài khoản thành công", user , success: true});
+        res.status(200).json({ message: "Thay đổi trạng thái tài khoản thành công", user, success: true });
     } catch (error) {
         console.error("Error when get infomation of user:", error);
-        res.status(500).json({ error: "Internal server error" , success: false});
+        res.status(500).json({ error: "Internal server error", success: false });
     }
 };
 
@@ -364,7 +365,192 @@ const sendEmailNotifyToUser = async (req, res) => {
     }
 };
 
+const getUsersWithContracts = async (req, res) => {
+    try {
+        const { textSearch } = req.query;
 
+        let userFilter = {};
+        if (textSearch) {
+            userFilter = {
+                $or: [
+                    { hoten: { $regex: textSearch, $options: 'i' } },
+                    { email: { $regex: textSearch, $options: 'i' } }
+                ]
+            };
+        }
+
+        const users = await User.find(userFilter);
+
+        const results = [];
+        for (const user of users) {
+            const matchConditions = { 'hoaDon.keKhaiHH.donHang.user._id': new mongoose.Types.ObjectId(user._id) };
+            const pipeline = [
+                {
+                    $lookup: {
+                        from: 'bills',
+                        localField: 'hoaDon',
+                        foreignField: '_id',
+                        as: 'hoaDon'
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$hoaDon',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $lookup: {
+                        from: 'goodsdeclarations',
+                        localField: 'hoaDon.keKhaiHH',
+                        foreignField: '_id',
+                        as: 'hoaDon.keKhaiHH'
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$hoaDon.keKhaiHH',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $lookup: {
+                        from: 'orders',
+                        localField: 'hoaDon.keKhaiHH.donHang',
+                        foreignField: '_id',
+                        as: 'hoaDon.keKhaiHH.donHang'
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$hoaDon.keKhaiHH.donHang',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $lookup: {
+                        from: 'goods',
+                        localField: 'hoaDon.keKhaiHH.donHang.hangHoa',
+                        foreignField: '_id',
+                        as: 'hoaDon.keKhaiHH.donHang.hangHoa'
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$hoaDon.keKhaiHH.donHang.hangHoa',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $lookup: {
+                        from: 'users',
+                        localField: 'hoaDon.keKhaiHH.donHang.user',
+                        foreignField: '_id',
+                        as: 'hoaDon.keKhaiHH.donHang.user'
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$hoaDon.keKhaiHH.donHang.user',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $lookup: {
+                        from: 'containers',
+                        localField: 'hoaDon.dsContainer',
+                        foreignField: '_id',
+                        as: 'hoaDon.dsContainer'
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$hoaDon.dsContainer',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $lookup: {
+                        from: 'typecontainers',
+                        localField: 'hoaDon.dsContainer.loaiContainer',
+                        foreignField: '_id',
+                        as: 'hoaDon.dsContainer.loaiContainer'
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$hoaDon.dsContainer.loaiContainer',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $lookup: {
+                        from: 'vessels',
+                        localField: 'hoaDon.dsVessel',
+                        foreignField: '_id',
+                        as: 'hoaDon.dsVessel'
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$hoaDon.dsVessel',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $match: matchConditions
+                },
+                {
+                    $addFields: {
+                        idString: { $toString: '$_id' },
+                        orderIdString: { $toString: '$hoaDon.keKhaiHH.donHang._id' }
+                    }
+                },
+                {
+                    $group: {
+                        _id: '$_id',
+                        originalDocument: { $first: '$$ROOT' },
+                        dsContainers: { $addToSet: '$hoaDon.dsContainer' },
+                        dsVessels: { $addToSet: '$hoaDon.dsVessel' },
+                        hangHoas: { $addToSet: '$hoaDon.keKhaiHH.donHang.hangHoa' }
+                    }
+                },
+                {
+                    $addFields: {
+                        'originalDocument.hoaDon.dsContainer': '$dsContainers',
+                        'originalDocument.hoaDon.dsVessel': '$dsVessels',
+                        'originalDocument.hoaDon.keKhaiHH.donHang.hangHoa': '$hangHoas'
+                    }
+                },
+                {
+                    $replaceRoot: {
+                        newRoot: '$originalDocument'
+                    }
+                }
+            ];
+            const contracts = await Contract.aggregate(pipeline);
+
+            let tongTriGiaHopDong = 0;
+            const contractList = [];
+
+            for (const contract of contracts) {
+                if (contract.hoaDon && contract.hoaDon.tongTien) {
+                    tongTriGiaHopDong += contract.hoaDon.tongTien;
+                }
+                contractList.push(contract);
+            }
+            results.push({
+                user: user,
+                contracts: contractList,
+                tongTriGiaHopDong: tongTriGiaHopDong,
+                tongSoHopDong: contracts.length
+            });
+        }
+        res.json(results);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
 
 export default {
     checkRegisterEmail,
@@ -381,5 +567,6 @@ export default {
     updateStatusAccount,
     getAllUser,
     sendEmailNotifyToUser,
-    getInfoAdmin
+    getInfoAdmin,
+    getUsersWithContracts
 }

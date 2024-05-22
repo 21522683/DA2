@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import classNames from "classnames/bind";
-import styles from './ContractManager.module.scss';
+import styles from './ContractManagerUser.module.scss';
 import SearchBar from './SearchBar';
 import Dropdown from './DropDown';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DetailContract from './DetailContract';
 import { useDispatch, useSelector } from 'react-redux';
-import baseUrl from '../../../utils';
+import baseUrl from '../../../../utils';
 import { toast } from 'react-toastify';
-import customAxios from '../../../utils//customAxios';
-import convertDate from '../../../utils/convertDate';
-import HashLoader from "react-spinners/HashLoader";
-import { setIndexContractOfUserSelected, setIndexContractSelected, setIsOpenModalDetail, setIsOpenModalDetailContractOfUser, setListContracts, setListContractsOfUser } from '../../../redux/slices/contractSlice';
-
+import customAxios from '../../../../utils//customAxios';
+import convertDate from '../../../../utils/convertDate';
+import { setContractListReport, setIndexSelectedReport, setIsOpenModalDetailReport } from '../../../../redux/slices/contractSlice';
+import { BiArrowBack } from "react-icons/bi";
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 
-function ContractManager() {
+function ContractManagerUser() {
 
     const dispatch = useDispatch();
-    const contractsList = useSelector(state => state.contractManagement.contractsList);
-    const isOpenModalDetail = useSelector(state => state.contractManagement.isOpenModalDetail);
-    const loading = useSelector(state => state.contractManagement.isLoading);
+    const contractListReport = useSelector(state => state.contractManagement.contractListReport);
+    const isOpenModalDetailReport = useSelector(state => state.contractManagement.isOpenModalDetailReport);
+    const indexSelectedReport = useSelector(state => state.contractManagement.indexSelectedReport);
+    const itemSelected = contractListReport[indexSelectedReport];
 
     const [filter, setFilter] = useState({
         textSearch: '',
@@ -47,10 +48,11 @@ function ContractManager() {
         setFilter((prev) => ({ ...prev, ngayTao: formattedDate }));
     };
 
-    const getAllContract = async () => {
+    const [list, setList] = useState([]);
+    const getAllContractUser = async () => {
         try {
             const response = await customAxios.get(pathWithQuery);
-            dispatch(setListContracts(response.data.contracts));
+            setList(response.data.contracts);
         } catch (error) {
             if (
                 error.response &&
@@ -66,45 +68,35 @@ function ContractManager() {
 
     useEffect(() => {
         const queryParams = {
-            searchString: filter.textSearch,
-            status: filter.status,
-            ngayTao: filter.ngayTao,
+          searchString: filter.textSearch,
+          status: filter.status,
+          ngayTao: filter.ngayTao,
         };
         const queryString = new URLSearchParams(queryParams).toString();
-        const pathWithQuery = `${baseUrl}/contract/getAllContract/?${queryString}`;
+        const pathWithQuery = `${baseUrl}/contract/getAllContractOfUser/${itemSelected.user._id}/?${queryString}`;
         setPathWithQuery(pathWithQuery);
-    }, [filter]);
+      }, [filter]);
 
     useEffect(() => {
         if (pathWithQuery) {
-            getAllContract();
+            getAllContractUser();
         }
     }, [pathWithQuery]);
 
     const handleClickSeeDetail = (index) => {
-        dispatch(setIndexContractSelected(index));
-        dispatch(setIsOpenModalDetail(true));
+        dispatch(setIndexSelectedReport(index));
+        dispatch(setIsOpenModalDetailReport(true));
     };
 
     return (
         <div className={cx('container_main')}>
-            {loading && (
-                <div className={cx('container-loader')}>
-                    <HashLoader
-                        color="#0088af"
-                        loading={loading}
-                        size={80}
-                        aria-label="Loading Spinner"
-                        data-testid="loader"
-                        className={cx('loader-feedback')}
-                    />
-                </div>
-            )}
             {
-                isOpenModalDetail && <DetailContract getAllContract={getAllContract} />
+                isOpenModalDetailReport && <DetailContract />
             }
             <div className={cx('header')}>
-                <span className={cx('title_header')}>QUẢN LÝ HỢP ĐỒNG</span>
+                <Link to={'/admin/report'}>
+                    <BiArrowBack className={cx('title_header')} />
+                </Link>
                 <div className={cx('container_filter')}>
                     <div className={cx('container_search')}>
                         <span className={cx('title_search')}>Tìm kiếm</span>
@@ -137,14 +129,14 @@ function ContractManager() {
 
                     <tbody className={cx('body_table')}>
                         {
-                            contractsList.length === 0 ? (
+                            list.length === 0 ? (
                                 <tr className={cx('row_table')}>
                                     <td colSpan={5} className={cx('item_row_table')} style={{ textAlign: 'center' }}>
                                         Không có hợp đồng nào trong danh sách
                                     </td>
                                 </tr>
                             ) : (
-                                contractsList.map((item, index) => {
+                                list.map((item, index) => {
                                     return (
                                         <tr className={cx('row_table')} key={index}>
                                             <td className={cx('item_row_table')}>{item._id}</td>
@@ -165,10 +157,10 @@ function ContractManager() {
                 </table>
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', margin: '10px 20px' }}>
-                <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {contractsList.length}</span>
+                <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {list.length}</span>
             </div>
         </div>
     )
 }
 
-export default ContractManager;
+export default ContractManagerUser;

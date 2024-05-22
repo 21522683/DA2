@@ -106,7 +106,7 @@ function YourBillHistory() {
         </div>
       )}
       {isOpenModalDetailBillOfUser && <DetailBill />}
-      {isOpenModalInfoBillOfUser && <InfoBill getAllBillUser={getAllBillUser}/>}
+      {isOpenModalInfoBillOfUser && <InfoBill getAllBillUser={getAllBillUser} />}
       <div className={cx('title_page')}>HÓA ĐƠN CỦA BẠN</div>
       <div className={cx('header')}>
         <div className={cx('container_filter')}>
@@ -163,6 +163,9 @@ function YourBillHistory() {
             )}
           </tbody>
         </table>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', margin: '20px' }}>
+        <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {billOfUserList.length}</span>
       </div>
     </div>
   );

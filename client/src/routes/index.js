@@ -21,6 +21,8 @@ import YourBillHistory from "../pages/User/YourBillHistory/index.js"
 import PrivateInfomation from "../pages/User/PrivateInfomation/index.js"
 import WarningNotLogin from "../pages/Generals/WarningNotLogin/index.js"
 import WarningVerify from "../pages/Generals/WarningVerify/index.js"
+import ReportStatiscalManager from "../pages/Admin/ReportStatiscalManager/index.js"
+import ContractManagerUser from "../pages/Admin/ReportStatiscalManager/ContractManagerUser/index.js"
 
 export const publicRoutes = [
     { path: '/sign-up', component: SignUp },
@@ -52,4 +54,6 @@ export const adminRoutes = [
     { path: '/admin/goods-declaration', component: GoodsDeclarationManager, layout: LayoutAdmin },
     { path: '/admin/bill', component: HistoryBillManager, layout: LayoutAdmin },
     { path: '/admin/contract', component: ContractManager, layout: LayoutAdmin },
+    { path: '/admin/report', component: ReportStatiscalManager, layout: LayoutAdmin },
+    { path: '/admin/next-report', component: ContractManagerUser, layout: LayoutAdmin },
 ]

@@ -10,4 +10,7 @@ router.get('/getAllOrders', OrderController.getAllOrders);
 router.get('/getAllOrdersByUserId/:userId', checkToken, OrderController.getAllOrdersByUserId);
 router.patch('/updateStatusOrder/:id', OrderController.updateStatusOrder);
 router.patch('/cancelOrder/:id', OrderController.cancelOrder);
+router.get('/getReportOrder', OrderController.getReportOrder);
+
+
 export default router;

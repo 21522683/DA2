@@ -99,7 +99,7 @@ function OrderManager() {
         )
       }
       {
-        isOpenModalDetail && <DetailOrder getAllOrders={getAllOrders}/>
+        isOpenModalDetail && <DetailOrder getAllOrders={getAllOrders} />
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ ĐƠN HÀNG</span>
@@ -158,8 +158,10 @@ function OrderManager() {
               )
             }
           </tbody>
-
         </table>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', margin: '10px 20px' }}>
+        <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {listOrders.length}</span>
       </div>
     </div>
   )

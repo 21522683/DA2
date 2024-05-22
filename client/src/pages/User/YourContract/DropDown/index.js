@@ -29,7 +29,9 @@ function Dropdown({handleSelectOption}) {
         <div className={cx("dropdown")}>
             <div className={cx('dropdown_selected')} onClick={() => setShowOption(!showOption)}>
                 <span className={cx('text_selected')}>{selectedOption}</span>
-                <FiChevronDown className={cx('icon_select')} />
+                {
+                    showOption ? ( <FiChevronDown className={cx('icon_select')} />) : ( <FiChevronUp className={cx('icon_select')} />)
+                }
             </div>
             {
                 showOption && (

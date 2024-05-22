@@ -25,7 +25,7 @@ function YourOrder() {
   const currentUser = useSelector(state => state.userManagement.currentUser);
   const isOpenMessagebox = useSelector(state => state.orderManagement.isOpenMessagebox);
   const loading = useSelector(state => state.orderManagement.isLoading);
-  
+
   const [filter, setFilter] = useState({
     textSearch: '',
     status: 'Tất cả',
@@ -76,7 +76,7 @@ function YourOrder() {
       getAllOrders();
     }
   }, [pathWithQuery]);
-  
+
   const handleClickSeeDetail = (index) => {
     dispatch(setIsOpenModalDetail(true));
     dispatch(setIndexSelectedOrderUser(index));
@@ -102,7 +102,7 @@ function YourOrder() {
         isOpenModalDetail && <DetailOrder />
       }
       {
-        isOpenMessagebox && <MessageBox getAllOrders={getAllOrders}/>
+        isOpenMessagebox && <MessageBox getAllOrders={getAllOrders} />
       }
       <div className={cx('title_page')}>ĐƠN HÀNG CỦA BẠN</div>
       <div className={cx('header')}>
@@ -112,8 +112,8 @@ function YourOrder() {
             <SearchBar handleChangeInput={handleChangeInputSearch} />
           </div>
 
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-            <div className={cx('container_dropdown')} style={{marginRight: '80px'}}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div className={cx('container_dropdown')} style={{ marginRight: '80px' }}>
               <span className={cx('title_search')}>Ngày tạo đơn</span>
               <DatePicker dateFormat="dd/MM/YYYY" className={cx('date_picker')} selected={startDateFilter} onChange={(date) => handleChangeDate(date)} />
             </div>
@@ -152,7 +152,7 @@ function YourOrder() {
                       <td className={cx('item_row_table')}>{item.user.hoten}</td>
                       <td className={cx('item_row_table')}>{convertDate(item.ngayTaoDon)}</td>
                       {
-                         item.trangThaiHuy ? (<td className={cx(['item_row_table', 'lock'])}>Đã bị hủy</td>) : (item.trangThaiXetDuyet ? (<td className={cx(['item_row_table', 'active'])}>Đã xét duyệt</td>) : (<td className={cx(['item_row_table', 'waiting'])}>Chờ xét duyệt</td>))
+                        item.trangThaiHuy ? (<td className={cx(['item_row_table', 'lock'])}>Đã bị hủy</td>) : (item.trangThaiXetDuyet ? (<td className={cx(['item_row_table', 'active'])}>Đã xét duyệt</td>) : (<td className={cx(['item_row_table', 'waiting'])}>Chờ xét duyệt</td>))
                       }
                       <td className={cx('item_row_table')} onClick={() => handleClickSeeDetail(index)}>
                         <span className={cx('text_row')}>Xem chi tiết</span>
@@ -164,6 +164,9 @@ function YourOrder() {
             }
           </tbody>
         </table>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', margin: '20px' }}>
+        <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {listOrdersUser.length}</span>
       </div>
     </div>
   )

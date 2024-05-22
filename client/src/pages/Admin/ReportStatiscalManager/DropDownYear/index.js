@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classNames from "classnames/bind";
-import styles from './DropDown.module.scss';
+import styles from './DropDownYear.module.scss';
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 const cx = classNames.bind(styles);
-function Dropdown({handleSelectOption}) {
+
+function DropDownYear({ handleSelectOption }) {
     const [selectedOption, setSelectedOption] = useState('Tất cả');
-    const[showOption, setShowOption] = useState(false);
+    const [showOption, setShowOption] = useState(false);
 
     const handleClickOption1 = () => {
         setSelectedOption('Tất cả');
@@ -14,15 +15,9 @@ function Dropdown({handleSelectOption}) {
         handleSelectOption('Tất cả');
     }
     const handleClickOption2 = () => {
-        setSelectedOption('Đã thanh toán');
+        setSelectedOption('Năm 2024');
         setShowOption(false);
-        handleSelectOption('Đã thanh toán');
-    }
-
-    const handleClickOption3 = () => {
-        setSelectedOption('Chưa thanh toán');
-        setShowOption(false);
-        handleSelectOption('Chưa thanh toán');
+        handleSelectOption('2024');
     }
 
     return (
@@ -30,7 +25,7 @@ function Dropdown({handleSelectOption}) {
             <div className={cx('dropdown_selected')} onClick={() => setShowOption(!showOption)}>
                 <span className={cx('text_selected')}>{selectedOption}</span>
                 {
-                    showOption ? ( <FiChevronDown className={cx('icon_select')} />) : ( <FiChevronUp className={cx('icon_select')} />)
+                    showOption ? (<FiChevronDown className={cx('icon_select')} />) : (<FiChevronUp className={cx('icon_select')} />)
                 }
             </div>
             {
@@ -40,10 +35,7 @@ function Dropdown({handleSelectOption}) {
                             <span className={cx('text_dropdown')}>Tất cả</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption2}>
-                            <span className={cx('text_dropdown')}>Đã thanh toán</span>
-                        </div>
-                        <div className={cx('dropdown_option')} onClick={handleClickOption3}>
-                            <span className={cx('text_dropdown')}>Chưa thanh toán</span>
+                            <span className={cx('text_dropdown')}>Năm 2024</span>
                         </div>
                     </div>
                 )
@@ -52,4 +44,4 @@ function Dropdown({handleSelectOption}) {
     );
 };
 
-export default Dropdown;
+export default DropDownYear;

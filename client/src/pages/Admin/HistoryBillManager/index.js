@@ -107,10 +107,10 @@ function HistoryBillManager() {
         </div>
       )}
       {
-        isOpenModalDetail && <DetailBill getAllBill={getAllBill}/>
+        isOpenModalDetail && <DetailBill getAllBill={getAllBill} />
       }
       {
-        isOpenModalInfo && <InfoBill/>
+        isOpenModalInfo && <InfoBill />
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ HÓA ĐƠN VÀ LỊCH SỬ GIAO DỊCH</span>
@@ -170,6 +170,9 @@ function HistoryBillManager() {
             )}
           </tbody>
         </table>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', margin: '10px 20px' }}>
+        <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {billsList.length}</span>
       </div>
     </div>
   )

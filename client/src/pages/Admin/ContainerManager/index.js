@@ -85,13 +85,13 @@ function ContainerManager() {
         )
       }
       {
-        isOpenModalAdd && <ModalAddContainer getAllContainers={getAllContainers}/>
+        isOpenModalAdd && <ModalAddContainer getAllContainers={getAllContainers} />
       }
       {
-        isOpenModalUpdate && <ModalUpdateContainer getAllContainers={getAllContainers}/>
+        isOpenModalUpdate && <ModalUpdateContainer getAllContainers={getAllContainers} />
       }
       {
-        isOpenMessagebox && <MessageBox getAllContainers={getAllContainers}/>
+        isOpenMessagebox && <MessageBox getAllContainers={getAllContainers} />
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ CONTAINER</span>
@@ -118,6 +118,9 @@ function ContainerManager() {
             Thêm container
           </div>
         </div>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', margin: '0px 20px' }}>
+        <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {list.length}</span>
       </div>
       {
         list.length === 0 ? (

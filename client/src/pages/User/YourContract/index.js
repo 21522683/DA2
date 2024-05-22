@@ -101,7 +101,7 @@ function YourContract() {
         </div>
       )}
       {
-        isOpenModalDetailContractOfUser && <DetailContract getAllContractUser={getAllContractUser}/>
+        isOpenModalDetailContractOfUser && <DetailContract getAllContractUser={getAllContractUser} />
       }
       <div className={cx('title_page')}>HỢP ĐỒNG CỦA BẠN</div>
       <div className={cx('header')}>
@@ -166,6 +166,9 @@ function YourContract() {
             }
           </tbody>
         </table>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', margin: '20px' }}>
+        <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {contractOfUserList.length}</span>
       </div>
     </div>
   )

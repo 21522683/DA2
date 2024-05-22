@@ -1,0 +1,125 @@
+.container_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+
+    .header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        .title_header {
+            font-size: 18px;
+            color: #303030;
+            font-weight: 550;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .container_filter {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin: 0 0 20px;
+            padding: 0 20px;
+
+            .container_dropdown {
+                width: 220px;
+                position: relative;
+                z-index: 999;
+                margin: 0 20px;
+
+                .title_search {
+                    font-size: 14px;
+                    color: #3c3c3c;
+                }
+            }
+        }
+    }
+
+    .container_body {
+        display: flex;
+        flex-direction: column;
+
+        .container_chart {
+            width: 50%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 60px;
+        }
+
+        .body_container {
+            margin: 20px 0;
+            padding: 0 20px;
+            max-height: 372px;
+            overflow-y: auto;
+            z-index: 1;
+
+            .table_main {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 40px 0 20px;
+
+                .header_table {
+                    width: 100%;
+                    text-align: center;
+                    border: 1px solid #ccc;
+                    position: sticky;
+                    top: 0;
+
+                    .item_header_table {
+                        border-collapse: collapse;
+                        background-color: #008DB5;
+                        padding: 10px 0;
+                        color: #ffffff;
+                    }
+                }
+
+                .body_table {
+                    .row_table {
+                        border-right: 1px solid #ccc;
+                        border-left: 1px solid #ccc;
+                        border-bottom: 1px solid #ccc;
+                        width: 100%;
+
+                        &:hover {
+                            cursor: pointer;
+                            background-color: #f6f6f6;
+                        }
+
+                        .item_row_table {
+                            text-align: center;
+                            padding: 8px 0;
+
+                            .text_row {
+                                font-style: italic;
+                                color: #008DB5;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    opacity: 0.7;
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+
+                        .active {
+                            color: rgb(0, 218, 0);
+                        }
+
+                        .lock {
+                            color: rgb(255, 29, 29);
+                        }
+
+                        .waiting {
+                            color: blue
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classNames from "classnames/bind";
 import styles from './DropDown.module.scss';
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
@@ -14,15 +14,15 @@ function Dropdown({handleSelectOption}) {
         handleSelectOption('Tất cả');
     }
     const handleClickOption2 = () => {
-        setSelectedOption('Đã thanh toán');
+        setSelectedOption('Chưa ký kết');
         setShowOption(false);
-        handleSelectOption('Đã thanh toán');
+        handleSelectOption('Chưa ký kết');
     }
 
     const handleClickOption3 = () => {
-        setSelectedOption('Chưa thanh toán');
+        setSelectedOption('Đã ký kết');
         setShowOption(false);
-        handleSelectOption('Chưa thanh toán');
+        handleSelectOption('Đã ký kết');
     }
 
     return (
@@ -40,10 +40,10 @@ function Dropdown({handleSelectOption}) {
                             <span className={cx('text_dropdown')}>Tất cả</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption2}>
-                            <span className={cx('text_dropdown')}>Đã thanh toán</span>
+                            <span className={cx('text_dropdown')}>Chưa ký kết</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption3}>
-                            <span className={cx('text_dropdown')}>Chưa thanh toán</span>
+                            <span className={cx('text_dropdown')}>Đã ký kết</span>
                         </div>
                     </div>
                 )

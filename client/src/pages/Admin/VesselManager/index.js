@@ -81,13 +81,13 @@ function VesselManager() {
         )
       }
       {
-        isOpenModalAdd && <ModalAddVessel getAllVessels={getAllVessels}/>
+        isOpenModalAdd && <ModalAddVessel getAllVessels={getAllVessels} />
       }
       {
-        isOpenModalUpdate && <ModalUpdateVessel getAllVessels={getAllVessels}/>
+        isOpenModalUpdate && <ModalUpdateVessel getAllVessels={getAllVessels} />
       }
       {
-        isOpenMessagebox && <MessageBox getAllVessels={getAllVessels}/>
+        isOpenMessagebox && <MessageBox getAllVessels={getAllVessels} />
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ TÀU</span>
@@ -109,6 +109,9 @@ function VesselManager() {
             Thêm tàu
           </div>
         </div>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', margin: '0px 20px' }}>
+        <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {listVessels.length}</span>
       </div>
       {
         listVessels.length === 0 ? (
