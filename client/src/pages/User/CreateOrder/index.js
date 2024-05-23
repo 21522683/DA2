@@ -116,12 +116,14 @@ function CreateOrder() {
   }
 
   const handleClickCreateOrder = async () => {
-    if (currentUser.isAmin === true || !currentUser) {
+    if (currentUser.isAmin === true || Object.keys(currentUser).length === 0) {
       window.location.href = 'http://localhost:3000/warning/un-login';
+      return;
     }
     else {
       if (currentUser.isVerify === false) {
         window.location.href = 'http://localhost:3000/warning/un-verify';
+        return;
       }
       else {
         const flagDate = validateNgayDen(startDateFilter, endDateFilter);
