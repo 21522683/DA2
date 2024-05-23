@@ -116,7 +116,7 @@ function CreateOrder() {
   }
 
   const handleClickCreateOrder = async () => {
-    if (currentUser.isAmin === true || Object.keys(currentUser).length === 0) {
+    if (currentUser.isAdmin === true || Object.keys(currentUser).length === 0) {
       window.location.href = 'http://localhost:3000/warning/un-login';
       return;
     }
