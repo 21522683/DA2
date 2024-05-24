@@ -188,7 +188,7 @@ const createBillUser = async (req, res) => {
         }
 
         // Duyệt để chọn danh sách tàu tối ưu nhất
-        totalM = totalM.toFixed(2) / 1000 + MOfContsinersChosse;
+        totalM = parseFloat(totalM.toFixed(2)) / 1000 + MOfContsinersChosse;
         let listVesselChoose = findClosestSumOfVessel(totalM, listAllVessels);
         let totalMoneyVessel = 0;
         if (listVesselChoose.length === 0) {
@@ -204,6 +204,7 @@ const createBillUser = async (req, res) => {
             }
         }
 
+        const total = parseFloat(triGia + phiVC + totalMoneyContainer + totalMoneyVessel + thue*totalMoneyHH).toFixed(1);
         const objectBill = {
             keKhaiHH: idKKHH,
             thue: thue/100*totalMoneyHH,
@@ -212,7 +213,7 @@ const createBillUser = async (req, res) => {
             phiThueTau: totalMoneyVessel,
             triGiaDonHang: triGia,
             ngayTao: Date.now(),
-            tongTien: (triGia + phiVC + totalMoneyContainer + totalMoneyVessel + thue*totalMoneyHH).toFixed(1),
+            tongTien: total,
             dsContainer: listContainerChoose,
             dsVessel: listVesselChoose,
         }
@@ -242,7 +243,6 @@ const createBillUser = async (req, res) => {
         });
     }
 }
-
 
 
 export default {
