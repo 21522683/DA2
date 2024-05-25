@@ -204,12 +204,12 @@ function CreateOrder() {
 
         <div className={cx('container_dropdown')}>
           <span className={cx('title_search')}>Ngày đi dự kiến</span>
-          <DatePicker className={cx('date_picker')} selected={startDateFilter} onChange={(date) => setStartDateFilter(date)} />
+          <DatePicker dateFormat="dd/MM/YYYY" className={cx('date_picker')} selected={startDateFilter} onChange={(date) => setStartDateFilter(date)} />
         </div>
 
         <div className={cx('container_dropdown')}>
           <span className={cx('title_search')}>Ngày đến dự kiến</span>
-          <DatePicker className={cx('date_picker')} selected={endDateFilter} onChange={(date) => setEndDateFilter(date)} />
+          <DatePicker dateFormat="dd/MM/YYYY" className={cx('date_picker')} selected={endDateFilter} onChange={(date) => setEndDateFilter(date)} />
           <span style={{ color: 'red', fontSize: '10px' }}>{textValidateNgayDen}</span>
         </div>
 

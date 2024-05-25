@@ -112,6 +112,7 @@ function ModalCreateBill({getAllGoodsDeclaration}) {
                     toast.error(res.data.message, {
                         position: "top-right"
                     });
+
                     dispatch(setIsOpenMessageBox(true));
                 }
             } catch (error) {
@@ -121,7 +122,6 @@ function ModalCreateBill({getAllGoodsDeclaration}) {
                 dispatch(setLoading(false));
                 dispatch(setIsOpenModalCreateBill(false));
                 dispatch(setIsOpenModalDetail(false));
-                console.log(error.message);
             }
         }
     }

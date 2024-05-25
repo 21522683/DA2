@@ -171,7 +171,6 @@ const createBillUser = async (req, res) => {
         let MOfContsinersChosse = 0;
         let totalMoneyContainer = 0;
         // Duyệt qua để chọn danh sách container tối ưu nhất
-        totalV = parseFloat(totalV.toFixed(2));
         const listContainerChoose = findClosestSumOfContainer(totalV, listAllContainers);
         if (listContainerChoose.length === 0) {
             return res.status(400).json({
@@ -186,7 +185,6 @@ const createBillUser = async (req, res) => {
                 listContainerChoose[i].trangThai = true;
             }
         }
-
         // Duyệt để chọn danh sách tàu tối ưu nhất
         totalM = parseFloat(totalM.toFixed(2)) / 1000 + MOfContsinersChosse;
         let listVesselChoose = findClosestSumOfVessel(totalM, listAllVessels);
