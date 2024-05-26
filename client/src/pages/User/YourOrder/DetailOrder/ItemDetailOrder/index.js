@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import styles from './ItemDetailOrder.module.scss';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import convertDate from '../../../../../utils/convertDate';
+import formatMoney from '../../../../../utils/formatMoney'
 
 const cx = classNames.bind(styles);
 
@@ -44,11 +45,15 @@ function ItemDetailOrder({ itemHH }) {
                             <span className={cx('title')}>Nhà cung cấp:</span>
                             <span className={cx('content')}>{itemHH.nhaCungCap}</span>
                         </div>
+                        <div className={cx('container_hh')}>
+                            <span className={cx('title')}>Lĩnh vực:</span>
+                            <span className={cx('content')}>{itemHH.linhVuc}</span>
+                        </div>
 
                         <div className={cx('container_mutilple')}>
                             <div className={cx('container_hh')}>
-                                <span className={cx('title')}>Lĩnh vực:</span>
-                                <span className={cx('content')}>{itemHH.linhVuc}</span>
+                                <span className={cx('title')}>Giá bán:</span>
+                                <span className={cx('content')}>{formatMoney(itemHH.giaBan)}</span>
                             </div>
                             <div className={cx('container_hh')}>
                                 <span className={cx('title')}>Ngày SX:</span>

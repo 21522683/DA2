@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from "classnames/bind";
 import styles from './ItemDetailGoods.module.scss';
 import convertDate from '../../../../../utils/convertDate';
+import formatMoney from '../../../../../utils/formatMoney';
 
 const cx = classNames.bind(styles);
 
@@ -40,6 +41,10 @@ function ItemDetailGoods({ itemHangHoa }) {
       </div>
 
       <div className={cx('container_mutilple')}>
+        <div className={cx('container_hh')}>
+          <span className={cx('title')}>Giá bán:</span>
+          <span className={cx('content')}>{formatMoney(itemHangHoa.giaBan)}</span>
+        </div>
         <div className={cx('container_hh')}>
           <span className={cx('title')}>Ngày SX:</span>
           <span className={cx('content')}>{convertDate(itemHangHoa.ngaySX)}</span>
