@@ -91,6 +91,16 @@ function HistoryBillManager() {
     }
   };
 
+  const handleClickRPA = () => {
+    if (billsList.length > 0) {
+      for (let i = 0; i < billsList.length; i++) {
+        if (billsList[i].trangThai === false) {
+          // Xử lý ở đây 
+          
+        }
+      }
+    }
+  }
 
   return (
     <div className={cx('container_main')}>
@@ -129,6 +139,8 @@ function HistoryBillManager() {
             <span className={cx('title_search')}>Trạng thái hóa đơn</span>
             <Dropdown handleSelectOption={handleChangeFilter} />
           </div>
+
+          <div className={cx('container_button')} onClick={handleClickRPA}>Sử dụng RPA</div>
         </div>
       </div>
 

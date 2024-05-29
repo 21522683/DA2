@@ -70,7 +70,6 @@ function GoodsDeclarationManager() {
         const queryString = new URLSearchParams(queryParams).toString();
         const pathWithQuery = `${baseUrl}/goodsDeclaration/getAllGoodsDeclaration?${queryString}`;
         setPathWithQuery(pathWithQuery);
-        console.log(filter);
     }, [filter]);
 
     useEffect(() => {
@@ -82,6 +81,28 @@ function GoodsDeclarationManager() {
     const handleClickSeeDetail = (index) => {
         dispatch(setIndexGoodDeclarationSelected(index));
         dispatch(setIsOpenModalDetail(true));
+    }
+
+
+    const totalSumGoods = (obj) => {
+        let total = 0;
+        for (let i = 0; i < obj.donHang.hangHoa.length; i++) {
+            total = total + (obj.donHang.hangHoa[i].soLuong * obj.donHang.hangHoa[i].giaBan);
+        }
+        return total;
+    }
+
+    const handleClickRPA = () => {
+        if (listGoodsDeclaration.length > 0) {
+            for (let i = 0; i < listGoodsDeclaration.length; i++) {
+                if (listGoodsDeclaration[i].trangThai === false) {
+                    // Xử lý trong trong này 
+                    let total = totalSumGoods(listGoodsDeclaration[i]);
+
+                    // Xử lý ở đây 
+                }
+            }
+        }
     }
 
     return (
@@ -117,7 +138,7 @@ function GoodsDeclarationManager() {
                         <SearchBar handleChangeInput={handleChangeInputSearch} />
                     </div>
 
-                    <div className={cx('container_dropdown')}>
+                    <div className={cx('container_dropdown_date')}>
                         <span className={cx('title_search')}>Ngày tạo</span>
                         <DatePicker dateFormat="dd/MM/YYYY" className={cx('date_picker')} selected={startDateFilter} onChange={(date) => handleChangeDate(date)} />
                     </div>
@@ -126,6 +147,8 @@ function GoodsDeclarationManager() {
                         <span className={cx('title_search')}>Trạng thái</span>
                         <Dropdown handleSelectOption={handleChangeFilter} />
                     </div>
+
+                    <div className={cx('container_button')} onClick={handleClickRPA}>Sử dụng RPA</div>
                 </div>
             </div>
 

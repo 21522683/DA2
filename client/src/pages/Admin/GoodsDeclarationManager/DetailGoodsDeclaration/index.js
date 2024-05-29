@@ -25,6 +25,7 @@ function DetailGoodsDeclaration() {
     dispatch(setIsOpenModalCreateBill(true));
   }
 
+
   return (
     <div className={cx('wrapper')} onClick={handleClose}>
       <div className={cx('container-body')} onClick={(e) => e.stopPropagation()}>

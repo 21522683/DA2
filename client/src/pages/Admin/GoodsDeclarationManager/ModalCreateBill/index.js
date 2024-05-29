@@ -17,7 +17,6 @@ function ModalCreateBill({getAllGoodsDeclaration}) {
     const indexSelected = useSelector(state => state.goodsDeclarationManagement.indexSelected);
     const itemSelected = listGoodsDeclaration[indexSelected];
 
-
     const [thue, setThue] = useState(0);
     const [textValidateThue, setTextValidateThue] = useState('');
     const validationThue = (value) => {
