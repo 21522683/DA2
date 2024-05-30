@@ -160,7 +160,7 @@ function GoodsDeclarationManager() {
                         },
                         {
                         "Command": "store",
-                        "Target": "2",
+                        "Target": "1",
                         "Value": "i",
                         "Description": ""
                         },
