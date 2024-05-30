@@ -92,15 +92,153 @@ function HistoryBillManager() {
   };
 
   const handleClickRPA = () => {
-    if (billsList.length > 0) {
-      for (let i = 0; i < billsList.length; i++) {
-        if (billsList[i].trangThai === false) {
-          // Xử lý ở đây 
+    // if (billsList.length > 0) {
+    //   for (let i = 0; i < billsList.length; i++) {
+    //     if (billsList[i].trangThai === false) {
+    //       // Xử lý ở đây 
           
-        }
-      }
-    }
+    //     }
+    //   }
+    // }
+    FillDataByRPA();
   }
+
+  function FillDataByRPA() {
+    (function (detail) {
+        var isExtensionLoaded = function () {
+            var $root = document.documentElement
+            return !!$root && !!$root.getAttribute('data-kantu')
+        }
+        var openExternal = function (url) {
+            const $el = document.createElement('a')
+            $el.setAttribute('target', '_blank')
+            $el.setAttribute('href', url)
+            $el.style.position = 'absolute'
+            $el.style.top = '-9999px'
+            $el.style.left = '-9999px'
+            document.body.appendChild($el)
+            $el.click()
+            setTimeout(() => {
+                $el.remove()
+            }, 200)
+        }
+        var openWebsite = function () {
+            openExternal('https://ui.vision/rpa/home/getrpa')
+        }
+       if (!isExtensionLoaded()) {
+            if (window.confirm('UI.Vision RPA is not installed yet. Do you want to download it now?')) {
+               return openWebsite()
+         }
+        } else {
+            return window.dispatchEvent(new CustomEvent('kantuSaveAndRunMacro', { detail: detail }))
+        }
+    })
+        ({
+            direct: 1,
+            json: {
+                "Name": "contract",
+                "CreationDate": "2020-05-15",
+                "Commands": [
+                  {
+                    "Command": "bringBrowserToForeground",
+                    "Target": "true",
+                    "Value": "",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "storeXpathCount",
+                    "Target": "xpath=//tr",
+                    "Value": "count",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "echo",
+                    "Target": "total row = ${count-1}",
+                    "Value": "green",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "store",
+                    "Target": "2",
+                    "Value": "i",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "while",
+                    "Target": "${i} <= ${count}",
+                    "Value": "",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "storeText",
+                    "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[4]",
+                    "Value": "state",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "echo",
+                    "Target": "${i}th row text=${state}",
+                    "Value": "blue",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "if",
+                    "Target": "${state} == \"Đã thanh toán\"",
+                    "Value": "",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "click",
+                    "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[5]",
+                    "Value": "",
+                    "Targets": [
+                      "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[5]",
+                      "xpath=//tr[${i}]/td[5]",
+                      "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.GoodsDeclarationManager_body_container__pzgP1 > table > tbody > tr:nth-child(2) > td:nth-child(5)"
+                    ],
+                    "Description": ""
+                  },
+                  {
+                    "Command": "click",
+                    "Target": "id=btnNext",
+                    "Value": "",
+                    "Targets": [
+                      "id=btnNext",
+                      "xpath=//*[@id=\"btnNext\"]",
+                      "xpath=//div[@id='btnNext']",
+                      "xpath=//div[2]/div/div/div/div[3]/div",
+                      "css=#btnNext"
+                    ],
+                    "Description": ""
+                  },
+                  {
+                    "Command": "end",
+                    "Target": "",
+                    "Value": "",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "executeScript_Sandbox",
+                    "Target": "return Number (${i})+1;",
+                    "Value": "i",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "echo",
+                    "Target": "current row = ${i}",
+                    "Value": "green",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "end",
+                    "Target": "",
+                    "Value": "",
+                    "Description": ""
+                  }
+                ]
+            }
+        })
+      }
 
   return (
     <div className={cx('container_main')}>

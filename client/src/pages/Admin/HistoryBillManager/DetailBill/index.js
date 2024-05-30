@@ -299,11 +299,16 @@ function DetailBill({ getAllBill }) {
 
         <div className={cx('container-btn')}>
           {
-            itemSelected.isHaveContract ? (<span className={cx('flag_content')}>Đã tạo hợp đồng và gửi đến người dùng</span>) : (
-              <div className={cx('btn_accpet')} onClick={handleCreateContract}>
-                Tạo hợp đồng cho đơn hàng
-              </div>
-            )
+            // itemSelected.isHaveContract ? (<span className={cx('flag_content')}>Đã tạo hợp đồng và gửi đến người dùng</span>) : (
+            //   <div className={cx('btn_accpet')} onClick={handleCreateContract}>
+            //     Tạo hợp đồng cho đơn hàng
+            //   </div>
+            // )
+            <div id='btnNext' 
+            className={itemSelected.isHaveContract ? cx('flag_content') : cx('btn_accpet')} 
+            onClick={itemSelected.isHaveContract ? handleClose : handleCreateContract}>
+            {itemSelected.isHaveContract ? "Đã tạo hợp đồng và gửi đến người dùng" : "Tạo hợp đồng cho đơn hàng"}
+            </div>
           }
 
 
