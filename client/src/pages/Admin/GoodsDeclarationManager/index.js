@@ -141,10 +141,32 @@ function GoodsDeclarationManager() {
                     "CreationDate": "2020-05-15",
                     "Commands": [
                         {
-                          "Command": "bringBrowserToForeground",
-                          "Target": "true",
-                          "Value": "",
-                          "Description": ""
+                        "Command": "bringBrowserToForeground",
+                        "Target": "true",
+                        "Value": "",
+                        "Description": ""
+                        },
+                        {
+                        "Command": "click",
+                        "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div",
+                        "Value": "",
+                        "Targets": [
+                            "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div",
+                            "xpath=//div[3]/div/div",
+                            "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.GoodsDeclarationManager_header__cwkSy > div > div.GoodsDeclarationManager_container_dropdown__kjvDh > div > div"
+                        ],
+                        "Description": ""
+                        },
+                        {
+                        "Command": "click",
+                        "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div[2]/div[2]",
+                        "Value": "",
+                        "Targets": [
+                            "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div[2]/div[2]",
+                            "xpath=//div[2]/div[2]",
+                            "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.GoodsDeclarationManager_header__cwkSy > div > div.GoodsDeclarationManager_container_dropdown__kjvDh > div > div.DropDown_dropdown__content__rSgGx > div:nth-child(2)"
+                        ],
+                        "Description": ""
                         },
                         {
                         "Command": "storeXpathCount",
@@ -179,6 +201,18 @@ function GoodsDeclarationManager() {
                         {
                         "Command": "echo",
                         "Target": "${i}th row text=${state}",
+                        "Value": "blue",
+                        "Description": ""
+                        },
+                        {
+                        "Command": "storeText",
+                        "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[2]",
+                        "Value": "tongGiaTri",
+                        "Description": ""
+                        },
+                        {
+                        "Command": "echo",
+                        "Target": "${i}th row text=${tongGiaTri}",
                         "Value": "blue",
                         "Description": ""
                         },
@@ -224,9 +258,27 @@ function GoodsDeclarationManager() {
                         "Description": ""
                         },
                         {
+                        "Command": "executeScript_Sandbox",
+                        "Target": "return Number (${tongGiaTri}*0.05);",
+                        "Value": "phiVanChuyen",
+                        "Description": ""
+                        },
+                        {
+                        "Command": "echo",
+                        "Target": "${i}th row text phi van chuyen=${phiVanChuyen}",
+                        "Value": "blue",
+                        "Description": ""
+                        },
+                        {
+                        "Command": "comment",
+                        "Target": "storeText // xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[2]",
+                        "Value": "phiVanChuyen",
+                        "Description": ""
+                        },
+                        {
                         "Command": "type",
                         "Target": "id=txtPhiVanChuyen",
-                        "Value": "5",
+                        "Value": "${phiVanChuyen}",
                         "Targets": [
                             "id=txtPhiVanChuyen",
                             "xpath=//*[@id=\"txtPhiVanChuyen\"]",
@@ -239,7 +291,7 @@ function GoodsDeclarationManager() {
                         {
                         "Command": "type",
                         "Target": "id=txtTongGiaTri",
-                        "Value": "5",
+                        "Value": "${tongGiaTri}",
                         "Targets": [
                             "id=txtTongGiaTri",
                             "xpath=//*[@id=\"txtTongGiaTri\"]",
@@ -283,7 +335,7 @@ function GoodsDeclarationManager() {
                         "Target": "",
                         "Value": "",
                         "Description": ""
-                        }
+                        }                    
                     ]
                 }
             })
