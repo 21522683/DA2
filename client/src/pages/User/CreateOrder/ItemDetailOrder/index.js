@@ -29,7 +29,7 @@ function ItemDetailOrder({ item, index }) {
     const [nameHH, setNameHH] = useState(item.tenHH);
     const [linhVuc, setLinhVuc] = useState(item.linhVuc);
     const [NCC, setNCC] = useState(item.nhaCungCap);
-    const [quantity, setQuantity] = useState(item.soluong);
+    const [quantity, setQuantity] = useState(item.soLuong);
     const [weight, setWeight] = useState(item.khoiLuong);
     const [price, setPrice] = useState(item.giaBan);
     const [moTa, setMoTa] = useState(item.moTa);
@@ -363,13 +363,13 @@ function ItemDetailOrder({ item, index }) {
                             </div>
                             <div className={cx('container_hh2')}>
                                 <span className={cx('title')}>Ngày SX:</span>
-                                <DatePicker className={cx('content')} selected={sxDateFilter} onChange={(date) => setSXDateFilter(date)} />
+                                <DatePicker dateFormat="dd/MM/YYYY" className={cx('content')} selected={sxDateFilter} onChange={(date) => setSXDateFilter(date)} />
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 <div className={cx('container_hh2')}>
                                     <span className={cx('title')}>HSD:</span>
-                                    <DatePicker className={cx('content')} selected={hsdDateFilter} onChange={(date) => setHSDDateFilter(date)} />
+                                    <DatePicker dateFormat="dd/MM/YYYY" className={cx('content')} selected={hsdDateFilter} onChange={(date) => setHSDDateFilter(date)} />
                                 </div>
                                 <span style={{ color: 'red', fontSize: '10px' }}>{textValidateHSD}</span>
                             </div>
