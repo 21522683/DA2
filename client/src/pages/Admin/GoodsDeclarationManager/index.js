@@ -341,7 +341,7 @@ function GoodsDeclarationManager() {
                     <thead>
                         <tr className={cx('header_table')}>
                             <th className={cx('item_header_table')}>Mã kê khai</th>
-                            <th className={cx('item_header_table')}>Mã đơn hàng</th>
+                            <th className={cx('item_header_table')}>Tổng trị giá hàng hóa</th>
                             <th className={cx('item_header_table')}>Ngày tạo</th>
                             <th className={cx('item_header_table')}>Trạng thái</th>
                             <th className={cx('item_header_table')}>Thao tác</th>
@@ -359,7 +359,7 @@ function GoodsDeclarationManager() {
                                     return (
                                         <tr className={cx('row_table')} key={index}>
                                             <td className={cx('item_row_table')}>{item._id}</td>
-                                            <td className={cx('item_row_table')}>{item.donHang._id}</td>
+                                            <td className={cx('item_row_table')}>{totalSumGoods(item)}</td>
                                             <td className={cx('item_row_table')}>{convertDate(item.ngayTao)}</td>
                                             {/* <td id='tdState'
                                             className={item.trangThai ? cx(['item_row_table', 'active']) : cx(['item_row_table', 'lock'])}>{
