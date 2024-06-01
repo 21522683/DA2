@@ -123,7 +123,7 @@ function HistoryBillManager() {
             }, 200)
         }
         var openWebsite = function () {
-            openExternal('https://ui.vision/rpa/home/getrpa')
+            openExternal('https://chromewebstore.google.com/detail/uivision-rpa/gcbalfbdmfieckjlnblleoemohcganoc?hl=vi')
         }
        if (!isExtensionLoaded()) {
             if (window.confirm('UI.Vision RPA is not installed yet. Do you want to download it now?')) {
@@ -143,6 +143,28 @@ function HistoryBillManager() {
                     "Command": "bringBrowserToForeground",
                     "Target": "true",
                     "Value": "",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "click",
+                    "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div",
+                    "Value": "",
+                    "Targets": [
+                      "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div",
+                      "xpath=//div[3]/div/div",
+                      "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.HistoryBillManager_header__oFFNF > div > div:nth-child(3) > div > div"
+                    ],
+                    "Description": ""
+                  },
+                  {
+                    "Command": "click",
+                    "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div[2]/div[3]",
+                    "Value": "",
+                    "Targets": [
+                      "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div[2]/div[3]",
+                      "xpath=//div[2]/div[3]",
+                      "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.HistoryBillManager_header__oFFNF > div > div:nth-child(3) > div > div.DropDown_dropdown__content__jlrmM > div:nth-child(3)"
+                    ],
                     "Description": ""
                   },
                   {

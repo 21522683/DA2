@@ -124,7 +124,7 @@ function GoodsDeclarationManager() {
                 }, 200)
             }
             var openWebsite = function () {
-                openExternal('https://ui.vision/rpa/home/getrpa')
+                openExternal('https://chromewebstore.google.com/detail/uivision-rpa/gcbalfbdmfieckjlnblleoemohcganoc?hl=vi')
             }
            if (!isExtensionLoaded()) {
                 if (window.confirm('UI.Vision RPA is not installed yet. Do you want to download it now?')) {
