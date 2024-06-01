@@ -302,15 +302,17 @@ function GoodsDeclarationManager() {
                         "Description": ""
                         },
                         {
-                        "Command": "click",
-                        "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[3]/div/div[2]/div[4]/div",
-                        "Value": "",
-                        "Targets": [
-                            "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[3]/div/div[2]/div[4]/div",
-                            "xpath=//div[2]/div[4]/div",
-                            "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.ModalCreateBill_wrapper__OezOT > div > div.ModalCreateBill_container_body_modal__QtFgt > div.ModalCreateBill_container_btn__GcDmI > div"
-                        ],
-                        "Description": ""
+                            "Command": "click",
+                            "Target": "id=btnAccept",
+                            "Value": "",
+                            "Targets": [
+                              "id=btnAccept",
+                              "xpath=//*[@id=\"btnAccept\"]",
+                              "xpath=//div[@id='btnAccept']",
+                              "xpath=//div[2]/div[4]/div",
+                              "css=#btnAccept"
+                            ],
+                            "Description": ""
                         },
                         {
                         "Command": "end",

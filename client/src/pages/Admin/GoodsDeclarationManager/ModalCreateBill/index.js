@@ -137,7 +137,7 @@ function ModalCreateBill({getAllGoodsDeclaration}) {
                     <div className={cx('container_input_2')}>
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Thuế tổng hàng hóa (%)</span>
-                            <input value={thue} onChange={(e) => setThue(e.target.value)} type="number" className={cx('input_number')} placeholder='Nhập thuế cho tổng hàng hóa (0 đến 100)' />
+                            <input id='txtThue' value={thue} onChange={(e) => setThue(e.target.value)} type="number" className={cx('input_number')} placeholder='Nhập thuế cho tổng hàng hóa (0 đến 100)' />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidateThue}</span>
                         </div>
                     </div>
@@ -145,7 +145,7 @@ function ModalCreateBill({getAllGoodsDeclaration}) {
                     <div className={cx('container_input_2')}>
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Phí vận chuyển</span>
-                            <input value={phiVC} onChange={(e) => setPhiVC(e.target.value)} type="number" className={cx('input_number')} placeholder='Nhập tải trọng' />
+                            <input id='txtPhiVanChuyen' value={phiVC} onChange={(e) => setPhiVC(e.target.value)} type="number" className={cx('input_number')} placeholder='Nhập tải trọng' />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidatePhiVC}</span>
                         </div>
                     </div>
@@ -153,13 +153,13 @@ function ModalCreateBill({getAllGoodsDeclaration}) {
                     <div className={cx('container_input_2')}>
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Trị giá của đơn hàng</span>
-                            <input value={triGia} onChange={(e) => setTriGia(e.target.value)} type="number" className={cx('input_number')} placeholder='Nhập trị giá của đơn hàng' />
+                            <input id='txtTongGiaTri' value={triGia} onChange={(e) => setTriGia(e.target.value)} type="number" className={cx('input_number')} placeholder='Nhập trị giá của đơn hàng' />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidateTriGia}</span>
                         </div>
                     </div>
 
                     <div className={cx('container_btn')}>
-                        <div className={cx('btn_accept')} onClick={handleCreateBill}>
+                        <div id='btnAccept' className={cx('btn_accept')} onClick={handleCreateBill}>
                             Tạo hóa đơn
                         </div>
                     </div>
