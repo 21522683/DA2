@@ -33,9 +33,10 @@ function ModalUpdateContainer({getAllContainers}) {
         }
     }
 
-    useEffect(() => {
-        let temp = validation(soHieu);
-    }, [soHieu]);
+    const handleChangeSoHieu = (value) => {
+        setSoHieu(value)
+        validation(soHieu);
+    }
 
     const handleChangeFilterType = (value) => {
         setType(value);
@@ -107,7 +108,7 @@ function ModalUpdateContainer({getAllContainers}) {
                                 className={cx('input_number')}
                                 placeholder='Nhập số hiệu container'
                                 value={soHieu}
-                                onChange={(e) => setSoHieu(e.target.value)} />
+                                onChange={(e) => handleChangeSoHieu(e.target.value)} />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidate}</span>
                         </div>
                     </div>

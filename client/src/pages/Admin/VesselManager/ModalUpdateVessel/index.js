@@ -28,9 +28,10 @@ function ModalUpdateContainer({getAllVessels}) {
             return true;
         }
     }
-    useEffect(() => {
-        let temp = validationTenTau(tenTau);
-    }, [tenTau]);
+    const handleChangeTenTau = (value) => {
+        setTenTau(value);
+        validationTenTau(value);
+    }
 
     const [soHieu, setSoHieu] = useState(itemSelected.soHieu);
     const [textValidateSoHieu, setTextValidateSoHieu] = useState('');
@@ -43,9 +44,10 @@ function ModalUpdateContainer({getAllVessels}) {
             return true;
         }
     }
-    useEffect(() => {
-        let temp = validationSoHieu(soHieu);
-    }, [soHieu]);
+    const handleChangeSoHieu = (value) => {
+        setSoHieu(value);
+        validationSoHieu(value);
+    }
 
     const [trangThai, setTrangThai] = useState(itemSelected.trangThai ? "Đang sử dụng" : "Đang trống");
     const [taiTrong, setTaiTrong] = useState(itemSelected.taiTrong);
@@ -65,9 +67,10 @@ function ModalUpdateContainer({getAllVessels}) {
             }
         }
     }
-    useEffect(() => {
-        let temp = validationTaiTrong(taiTrong);
-    }, [taiTrong]);
+    const handleChangeTaiTrong = (value) => {
+        setTaiTrong(value);
+        validationTaiTrong(value);
+    }
 
     const [giaThue, setGiaThue] = useState(itemSelected.giaThue);
     const [textValidateGiaThue, setTextValidateGiaThue] = useState('');
@@ -86,9 +89,10 @@ function ModalUpdateContainer({getAllVessels}) {
             }
         }
     }
-    useEffect(() => {
-        let temp = validationGiaThue(giaThue);
-    }, [giaThue]);
+    const handleChangeGiaThue = (value) => {
+        setGiaThue(value);
+        validationGiaThue(value);
+    }
 
     const handleChangeFilter = (value) => {
         setTrangThai(value);
@@ -151,7 +155,7 @@ function ModalUpdateContainer({getAllVessels}) {
                                 className={cx('input_number')}
                                 placeholder='Nhập số hiệu tàu'
                                 value={soHieu}
-                                onChange={(e) => setSoHieu(e.target.value)} />
+                                onChange={(e) => handleChangeSoHieu(e.target.value)} />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidateSoHieu}</span>
                         </div>
                     </div>
@@ -162,9 +166,9 @@ function ModalUpdateContainer({getAllVessels}) {
                             <input
                                 type="number"
                                 className={cx('input_number')}
-                                placeholder='Nhập thể tích'
+                                placeholder='Nhập tải trọng'
                                 value={taiTrong}
-                                onChange={(e) => setTaiTrong(e.target.value)} />
+                                onChange={(e) => handleChangeTaiTrong(e.target.value)} />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidateTaiTrong}</span>
                         </div>
                         <div className={cx('container_input_2_a')}>
@@ -181,7 +185,7 @@ function ModalUpdateContainer({getAllVessels}) {
                                 className={cx('input_number')}
                                 placeholder='Nhập tên tàu'
                                 value={tenTau}
-                                onChange={(e) => setTenTau(e.target.value)} />
+                                onChange={(e) => handleChangeTenTau(e.target.value)} />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidateTenTau}</span>
                         </div>
 
@@ -192,7 +196,7 @@ function ModalUpdateContainer({getAllVessels}) {
                                 className={cx('input_number')}
                                 placeholder='Nhập giá thuê tàu'
                                 value={giaThue}
-                                onChange={(e) => setGiaThue(e.target.value)} />
+                                onChange={(e) => handleChangeGiaThue(e.target.value)} />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidateGiaThue}</span>
                         </div>
                     </div>

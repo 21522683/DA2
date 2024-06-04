@@ -28,10 +28,10 @@ function ModalAddContainer({getAllContainers}) {
             return true;
         }
     }
-
-    useEffect(() => {
-        let temp = validation(soHieu);
-    }, [soHieu]);
+    const handleChangeSoHieu = (value) => {
+        setSoHieu(value)
+        validation(soHieu);
+    }
 
     const handleClose = () => {
         dispatch(setIsOpenModalAdd(false));
@@ -85,7 +85,7 @@ function ModalAddContainer({getAllContainers}) {
 
                     <div className={cx('container_input_1')} style={{ marginTop: '20px' }}>
                         <span className={cx('title_input')}>Số hiệu container</span>
-                        <input type="text" className={cx('input_number')} placeholder='Nhập số hiệu container' value={soHieu} onChange={(e) => setSoHieu(e.target.value)} />
+                        <input type="text" className={cx('input_number')} placeholder='Nhập số hiệu container' value={soHieu} onChange={(e) => handleChangeSoHieu(e.target.value)} />
                     </div>
                     <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidate}</span>
                     <div className={cx('container_btn')}>

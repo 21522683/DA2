@@ -139,8 +139,8 @@ const createBillUser = async (req, res) => {
         const { idKKHH } = req.params;
         const { thue, phiVC, triGia } = req.body;
 
-        const listAllContainers = await Container.find({trangThai: false}).populate('loaiContainer').exec();
-        const listAllVessels = await Vessel.find({trangThai: false}).exec();
+        const listAllContainers = await Container.find({ trangThai: false }).populate('loaiContainer').exec();
+        const listAllVessels = await Vessel.find({ trangThai: false }).exec();
         const kkhh = await GoodsDeclaration.findById(idKKHH).populate({
             path: 'donHang',
             populate: [
@@ -163,9 +163,9 @@ const createBillUser = async (req, res) => {
         for (let i = 0; i < arrHH.length; i++) {
             let Vhh = arrHH[i].chieuDai * arrHH[i].chieuRong * arrHH[i].chieuCao * arrHH[i].soLuong;
             let Mhh = arrHH[i].khoiLuong * arrHH[i].soLuong;
-            totalV = totalV + Vhh;
-            totalM = totalM + Mhh;
-            totalMoneyHH = totalMoneyHH + (arrHH[i].giaBan * arrHH[i].soLuong);
+            totalV += Vhh;
+            totalM += Mhh;
+            totalMoneyHH += (arrHH[i].giaBan * arrHH[i].soLuong);
         }
 
         let MOfContsinersChosse = 0;
@@ -180,13 +180,14 @@ const createBillUser = async (req, res) => {
         } else {
             for (let i = 0; i < listContainerChoose.length; i++) {
                 const container = listContainerChoose[i];
-                MOfContsinersChosse = MOfContsinersChosse + container.loaiContainer.trongLuong;
-                totalMoneyContainer = totalMoneyContainer + (container.loaiContainer.giaThue);
+                MOfContsinersChosse += container.loaiContainer.trongLuong;
+                totalMoneyContainer += container.loaiContainer.giaThue;
                 listContainerChoose[i].trangThai = true;
             }
         }
+
         // Duyệt để chọn danh sách tàu tối ưu nhất
-        totalM = parseFloat(totalM.toFixed(2)) / 1000 + MOfContsinersChosse;
+        totalM = totalM / 1000 + MOfContsinersChosse;
         let listVesselChoose = findClosestSumOfVessel(totalM, listAllVessels);
         let totalMoneyVessel = 0;
         if (listVesselChoose.length === 0) {
@@ -197,32 +198,36 @@ const createBillUser = async (req, res) => {
         } else {
             for (let i = 0; i < listVesselChoose.length; i++) {
                 const vessel = listVesselChoose[i];
-                totalMoneyVessel = totalMoneyVessel + (vessel.giaThue);
+                totalMoneyVessel += vessel.giaThue;
                 listVesselChoose[i].trangThai = true;
             }
         }
 
-        const total = parseFloat(triGia + phiVC + totalMoneyContainer + totalMoneyVessel + thue*totalMoneyHH).toFixed(1);
+        const total = parseFloat(triGia) + parseFloat(phiVC) + totalMoneyContainer + totalMoneyVessel + (parseFloat(thue) / 100) * totalMoneyHH;
+
+        console.log("total: ", total);
+        console.log("==============================================");
+
         const objectBill = {
             keKhaiHH: idKKHH,
-            thue: thue/100*totalMoneyHH,
-            phiVanChuyen: phiVC,
+            thue: (parseFloat(thue) / 100) * totalMoneyHH,
+            phiVanChuyen: parseFloat(phiVC),
             phiThueContainer: totalMoneyContainer,
             phiThueTau: totalMoneyVessel,
-            triGiaDonHang: triGia,
+            triGiaDonHang: parseFloat(triGia),
             ngayTao: Date.now(),
             tongTien: total,
             dsContainer: listContainerChoose,
             dsVessel: listVesselChoose,
         }
 
-        for (var i = 0; i < listContainerChoose.length; i++) {
+        for (let i = 0; i < listContainerChoose.length; i++) {
             let idContainerUpdate = listContainerChoose[i]._id;
             const container = await Container.findById(idContainerUpdate);
             container.trangThai = true;
             await container.save();
         }
-        for (var i = 0; i < listVesselChoose.length; i++) {
+        for (let i = 0; i < listVesselChoose.length; i++) {
             let idVesselUpdate = listVesselChoose[i]._id;
             const vessel = await Vessel.findById(idVesselUpdate);
             vessel.trangThai = true;
@@ -233,7 +238,7 @@ const createBillUser = async (req, res) => {
 
         const bill = await Bill.create(objectBill);
         await bill.save();
-        res.status(200).json({ message: 'Tạo hóa đơn thành công', bill , success: true});
+        res.status(200).json({ message: 'Tạo hóa đơn thành công', bill, success: true });
 
     } catch (error) {
         res.status(400).json({
@@ -241,6 +246,7 @@ const createBillUser = async (req, res) => {
         });
     }
 }
+
 
 
 export default {

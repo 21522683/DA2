@@ -93,14 +93,6 @@ function GoodsDeclarationManager() {
     }
 
     const handleClickRPA = () => {
-        // if (listGoodsDeclaration.length > 0) {
-        //     for (let i = 0; i < listGoodsDeclaration.length; i++) {
-        //         if (listGoodsDeclaration[i].trangThai === false) {
-        //             let total = totalSumGoods(listGoodsDeclaration[i]);
-        //             let cost = total * 0.05;
-        //         }
-        //     }
-        // }
         FillDataByRPA(); 
     }
 
@@ -415,10 +407,6 @@ function GoodsDeclarationManager() {
                                             <td className={cx('item_row_table')}>{item._id}</td>
                                             <td className={cx('item_row_table')}>{totalSumGoods(item)}</td>
                                             <td className={cx('item_row_table')}>{convertDate(item.ngayTao)}</td>
-                                            {/* <td id='tdState'
-                                            className={item.trangThai ? cx(['item_row_table', 'active']) : cx(['item_row_table', 'lock'])}>{
-                                                item.trangThai ? "Đã tạo hóa đơn" : "Chưa tạo hóa đơn"
-                                            }</td> */}
                                             {
                                                 item.trangThai ? (<td className={cx(['item_row_table', 'active'])}>Đã tạo hóa đơn</td>) : (<td className={cx(['item_row_table', 'lock'])}>Chưa tạo hóa đơn</td>)
                                             }

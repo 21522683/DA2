@@ -37,9 +37,10 @@ function ModalSendRequireVerify() {
       return true;
     }
   }
-  useEffect(() => {
-    let temp = handleValidateMaSoDN(maSoDN);
-  }, [maSoDN])
+  const handleChangeMaSoDN = (value) => {
+    setMaSoDN(value);
+    handleValidateMaSoDN(value);
+  }
 
   const [showMsgValidateTenDoanhNghiep, setShowMsgValidateTenDoanhNghiep] = useState(false);
   const [msgTenDoanhNghiep, setMsgTenDoanhNghiep] = useState('');
@@ -54,9 +55,10 @@ function ModalSendRequireVerify() {
       return true;
     }
   }
-  useEffect(() => {
-    let temp = handleValidateTenDoanhNghiep(tenDoanhNghiep);
-  }, [tenDoanhNghiep])
+  const handleChangeTenDoanhNghiep = (value) => {
+    setTenDoanhNghiep(value);
+    handleValidateTenDoanhNghiep(value);
+  }
 
   const [showMsgValidateDiaChi, setShowMsgValidateDiaChi] = useState(false);
   const [msgDiaChi, setMsgDiaChi] = useState('');
@@ -71,9 +73,10 @@ function ModalSendRequireVerify() {
       return true;
     }
   }
-  useEffect(() => {
-    let temp = handleValidateDiaChi(diaChi);
-  }, [diaChi])
+  const handleChangeDiaChi = (value) => {
+    setDiaChi(value);
+    handleValidateDiaChi(value);
+  }
 
   const [showMsgValidateSTK, setShowMsgValidateSTK] = useState(false);
   const [msgSTK, setMsgSTK] = useState('');
@@ -88,9 +91,10 @@ function ModalSendRequireVerify() {
       return true;
     }
   }
-  useEffect(() => {
-    let temp = handleValidateSTK(STK);
-  }, [STK])
+  const handleChangeSTK = (value) => {
+    setSTK(value);
+    handleValidateSTK(value);
+  }
 
   const [showMsgValidateNganHang, setShowMsgValidateNganHang] = useState(false);
   const [msgNganHang, setMsgNganHang] = useState('');
@@ -120,9 +124,10 @@ function ModalSendRequireVerify() {
       return true;
     }
   }
-  useEffect(() => {
-    let temp = handleValidateSoFAX(soFAX);
-  }, [soFAX])
+  const handleChangeSoFAX = (value) => {
+    setSoFAX(value);
+    handleValidateSoFAX(value);
+  }
 
   const [showMsgValidateSoDienThoai, setShowMsgValidateSoDienThoai] = useState(false);
   const [msgSoDienThoai, setMsgSoDienThoai] = useState('');
@@ -145,9 +150,10 @@ function ModalSendRequireVerify() {
       }
     }
   }
-  useEffect(() => {
-    let temp = handleValidateSoDienThoai(soDienThoai);
-  }, [soDienThoai])
+  const handleChangeSoDienThoai = (value) => {
+    setSoDienThoai(value);
+    handleValidateSoDienThoai(value);
+  }
 
   const handleClose = () => {
     dispatch(setIsOpenModalSendRequireVerify(false));
@@ -228,7 +234,7 @@ function ModalSendRequireVerify() {
                 className={cx('content_input')}
                 placeholder='Nhập mã số doanh nghiệp'
                 value={maSoDN}
-                onChange={(e) => setMaSoDN(e.target.value)}
+                onChange={(e) => handleChangeMaSoDN(e.target.value)}
               />
               {
                 showMsgValidateMaSoDN && <span className={cx('text_validate')}>{msgMaSoDN}</span>
@@ -246,7 +252,7 @@ function ModalSendRequireVerify() {
                 className={cx('content_input')}
                 placeholder='Nhập tên doanh nghiệp'
                 value={tenDoanhNghiep}
-                onChange={(e) => setTenDoanhNghiep(e.target.value)}
+                onChange={(e) => handleChangeTenDoanhNghiep(e.target.value)}
               />
               {
                 showMsgValidateTenDoanhNghiep && <span className={cx('text_validate')}>{msgTenDoanhNghiep}</span>
@@ -262,7 +268,7 @@ function ModalSendRequireVerify() {
                 className={cx('content_input')}
                 placeholder='Nhập địa chỉ doanh nghiệp'
                 value={diaChi}
-                onChange={(e) => setDiaChi(e.target.value)}
+                onChange={(e) => handleChangeDiaChi(e.target.value)}
               />
               {
                 showMsgValidateDiaChi && <span className={cx('text_validate')}>{msgDiaChi}</span>
@@ -278,7 +284,7 @@ function ModalSendRequireVerify() {
                 className={cx('content_input')}
                 placeholder='Nhập số tài khoản'
                 value={STK}
-                onChange={(e) => setSTK(e.target.value)}
+                onChange={(e) => handleChangeSTK(e.target.value)}
               />
               {
                 showMsgValidateSTK && <span className={cx('text_validate')}>{msgSTK}</span>
@@ -302,7 +308,7 @@ function ModalSendRequireVerify() {
                 className={cx('content_input')}
                 placeholder='Nhập số FAX'
                 value={soFAX}
-                onChange={(e) => setSoFAX(e.target.value)}
+                onChange={(e) => handleChangeSoFAX(e.target.value)}
               />
               {
                 showMsgValidateSoFAX && <span className={cx('text_validate')}>{msgSoFAX}</span>
@@ -317,7 +323,7 @@ function ModalSendRequireVerify() {
                 className={cx('content_input')}
                 placeholder='Nhập số điện thoại'
                 value={soDienThoai}
-                onChange={(e) => setSoDienThoai(e.target.value)}
+                onChange={(e) => handleChangeSoDienThoai(e.target.value)}
               />
               {
                 showMsgValidateSoDienThoai && <span className={cx('text_validate')}>{msgSoDienThoai}</span>

@@ -53,6 +53,7 @@ function ContractManagerUser() {
         try {
             const response = await customAxios.get(pathWithQuery);
             setList(response.data.contracts);
+            dispatch(setContractListReport(response.data.contracts));
         } catch (error) {
             if (
                 error.response &&

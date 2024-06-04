@@ -1,23 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import classNames from "classnames/bind";
 import styles from './DetailContract.module.scss';
 import formatMoney from '../../../../../utils/formatMoney.js';
 import IMAGES from '../../../../../assets/images/index.js';
 import { useDispatch, useSelector } from 'react-redux';
 import convertDate from '../../../../../utils/convertDate';
-import { setIsOpenModalDetail } from '../../../../../redux/slices/contractSlice.js';
+import { setIsOpenModalDetailReport } from '../../../../../redux/slices/contractSlice.js';
 const cx = classNames.bind(styles);
 
 function DetailContract() {
     const dispatch = useDispatch();
-    const contractsList = useSelector(state => state.contractManagement.contractsList);
-    const indexSelected = useSelector(state => state.contractManagement.indexSelected);
-    const itemSelected = contractsList[indexSelected];
+    const contractListReport = useSelector(state => state.contractManagement.contractListReport);
+    const indexSelectedReport = useSelector(state => state.contractManagement.indexSelectedReport);
+    const itemSelected = contractListReport[indexSelectedReport];
     const admin = useSelector(state => state.userManagement.infoAdmin);
 
-
+    useEffect(() => {
+        console.log("itemSelected nè: ", itemSelected);
+    })
     const handleClose = () => {
-        dispatch(setIsOpenModalDetail(false));
+        dispatch(setIsOpenModalDetailReport(false));
     }
     function getLastName(fullName) {
         fullName = fullName.trim();

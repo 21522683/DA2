@@ -6,12 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setIsOpenModalDetailBillOfUser } from '../../../../redux/slices/billSlice.js';
 import convertDate from '../../../../utils/convertDate.js';
 
-
 const cx = classNames.bind(styles);
 
 
 function DetailBill() {
-
 
   const dispatch = useDispatch();
   const billOfUserList = useSelector(state => state.billManagement.billOfUserList);

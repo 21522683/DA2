@@ -54,9 +54,10 @@ function CreateOrder() {
       return true;
     }
   }
-  useEffect(() => {
-    let temp = validateNgayDen(startDateFilter, endDateFilter)
-  }, [endDateFilter]);
+  const handleChangeEndDateFilter = (value) => {
+    setEndDateFilter(value);
+    validateNgayDen(startDateFilter, value);
+  }
 
   const validateDichVu = (value) => {
     if (value.trim().length === 0 || value.trim() === '' || value.trim() === 'Chọn dịch vụ') {
@@ -67,9 +68,10 @@ function CreateOrder() {
       return true;
     }
   }
-  useEffect(() => {
-    let temp = validateDichVu(dichVu);
-  }, [dichVu]);
+  const handleChangeFilter = (value) => {
+    setDichVu(value);
+    validateDichVu(value);
+  }
 
   const validateCangDi = (value) => {
     if (value.trim().length === 0 || value.trim() === '') {
@@ -80,9 +82,10 @@ function CreateOrder() {
       return true;
     }
   }
-  useEffect(() => {
-    let temp = validateCangDi(cangDi);
-  }, [cangDi]);
+  const handleChangeCangDi = (value) => {
+    setCangDi(value);
+    validateCangDi(value);
+  }
 
   const validateCangDen = (value) => {
     if (value.trim().length === 0 || value.trim() === '') {
@@ -93,9 +96,10 @@ function CreateOrder() {
       return true;
     }
   }
-  useEffect(() => {
-    let temp = validateCangDen(cangDen);
-  }, [cangDen]);
+  const handleChangeCangDen = (value) => {
+    setCangDen(value);
+    validateCangDen(value);
+  }
 
   const validateList = (list) => {
     if (list.length === 0) {
@@ -111,9 +115,7 @@ function CreateOrder() {
   }, [listCreateGoods]);
 
 
-  const handleChangeFilter = (value) => {
-    setDichVu(value);
-  }
+  
 
   const handleClickCreateOrder = async () => {
     if (currentUser.isAdmin === true || Object.keys(currentUser).length === 0) {
@@ -209,7 +211,7 @@ function CreateOrder() {
 
         <div className={cx('container_dropdown')}>
           <span className={cx('title_search')}>Ngày đến dự kiến</span>
-          <DatePicker dateFormat="dd/MM/YYYY" className={cx('date_picker')} selected={endDateFilter} onChange={(date) => setEndDateFilter(date)} />
+          <DatePicker dateFormat="dd/MM/YYYY" className={cx('date_picker')} selected={endDateFilter} onChange={(date) => handleChangeEndDateFilter(date)} />
           <span style={{ color: 'red', fontSize: '10px' }}>{textValidateNgayDen}</span>
         </div>
 
@@ -229,7 +231,7 @@ function CreateOrder() {
             type="text"
             placeholder='Nhập thông tin cảng đi cho đơn hàng'
             value={cangDi}
-            onChange={(e) => setCangDi(e.target.value)}
+            onChange={(e) => handleChangeCangDi(e.target.value)}
           />
           <span style={{ color: 'red', fontSize: '10px', marginTop: '8px' }}>{textValidateCangDi}</span>
         </div>
@@ -241,7 +243,7 @@ function CreateOrder() {
             type="text"
             placeholder='Nhập thông tin cảng đến cho đơn hàng'
             value={cangDen}
-            onChange={(e) => setCangDen(e.target.value)}
+            onChange={(e) => handleChangeCangDen(e.target.value)}
           />
           <span style={{ color: 'red', fontSize: '10px', marginTop: '8px' }}>{textValidateCangDen}</span>
         </div>

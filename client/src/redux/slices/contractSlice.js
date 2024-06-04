@@ -16,6 +16,10 @@ const contractSlice = createSlice({
     contractListReport: [],
     indexSelectedReport: -1,
     isOpenModalDetailReport: false,
+
+    contractListReportOfUser: [],
+    indexSelectedReportOfUser: -1,
+    isOpenModalDetailReportOfUser: false,
   },
   reducers: {
     setListContracts: (state, action) => {
@@ -27,6 +31,9 @@ const contractSlice = createSlice({
     setContractListReport: (state, action) => {
       state.contractListReport = [...action.payload];
     },
+    setContractListReportOfUser: (state, action) => {
+      state.contractListReportOfUser = [...action.payload];
+    },
     setIsOpenModalDetail: (state, action) => {
       state.isOpenModalDetail = action.payload;
     },
@@ -36,11 +43,17 @@ const contractSlice = createSlice({
     setIsOpenModalDetailReport: (state, action) => {
       state.isOpenModalDetailReport = action.payload;
     },
+    setIsOpenModalDetailReportOfUser: (state, action) => {
+      state.isOpenModalDetailReportOfUser = action.payload;
+    },
     setIndexContractSelected: (state, action) => {
       state.indexSelected = action.payload;
     },
     setIndexSelectedReport: (state, action) => {
       state.indexSelectedReport = action.payload;
+    },
+    setIndexSelectedReportOfUser: (state, action) => {
+      state.indexSelectedReportOfUser = action.payload;
     },
     setIndexContractOfUserSelected: (state, action) => {
       state.indexSelectedContractOfUser = action.payload;
@@ -61,7 +74,10 @@ export const {
   setIsOpenModalDetailContractOfUser,
   setIndexSelectedReport,
   setContractListReport,
-  setIsOpenModalDetailReport
+  setIsOpenModalDetailReport,
+  setIndexSelectedReportOfUser,
+  setContractListReportOfUser,
+  setIsOpenModalDetailReportOfUser
 
 } = contractSlice.actions;
 
