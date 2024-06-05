@@ -170,43 +170,37 @@ function HistoryBillManager() {
                   {
                     "Command": "storeXpathCount",
                     "Target": "xpath=//tr",
-                    "Value": "count",
-                    "Description": ""
-                  },
-                  {
-                    "Command": "echo",
-                    "Target": "total row = ${count-1}",
-                    "Value": "green",
-                    "Description": ""
-                  },
-                  {
-                    "Command": "store",
-                    "Target": "1",
                     "Value": "i",
                     "Description": ""
                   },
                   {
-                    "Command": "while",
-                    "Target": "${i} <= ${count}",
-                    "Value": "",
+                    "Command": "echo",
+                    "Target": "total row = ${i}",
+                    "Value": "green",
                     "Description": ""
                   },
                   {
-                    "Command": "storeText",
-                    "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[4]",
-                    "Value": "state",
+                    "Command": "executeScript_Sandbox",
+                    "Target": "return Number (${i})-1;",
+                    "Value": "i",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "store",
+                    "Target": "0",
+                    "Value": "j",
+                    "Description": ""
+                  },
+                  {
+                    "Command": "while",
+                    "Target": "${i} > ${j}",
+                    "Value": "",
                     "Description": ""
                   },
                   {
                     "Command": "echo",
-                    "Target": "${i}th row text=${state}",
-                    "Value": "blue",
-                    "Description": ""
-                  },
-                  {
-                    "Command": "if",
-                    "Target": "${state} == \"Đã thanh toán\"",
-                    "Value": "",
+                    "Target": "current row = ${i}",
+                    "Value": "green",
                     "Description": ""
                   },
                   {
@@ -234,21 +228,9 @@ function HistoryBillManager() {
                     "Description": ""
                   },
                   {
-                    "Command": "end",
-                    "Target": "",
-                    "Value": "",
-                    "Description": ""
-                  },
-                  {
                     "Command": "executeScript_Sandbox",
-                    "Target": "return Number (${i})+1;",
+                    "Target": "return Number (${i})-1;",
                     "Value": "i",
-                    "Description": ""
-                  },
-                  {
-                    "Command": "echo",
-                    "Target": "current row = ${i}",
-                    "Value": "green",
                     "Description": ""
                   },
                   {

@@ -133,167 +133,149 @@ function GoodsDeclarationManager() {
                     "CreationDate": "2020-05-15",
                     "Commands": [
                         {
-                        "Command": "bringBrowserToForeground",
-                        "Target": "true",
-                        "Value": "",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "click",
-                        "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div",
-                        "Value": "",
-                        "Targets": [
-                            "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div",
-                            "xpath=//div[3]/div/div",
-                            "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.GoodsDeclarationManager_header__cwkSy > div > div.GoodsDeclarationManager_container_dropdown__kjvDh > div > div"
-                        ],
-                        "Description": ""
-                        },
-                        {
-                        "Command": "click",
-                        "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div[2]/div[2]",
-                        "Value": "",
-                        "Targets": [
-                            "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div[2]/div[2]",
-                            "xpath=//div[2]/div[2]",
-                            "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.GoodsDeclarationManager_header__cwkSy > div > div.GoodsDeclarationManager_container_dropdown__kjvDh > div > div.DropDown_dropdown__content__rSgGx > div:nth-child(2)"
-                        ],
-                        "Description": ""
-                        },
-                        {
-                        "Command": "storeXpathCount",
-                        "Target": "xpath=//tr",
-                        "Value": "count",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "echo",
-                        "Target": "total row = ${count-1}",
-                        "Value": "green",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "store",
-                        "Target": "1",
-                        "Value": "i",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "while",
-                        "Target": "${i} <= ${count}",
-                        "Value": "",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "storeText",
-                        "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[4]",
-                        "Value": "state",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "echo",
-                        "Target": "${i}th row text=${state}",
-                        "Value": "blue",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "storeText",
-                        "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[2]",
-                        "Value": "tongGiaTri",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "echo",
-                        "Target": "${i}th row text=${tongGiaTri}",
-                        "Value": "blue",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "if",
-                        "Target": "${state} == \"Chưa tạo hóa đơn\"",
-                        "Value": "",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "click",
-                        "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[5]",
-                        "Value": "",
-                        "Targets": [
-                            "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[5]",
-                            "xpath=//tr[${i}]/td[5]",
-                            "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.GoodsDeclarationManager_body_container__pzgP1 > table > tbody > tr:nth-child(2) > td:nth-child(5)"
-                        ],
-                        "Description": ""
-                        },
-                        {
-                        "Command": "click",
-                        "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[6]/div",
-                        "Value": "",
-                        "Targets": [
-                            "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[6]/div",
-                            "xpath=//div[2]/div/div/div/div[6]/div",
-                            "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.DetailGoodsDeclaration_wrapper__e1FLE > div > div.DetailGoodsDeclaration_container-btn__AJWYj > div"
-                        ],
-                        "Description": ""
-                        },
-                        {
-                        "Command": "type",
-                        "Target": "id=txtThue",
-                        "Value": "5",
-                        "Targets": [
-                            "id=txtThue",
-                            "xpath=//*[@id=\"txtThue\"]",
-                            "xpath=//input[@id='txtThue']",
-                            "xpath=//input",
-                            "css=#txtThue"
-                        ],
-                        "Description": ""
-                        },
-                        {
-                        "Command": "executeScript_Sandbox",
-                        "Target": "return Number (${tongGiaTri}*0.05);",
-                        "Value": "phiVanChuyen",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "echo",
-                        "Target": "${i}th row text phi van chuyen=${phiVanChuyen}",
-                        "Value": "blue",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "comment",
-                        "Target": "storeText // xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[2]",
-                        "Value": "phiVanChuyen",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "type",
-                        "Target": "id=txtPhiVanChuyen",
-                        "Value": "${phiVanChuyen}",
-                        "Targets": [
-                            "id=txtPhiVanChuyen",
-                            "xpath=//*[@id=\"txtPhiVanChuyen\"]",
-                            "xpath=//input[@id='txtPhiVanChuyen']",
-                            "xpath=//div[2]/div/input",
-                            "css=#txtPhiVanChuyen"
-                        ],
-                        "Description": ""
-                        },
-                        {
-                        "Command": "type",
-                        "Target": "id=txtTongGiaTri",
-                        "Value": "${tongGiaTri}",
-                        "Targets": [
-                            "id=txtTongGiaTri",
-                            "xpath=//*[@id=\"txtTongGiaTri\"]",
-                            "xpath=//input[@id='txtTongGiaTri']",
-                            "xpath=//div[3]/div/input",
-                            "css=#txtTongGiaTri"
-                        ],
-                        "Description": ""
-                        },
-                        {
+                            "Command": "bringBrowserToForeground",
+                            "Target": "true",
+                            "Value": "",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "click",
+                            "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div",
+                            "Value": "",
+                            "Targets": [
+                              "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div",
+                              "xpath=//div[3]/div/div",
+                              "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.GoodsDeclarationManager_header__cwkSy > div > div.GoodsDeclarationManager_container_dropdown__kjvDh > div > div"
+                            ],
+                            "Description": ""
+                          },
+                          {
+                            "Command": "click",
+                            "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div[2]/div[2]",
+                            "Value": "",
+                            "Targets": [
+                              "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[3]/div/div[2]/div[2]",
+                              "xpath=//div[2]/div[2]",
+                              "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.GoodsDeclarationManager_header__cwkSy > div > div.GoodsDeclarationManager_container_dropdown__kjvDh > div > div.DropDown_dropdown__content__rSgGx > div:nth-child(2)"
+                            ],
+                            "Description": ""
+                          },
+                          {
+                            "Command": "storeXpathCount",
+                            "Target": "xpath=//tr",
+                            "Value": "i",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "echo",
+                            "Target": "total row = ${i}",
+                            "Value": "green",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "executeScript_Sandbox",
+                            "Target": "return Number (${i})-1;",
+                            "Value": "i",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "store",
+                            "Target": "0",
+                            "Value": "j",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "while",
+                            "Target": "${i} > ${j}",
+                            "Value": "",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "echo",
+                            "Target": "current row = ${i}",
+                            "Value": "green",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "storeText",
+                            "Target": "id=total",
+                            "Value": "tongGiaTri",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "echo",
+                            "Target": "tong gia tri ${i}  = ${tongGiaTri}",
+                            "Value": "red",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "click",
+                            "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[5]",
+                            "Value": "",
+                            "Targets": [
+                              "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div[2]/table/tbody/tr[${i}]/td[5]",
+                              "xpath=//tr[${i}]/td[5]",
+                              "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.GoodsDeclarationManager_body_container__pzgP1 > table > tbody > tr:nth-child(2) > td:nth-child(5)"
+                            ],
+                            "Description": ""
+                          },
+                          {
+                            "Command": "click",
+                            "Target": "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[6]/div",
+                            "Value": "",
+                            "Targets": [
+                              "xpath=//*[@id=\"root\"]/div[2]/div/div/div[2]/div/div/div/div[6]/div",
+                              "xpath=//div[2]/div/div/div/div[6]/div",
+                              "css=#root > div.App > div > div.LayoutAdmin_container__RujnA > div.LayoutAdmin_content__is9hT > div > div.DetailGoodsDeclaration_wrapper__e1FLE > div > div.DetailGoodsDeclaration_container-btn__AJWYj > div"
+                            ],
+                            "Description": ""
+                          },
+                          {
+                            "Command": "type",
+                            "Target": "id=txtThue",
+                            "Value": "5",
+                            "Targets": [
+                              "id=txtThue",
+                              "xpath=//*[@id=\"txtThue\"]",
+                              "xpath=//input[@id='txtThue']",
+                              "xpath=//input",
+                              "css=#txtThue"
+                            ],
+                            "Description": ""
+                          },
+                          {
+                            "Command": "executeScript_Sandbox",
+                            "Target": "return Number (${tongGiaTri}*0.05);",
+                            "Value": "phiVanChuyen",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "type",
+                            "Target": "id=txtPhiVanChuyen",
+                            "Value": "${phiVanChuyen}",
+                            "Targets": [
+                              "id=txtPhiVanChuyen",
+                              "xpath=//*[@id=\"txtPhiVanChuyen\"]",
+                              "xpath=//input[@id='txtPhiVanChuyen']",
+                              "xpath=//div[2]/div/input",
+                              "css=#txtPhiVanChuyen"
+                            ],
+                            "Description": ""
+                          },
+                          {
+                            "Command": "type",
+                            "Target": "id=txtTongGiaTri",
+                            "Value": "${tongGiaTri}",
+                            "Targets": [
+                              "id=txtTongGiaTri",
+                              "xpath=//*[@id=\"txtTongGiaTri\"]",
+                              "xpath=//input[@id='txtTongGiaTri']",
+                              "xpath=//div[3]/div/input",
+                              "css=#txtTongGiaTri"
+                            ],
+                            "Description": ""
+                          },
+                          {
                             "Command": "click",
                             "Target": "id=btnAccept",
                             "Value": "",
@@ -305,31 +287,19 @@ function GoodsDeclarationManager() {
                               "css=#btnAccept"
                             ],
                             "Description": ""
-                        },
-                        {
-                        "Command": "end",
-                        "Target": "",
-                        "Value": "",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "executeScript_Sandbox",
-                        "Target": "return Number (${i})+1;",
-                        "Value": "i",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "echo",
-                        "Target": "current row = ${i}",
-                        "Value": "green",
-                        "Description": ""
-                        },
-                        {
-                        "Command": "end",
-                        "Target": "",
-                        "Value": "",
-                        "Description": ""
-                        }                    
+                          },
+                          {
+                            "Command": "executeScript_Sandbox",
+                            "Target": "return Number (${i})-1;",
+                            "Value": "i",
+                            "Description": ""
+                          },
+                          {
+                            "Command": "end",
+                            "Target": "",
+                            "Value": "",
+                            "Description": ""
+                          }
                     ]
                 }
             })
@@ -405,7 +375,7 @@ function GoodsDeclarationManager() {
                                     return (
                                         <tr className={cx('row_table')} key={index}>
                                             <td className={cx('item_row_table')}>{item._id}</td>
-                                            <td className={cx('item_row_table')}>{totalSumGoods(item)}</td>
+                                            <td id='total' className={cx('item_row_table')}>{totalSumGoods(item)}</td>
                                             <td className={cx('item_row_table')}>{convertDate(item.ngayTao)}</td>
                                             {
                                                 item.trangThai ? (<td className={cx(['item_row_table', 'active'])}>Đã tạo hóa đơn</td>) : (<td className={cx(['item_row_table', 'lock'])}>Chưa tạo hóa đơn</td>)
