@@ -3,16 +3,27 @@ import classNames from "classnames/bind";
 import styles from './DetailContract.module.scss';
 import formatMoney from '../../../../utils/formatMoney.js';
 import IMAGES from '../../../../assets/images/index.js';
-
+import { useDispatch, useSelector } from 'react-redux';
+import convertDate from '../../../../utils/convertDate';
+import { setIsOpenModalDetail } from '../../../../redux/slices/contractSlice.js';
 const cx = classNames.bind(styles);
 
-function DetailContract() {
+function DetailContract({getAllContract}) {
+    const dispatch = useDispatch();
+    const contractsList = useSelector(state => state.contractManagement.contractsList);
+    const indexSelected = useSelector(state => state.contractManagement.indexSelected);
+    const itemSelected = contractsList[indexSelected];
+    const admin = useSelector(state => state.userManagement.infoAdmin);
+
+
     const handleClose = () => {
-
+        dispatch(setIsOpenModalDetail(false));
     }
-
-    const handleAccept = () => {
-
+    function getLastName(fullName) {
+        fullName = fullName.trim();
+        const parts = fullName.split(' ');
+        const lastName = parts[parts.length - 1];
+        return lastName;
     }
 
     return (
@@ -28,17 +39,20 @@ function DetailContract() {
                     <div className={cx('container_first')}>
                         <div className={cx('container-status')}>
                             <span className={cx('title')}>Trạng thái: </span>
-                            <span className={cx('accept')}>Chưa ký kết</span>
+                            {
+                                itemSelected.trangThai ? (<span className={cx('accept')}>Đã ký kết</span>) : (<span className={cx('status')}>Chưa ký kết</span>)
+                            }
+
                         </div>
 
                         <div className={cx('container-status')}>
                             <span className={cx('title')}>Mã số hợp đồng: </span>
-                            <span className={cx('content')}>TPV03/EX</span>
+                            <span className={cx('content')}>{itemSelected._id}</span>
                         </div>
 
                         <div className={cx('container-status')}>
                             <span className={cx('title')}>Ngày tạo hợp đồng: </span>
-                            <span className={cx('content')}>11/01/2024</span>
+                            <span className={cx('content')}>{convertDate(itemSelected.ngayTao)}</span>
                         </div>
 
                     </div>
@@ -48,36 +62,34 @@ function DetailContract() {
                         <div className={cx('container_1')}>
                             <div className={cx('container-date')}>
                                 <span className={cx('title')}>Tên đại diện: </span>
-                                <span className={cx('content')}>Phạm Nguyễn Trường An</span>
-                            </div>
-
-                            <div className={cx('container-date')}>
-                                <span className={cx('title')}>Tên doanh nghiệp:</span>
-                                <span className={cx('content')}>Công ty cổ phần tiêu dùng Macdison</span>
-                            </div>
-
-                        </div>
-                        <div className={cx('container_1')}>
-                            <div className={cx('container-date')}>
-                                <span className={cx('title')}>Số điện thoại: </span>
-                                <span className={cx('content')}>0379362122</span>
-                            </div>
-
-                            <div className={cx('container-date')}>
-                                <span className={cx('title')}>Địa chỉ email: </span>
-                                <span className={cx('content')}>phantrongtinh15082003@gmail.com</span>
-                            </div>
-                        </div>
-
-                        <div className={cx('container_1')}>
-                            <div className={cx('container-date')}>
-                                <span className={cx('title')}>Số FAX:</span>
-                                <span className={cx('content')}>4441020637570</span>
+                                <span className={cx('content')}>{itemSelected.hoaDon.keKhaiHH.donHang.user.hoten}</span>
                             </div>
 
                             <div className={cx('container-date')}>
                                 <span className={cx('title')}>Số tài khoản:</span>
-                                <span className={cx('content')}>1020637570 - VIETCOMBANK</span>
+                                <span className={cx('content')}>{itemSelected.hoaDon.keKhaiHH.donHang.user.infoVerify.STK} - {itemSelected.hoaDon.keKhaiHH.donHang.user.infoVerify.nganHang}</span>
+                            </div>
+                        </div>
+                        <div className={cx('container_1')}>
+                            <div className={cx('container-date')}>
+                                <span className={cx('title')}>Số điện thoại: </span>
+                                <span className={cx('content')}>{itemSelected.hoaDon.keKhaiHH.donHang.user.infoVerify.soDienThoai}</span>
+                            </div>
+
+                            <div className={cx('container-date')}>
+                                <span className={cx('title')}>Địa chỉ email: </span>
+                                <span className={cx('content')}>{itemSelected.hoaDon.keKhaiHH.donHang.user.email}</span>
+                            </div>
+                        </div>
+
+                        <div className={cx('container_1')}>
+                            <div className={cx('container-date')}>
+                                <span className={cx('title')}>Tên doanh nghiệp:</span>
+                                <span className={cx('content')}>{itemSelected.hoaDon.keKhaiHH.donHang.user.infoVerify.tenDoanhNghiep}</span>
+                            </div>
+                            <div className={cx('container-date')}>
+                                <span className={cx('title')}>Số FAX:</span>
+                                <span className={cx('content')}>{itemSelected.hoaDon.keKhaiHH.donHang.user.infoVerify.soFAX}</span>
                             </div>
                         </div>
                     </div>
@@ -87,85 +99,102 @@ function DetailContract() {
                         <div className={cx('container_1')}>
                             <div className={cx('container-date')}>
                                 <span className={cx('title')}>Tên đại diện: </span>
-                                <span className={cx('content')}>Phan Trọng tính</span>
+                                <span className={cx('content')}>{admin.hoten}</span>
                             </div>
 
+
+
                             <div className={cx('container-date')}>
-                                <span className={cx('title')}>Tên doanh nghiệp:</span>
-                                <span className={cx('content')}>Công ty TNHH dịch vụ xuất nhập khẩu SeaPort</span>
+                                <span className={cx('title')}>Số tài khoản:</span>
+                                <span className={cx('content')}>{admin.infoVerify.STK} - {admin.infoVerify.nganHang}</span>
                             </div>
 
                         </div>
                         <div className={cx('container_1')}>
                             <div className={cx('container-date')}>
                                 <span className={cx('title')}>Số điện thoại: </span>
-                                <span className={cx('content')}>0379362122</span>
+                                <span className={cx('content')}>{admin.infoVerify.soDienThoai}</span>
                             </div>
 
                             <div className={cx('container-date')}>
                                 <span className={cx('title')}>Địa chỉ email: </span>
-                                <span className={cx('content')}>phantrongtinh15082003@gmail.com</span>
+                                <span className={cx('content')}>{admin.email}</span>
                             </div>
                         </div>
 
                         <div className={cx('container_1')}>
                             <div className={cx('container-date')}>
-                                <span className={cx('title')}>Số FAX:</span>
-                                <span className={cx('content')}>4441020637570</span>
+                                <span className={cx('title')}>Tên doanh nghiệp:</span>
+                                <span className={cx('content')}>{admin.infoVerify.tenDoanhNghiep}</span>
                             </div>
 
                             <div className={cx('container-date')}>
-                                <span className={cx('title')}>Số tài khoản:</span>
-                                <span className={cx('content')}>1020637570 - VIETCOMBANK</span>
+                                <span className={cx('title')}>Số FAX:</span>
+                                <span className={cx('content')}>{admin.infoVerify.soFAX}</span>
                             </div>
                         </div>
                     </div>
 
                     <div className={cx('info-order')}>
                         <span className={cx('title-order')}>THÔNG TIN TÀU SỬ DỤNG</span>
-                        <div className={cx('container_1')}>
-                            <div className={cx('container-date')}>
-                                <span className={cx('title')}>Số hiệu tàu: </span>
-                                <span className={cx('content')}>QNg90999TS</span>
-                            </div>
+                        {
+                            itemSelected.hoaDon.dsVessel.map((item, index) => {
+                                return (
+                                    <div className={cx('container_1')} key={item._id}>
+                                        <div className={cx('container-date')}>
+                                            <span className={cx('title')}>Số hiệu tàu: </span>
+                                            <span className={cx('content')}>{item.soHieu}</span>
+                                        </div>
 
-                            <div className={cx('container-date')}>
-                                <span className={cx('title')}>Tên tàu: </span>
-                                <span className={cx('content')}>COSCO-SHIPPING-101</span>
-                            </div>
-                        </div>
-                        <div className={cx('container_1')}>
-                            <div className={cx('container-date')}>
-                                <span className={cx('title')}>Trọng lượng (tấn): </span>
-                                <span className={cx('content')}>1204.3</span>
-                            </div>
+                                        <div className={cx('container-date')}>
+                                            <span className={cx('title')}>Tên tàu: </span>
+                                            <span className={cx('content')}>{item.tenTau}</span>
+                                        </div>
 
-                            <div className={cx('container-date')}>
-                                <span className={cx('title')}>Tải trọng (tấn): </span>
-                                <span className={cx('content')}>2002.4</span>
-                            </div>
-                        </div>
+                                        <div className={cx('container-date')}>
+                                            <span className={cx('title')}>Tải trọng (tấn): </span>
+                                            <span className={cx('content')}>{item.taiTrong}</span>
+                                        </div>
+
+                                        <div className={cx('container-date')}>
+                                            <span className={cx('title')}>Giá thuê: </span>
+                                            <span className={cx('content')}>{formatMoney(item.giaThue)}</span>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
 
                     <div className={cx('info-order')}>
                         <span className={cx('title-order')}>THÔNG TIN CONTAINER SỬ DỤNG</span>
                         {
-                            [1, 2].map(() => {
+                            itemSelected.hoaDon.dsContainer.map((item, index) => {
                                 return (
-                                    <div className={cx('container_1')}>
+                                    <div className={cx('container_1')} key={item._id}>
                                         <div className={cx('container-date')}>
                                             <span className={cx('title')}>Số hiệu: </span>
-                                            <span className={cx('content')}>QNg90999TS</span>
+                                            <span className={cx('content')}>{item.soHieu}</span>
                                         </div>
 
                                         <div className={cx('container-date')}>
-                                            <span className={cx('title')}>Trọng lượng (tấn): </span>
-                                            <span className={cx('content')}>2002.4</span>
+                                            <span className={cx('title')}>Loại: </span>
+                                            <span className={cx('content')}>{item.loaiContainer.tenLoai}</span>
                                         </div>
 
                                         <div className={cx('container-type')}>
                                             <span className={cx('title')}>Thể tích (m3): </span>
-                                            <span className={cx('content')}>1204.3</span>
+                                            <span className={cx('content')}>{item.loaiContainer.theTichChua}</span>
+                                        </div>
+
+                                        <div className={cx('container-type')}>
+                                            <span className={cx('title')}>Trọng lượng (tấn): </span>
+                                            <span className={cx('content')}>{item.loaiContainer.trongLuong}</span>
+                                        </div>
+
+                                        <div className={cx('container-type')}>
+                                            <span className={cx('title')}>Giá thuê: </span>
+                                            <span className={cx('content')}>{formatMoney(item.loaiContainer.giaThue)}</span>
                                         </div>
                                     </div>
                                 )
@@ -177,28 +206,28 @@ function DetailContract() {
                         <div className={cx('container_1')}>
                             <div className={cx('container-date')}>
                                 <span className={cx('title')}>Ngày đi dự kiến: </span>
-                                <span className={cx('content')}>11/04/2024</span>
+                                <span className={cx('content')}>{convertDate(itemSelected.hoaDon.keKhaiHH.donHang.ngayDiDuKien)}</span>
                             </div>
 
                             <div className={cx('container-date')}>
                                 <span className={cx('title')}>Ngày đến dự kiến: </span>
-                                <span className={cx('content')}>11/04/2024</span>
+                                <span className={cx('content')}>{convertDate(itemSelected.hoaDon.keKhaiHH.donHang.ngayDenDuKien)}</span>
                             </div>
 
                             <div className={cx('container-type')}>
                                 <span className={cx('title')}>Loại hình: </span>
-                                <span className={cx('content')}>Xuất khẩu</span>
+                                <span className={cx('content')}>{itemSelected.hoaDon.keKhaiHH.donHang.loaiHinh}</span>
                             </div>
                         </div>
                         <div className={cx('container_1')}>
                             <div className={cx('container-date')}>
                                 <span className={cx('title')}>Thông tin cảng đi: </span>
-                                <span className={cx('content')}>Cảng Đông Anh, Sài Gòn</span>
+                                <span className={cx('content')}>{itemSelected.hoaDon.keKhaiHH.donHang.cangDi}</span>
                             </div>
 
                             <div className={cx('container-date')}>
                                 <span className={cx('title')}>Thông tin cảng đến: </span>
-                                <span className={cx('content')}>Cảng Cam Ranh Khánh Hòa</span>
+                                <span className={cx('content')}>{itemSelected.hoaDon.keKhaiHH.donHang.cangDen}</span>
                             </div>
                         </div>
 
@@ -245,34 +274,20 @@ function DetailContract() {
                     <div className={cx('container_sign_contract')}>
                         <div className={cx('container_sign')}>
                             <span className={cx('title_sign')}>BÊN SỬ DỤNG DỊCH VỤ</span>
-                            <span className={cx('content_sign')}>An</span>
-                            <span className={cx('name_sign')}>Phạm Nguyễn TRường An</span>
+                            <span className={cx('content_sign')}>{getLastName(admin.hoten)}</span>
+                            <span className={cx('name_sign')}>{admin.hoten}</span>
                         </div>
-
-                        <img className={cx('moc_do')} src={IMAGES.moc_do} alt='mộc đỏ' />
+                        {
+                            itemSelected.trangThai && (<img className={cx('moc_do')} src={IMAGES.moc_do} alt='mộc đỏ' />)
+                        }
 
                         <div className={cx('container_sign')}>
                             <span className={cx('title_sign')}>BÊN CUNG CẤP DỊCH VỤ</span>
-                            <span className={cx('content_sign')}>Tính</span>
-                            <span className={cx('name_sign')}>Phan Trọng Tính</span>
+                            <span className={cx('content_sign')}>{getLastName(itemSelected.hoaDon.keKhaiHH.donHang.user.hoten)}</span>
+                            <span className={cx('name_sign')}>{itemSelected.hoaDon.keKhaiHH.donHang.user.hoten}</span>
                         </div>
                     </div>
-
-                    <div className={cx('container-btn')}>
-                        <div className={cx('btn_accpet')}>
-                            XUẤT FILE
-                        </div>
-                    </div>
-
-                    {/* <div className={cx('container-btn')}>
-                        <div className={cx('btn_accpet')}>
-                            GỬI ĐẾN NGƯỜI DÙNG XÁC NHẬN KÝ KẾT
-                        </div>
-                    </div> */}
                 </div>
-
-
-
             </div >
         </div >
     )

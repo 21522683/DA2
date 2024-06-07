@@ -20,16 +20,18 @@ function Dropdown({handleSelectOption}) {
     }
 
     const handleClickOption3 = () => {
-        setSelectedOption('Đã sử dụng');
+        setSelectedOption('Đang sử dụng');
         setShowOption(false);
-        handleSelectOption('Đã sử dụng');
+        handleSelectOption('Đang sử dụng');
     }
 
     return (
         <div className={cx("dropdown")}>
             <div className={cx('dropdown_selected')} onClick={() => setShowOption(!showOption)}>
                 <span className={cx('text_selected')}>{selectedOption}</span>
-                <FiChevronDown className={cx('icon_select')} />
+                {
+                    showOption ? ( <FiChevronDown className={cx('icon_select')} />) : ( <FiChevronUp className={cx('icon_select')} />)
+                }
             </div>
             {
                 showOption && (
@@ -41,7 +43,7 @@ function Dropdown({handleSelectOption}) {
                             <span className={cx('text_dropdown')}>Đang trống</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption3}>
-                            <span className={cx('text_dropdown')}>Đã sử dụng</span>
+                            <span className={cx('text_dropdown')}>Đang sử dụng</span>
                         </div>
                     </div>
                 )

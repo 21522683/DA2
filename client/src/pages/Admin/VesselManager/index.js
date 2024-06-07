@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import classNames from "classnames/bind";
 import styles from './VesselManager.module.scss';
 import SearchBar from './SearchBar';
@@ -7,122 +7,87 @@ import ItemVessel from './ItemVessel';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalUpdateVessel from './ModalUpdateVessel';
 import MessageBox from './MessageBox';
-import { setIsOpenModalAdd, setListVessel } from '../../../redux/sliceAdmin/vesselSlice';
+import { setIsOpenModalAdd, setListVessel } from '../../../redux/slices/vesselSlice';
 import ModalAddVessel from './ModalAddVessel';
+import HashLoader from "react-spinners/HashLoader";
+import baseUrl from '../../../utils/index.js';
+import customAxios from '../../../utils//customAxios';
+
 const cx = classNames.bind(styles);
 
 function VesselManager() {
 
-  const list = [
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_1",
-      soHieu: "QC-99877TS_0",
-      taiTrong: 1411,
-      trangThai: false,
-      trongLuong: 1.2,
-    },
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_2",
-      soHieu: "QC-99877TS_1",
-      taiTrong: 1211,
-      trangThai: false,
-      trongLuong: 1.32,
-    },
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_3",
-      soHieu: "QC-99877TS_2",
-      taiTrong: 911,
-      trangThai: true,
-      trongLuong: 1.02,
-    },
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_4",
-      soHieu: "QC-99877TS_0",
-      taiTrong: 1411,
-      trangThai: false,
-      trongLuong: 1.2,
-    },
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_5",
-      soHieu: "QC-99877TS_1",
-      taiTrong: 1211,
-      trangThai: true,
-      trongLuong: 1.32,
-    },
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_6",
-      soHieu: "QC-99877TS_2",
-      taiTrong: 911,
-      trangThai: false,
-      trongLuong: 1.02,
-    },
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_7",
-      soHieu: "QC-99877TS_1",
-      taiTrong: 1211,
-      trangThai: true,
-      trongLuong: 1.32,
-    },
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_8",
-      soHieu: "QC-99877TS_2",
-      taiTrong: 911,
-      trangThai: false,
-      trongLuong: 1.02,
-    },
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_9",
-      soHieu: "QC-99877TS_2",
-      taiTrong: 911,
-      trangThai: false,
-      trongLuong: 1.02,
-    },
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_10",
-      soHieu: "QC-99877TS_2",
-      taiTrong: 911,
-      trangThai: false,
-      trongLuong: 1.02,
-    },
-    {
-      tenTau: "Tàu CONCACUT-SHPPING_11",
-      soHieu: "QC-99877TS_1",
-      taiTrong: 1211,
-      trangThai: true,
-      trongLuong: 1.32,
-    },
-  ];
   const dispatch = useDispatch();
   const listVessels = useSelector(state => state.vesselManagement.vesselsList);
   const isOpenModalAdd = useSelector(state => state.vesselManagement.isOpenModalAdd);
   const isOpenModalUpdate = useSelector(state => state.vesselManagement.isOpenModalUpdate);
   const isOpenMessagebox = useSelector(state => state.vesselManagement.isOpenMessagebox);
+  const loading = useSelector(state => state.vesselManagement.isLoading);
+
+  const [pathWithQuery, setPathWithQuery] = useState('');
+  const [filter, setFilter] = useState({
+    textSearch: '',
+    trangThai: 'Tất cả',
+  });
+  const handleChangeFilter = (value) => {
+    setFilter((prev) => ({ ...prev, trangThai: value }));
+  }
+  const handleChangeInputSearch = (value) => {
+    setFilter((prev) => ({ ...prev, textSearch: value }));
+  }
+
+  const getAllVessels = async () => {
+    try {
+      const res = await customAxios.get(pathWithQuery);
+      dispatch(setListVessel(res.data.data.vessels));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  useEffect(() => {
+    const queryParams = { searchString: filter.textSearch.trim(), trangThai: filter.trangThai };
+    console.log(queryParams);
+    const queryString = new URLSearchParams(queryParams).toString();
+    const pathWithQuery = `${baseUrl}/vessel/getAllVessel?${queryString}`;
+    setPathWithQuery(pathWithQuery);
+  }, [filter]);
 
   useEffect(() => {
-    dispatch(setListVessel(list));
-  }, []);
+    if (pathWithQuery) {
+      getAllVessels();
+    }
+  }, [pathWithQuery]);
 
   const handleClickAdd = () => {
     dispatch(setIsOpenModalAdd(true));
   }
 
-  const handleChangeInputSearch = (value) => {
 
-  }
-  const handleChangeFilter = (value) => {
-
-  }
 
   return (
     <div className={cx('container_main')}>
       {
-        isOpenModalAdd && <ModalAddVessel />
+        loading && (
+          <div className={cx("container-loader")}>
+            <HashLoader
+              color="#0088af"
+              loading={loading}
+              size={80}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+              className={cx("loader-feedback")}
+            />
+          </div>
+        )
       }
       {
-        isOpenModalUpdate && <ModalUpdateVessel />
+        isOpenModalAdd && <ModalAddVessel getAllVessels={getAllVessels} />
       }
       {
-        isOpenMessagebox && <MessageBox/>
+        isOpenModalUpdate && <ModalUpdateVessel getAllVessels={getAllVessels} />
+      }
+      {
+        isOpenMessagebox && <MessageBox getAllVessels={getAllVessels} />
       }
       <div className={cx('header')}>
         <span className={cx('title_header')}>QUẢN LÝ TÀU</span>
@@ -145,16 +110,25 @@ function VesselManager() {
           </div>
         </div>
       </div>
-
-      <div className={cx('body_container')}>
-        {
-          listVessels.map((item, index) => {
-            return (
-              <ItemVessel itemVessel={item} key={index} indexItem={index} />
-            )
-          })
-        }
+      <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', margin: '0px 20px' }}>
+        <span style={{ fontWeight: 'bold', color: '#606060' }}>Kết quả tìm kiếm: {listVessels.length}</span>
       </div>
+      {
+        listVessels.length === 0 ? (
+          <span style={{ width: '100%', textAlign: 'center', marginTop: '40px', color: '#9C9C9C', fontSize: '20px' }}>CHƯA CÓ CONTAINER NÀO TRONG HỆ THỐNG. HÃY THÊM CONTAINER</span>
+        ) : (
+          <div className={cx('body_container')}>
+            {
+              listVessels.map((item, index) => {
+                return (
+                  <ItemVessel itemVessel={item} key={index} indexItem={index} />
+                )
+              })
+            }
+          </div>
+        )
+      }
+
     </div>
   )
 }

@@ -4,15 +4,19 @@ const images = {
     icon_account: require('./icon_account.png'),
     hanghoa: require('./hanghoa.png'),
     moc_do: require('./moc_do.png'),
-    guide1: require('./UserHome/guide1.png'),
-    guide2: require('./UserHome/guide2.png'),
-    bgHome: require('./UserHome/bgHome.png'),
-    field1: require('./UserHome/field1.png'),
-    field2: require('./UserHome/field2.png'),
-    field3: require('./UserHome/field3.png'),
-    field4: require('./UserHome/field4.png'),
-    field5: require('./UserHome/field5.png'),
-    field6: require('./UserHome/field6.png'),
+    success: require('./success.png'),
+    slide1: require('./slide1.jpg'),
+    slide3: require('./slide3.jpg'),
+    slide4: require('./slide4.jpg'),
+    guide1: require('./guide1.png'),
+    guide2: require('./guide2.png'),
+    yte: require('./yte.png'),
+    congnghe: require('./congnghe.png'),
+    maymoc: require('./maymoc.png'),
+    hangtieudung: require('./hangtieudung.png'),
+    thoitrang: require('./thoitrang.png'),
+    hoachat: require('./hoachat.png'),
+
 };
 
 export default images;

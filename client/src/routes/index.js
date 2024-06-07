@@ -7,41 +7,43 @@ import GoodsDeclarationManager from "../pages/Admin/GoodsDeclarationManager/inde
 import HistoryBillManager from "../pages/Admin/HistoryBillManager/index.js"
 import OrderManager from "../pages/Admin/OrderManager/index.js"
 import VesselManager from "../pages/Admin/VesselManager/index.js"
-import LoginScreen from "../pages/Login"
-import SignUpScreen from "../pages/SignUp"
+import Login from "../pages/auth/Login/index.js"
+import SignUp from "../pages/auth/SignUp/index.js"
+import ForgetPassword from "../pages/auth/FogetPassword/index.js"
+import NotFound from "../pages/Generals/NotFound/index.js"
 import Home from "../pages/User/Home/index.js"
-import NotFound from "../pages/NotFound"
-import AddNewOrder from "../pages/User/AddNewOrder/index.js"
-import AddProduct from "../pages/User/AddNewOrder/AddProduct/index.js"
-import OrderManage from "../pages/User/OrderManage/index.js"
-import ContractManage from "../pages/User/ContractManage/index.js"
-import BillManage from "../pages/User/BillManage/index.js"
-import OrderDetail from "../pages/User/OrderDetail/index.js"
-import ContractDetail from "../pages/User/ContractDetail/index.js"
-import BillDetail from "../pages/User/BillDetail/index.js"
-import Profile from "../pages/User/Profile/index.js"
-import ForgotPassword from "../pages/ForgotPassword/index.js"
-import ResetPassword from "../pages/ResetPassword/index.js"
+import ResetPassword from "../pages/auth/ResetPassword/index.js"
+import TemplateEmailVerify from "../pages/auth/TemplateEmailVerify/index.js"
+import CreateOrder from "../pages/User/CreateOrder/index.js"
+import YourOrder from "../pages/User/YourOrder/index.js"
+import YourContract from "../pages/User/YourContract/index.js"
+import YourBillHistory from "../pages/User/YourBillHistory/index.js"
+import PrivateInfomation from "../pages/User/PrivateInfomation/index.js"
+import WarningNotLogin from "../pages/Generals/WarningNotLogin/index.js"
+import WarningVerify from "../pages/Generals/WarningVerify/index.js"
+import ReportStatiscalManager from "../pages/Admin/ReportStatiscalManager/index.js"
+import ContractManagerUser from "../pages/Admin/ReportStatiscalManager/ContractManagerUser/index.js"
 
 export const publicRoutes = [
-    { path: '/login', component: LoginScreen },
-    { path: '/sign-up', component: SignUpScreen },
-    { path: '/forgot-password', component: ForgotPassword },
-    { path: '/reset-password', component: ResetPassword },
+    { path: '/sign-up', component: SignUp },
+    { path: '/login', component: Login },
+    { path: '/forgot', component: ForgetPassword },
+    { path: '/user/:id/update-new-password/:tokenResetPassword', component: ResetPassword },
+    { path: '/verify-email', component: TemplateEmailVerify },
     { path: '/not-found', component: NotFound },
+    { path: '/users/verify/:tokenLinkVerifyEmail', component: TemplateEmailVerify},
+    { path: '/warning/un-login', component: WarningNotLogin },
+    { path: '/warning/un-verify', component: WarningVerify },
 ]
 
 export const customerRoutes = [
-    { path: '/', component: ResetPassword, layout: LayoutUser},
-    { path: '/add-new-order', component: AddNewOrder, layout: LayoutUser},
-    { path: '/add-product', component: AddProduct, layout: LayoutUser},
-    { path: '/order-manage', component: OrderManage, layout: LayoutUser},
-    { path: '/order-detail', component: OrderDetail, layout: LayoutUser},
-    { path: '/contract-manage', component: ContractManage, layout: LayoutUser},
-    { path: '/contract-detail', component: ContractDetail, layout: LayoutUser},
-    { path: '/bill-manage', component: BillManage, layout: LayoutUser},
-    { path: '/bill-detail', component: BillDetail, layout: LayoutUser},
-    { path: '/your-profile', component: Profile, layout: LayoutUser},
+    { path: '/', component: Home, layout: LayoutUser},
+    { path: '/user/create-order', component: CreateOrder, layout: LayoutUser},
+    { path: '/user/your-order', component: YourOrder, layout: LayoutUser},
+    { path: '/user/your-contract', component: YourContract, layout: LayoutUser},
+    { path: '/user/you-history-bill', component: YourBillHistory, layout: LayoutUser},
+    { path: '/user/info', component: PrivateInfomation, layout: LayoutUser},
+    
 ]
 
 export const adminRoutes = [
@@ -52,4 +54,6 @@ export const adminRoutes = [
     { path: '/admin/goods-declaration', component: GoodsDeclarationManager, layout: LayoutAdmin },
     { path: '/admin/bill', component: HistoryBillManager, layout: LayoutAdmin },
     { path: '/admin/contract', component: ContractManager, layout: LayoutAdmin },
+    { path: '/admin/report', component: ReportStatiscalManager, layout: LayoutAdmin },
+    { path: '/admin/next-report', component: ContractManagerUser, layout: LayoutAdmin },
 ]

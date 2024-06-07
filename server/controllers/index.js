@@ -1,1 +1,7 @@
 export {default as UserController} from './user.js'
+export {default as OrderController} from './order.js'
+export {default as GoodsDeclarationController} from './goodsDeclaration.js'
+export {default as ContainerController} from './container.js'
+export {default as VesselController} from './vessel.js'
+export {default as BillController} from './bill.js'
+export {default as ContractController} from './contract.js'

@@ -13,11 +13,12 @@
     justify-content: center;
 
     .container-body {
-        width: 40%;
+        width: 44%;
         background-color: #fff;
         border-radius: 4px;
         display: flex;
         flex-direction: column;
+        padding: 0 20px;
 
         .container-header {
             display: flex;
@@ -61,7 +62,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
-                margin-top: 20px;
+                margin-top: 10px;
 
                 .title_body_1 {
                     font-size: 14px;
@@ -99,7 +100,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            margin: 20px 10px 30px;
+            margin: 10px 10px 20px;
 
             .btn_rejected {
                 background-color: #FF0000;

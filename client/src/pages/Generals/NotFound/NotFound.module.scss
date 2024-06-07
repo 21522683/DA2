@@ -1,0 +1,41 @@
+.container_main {
+    position: fixed;
+    background-color: #ffffff;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    .container_first {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 40px 0;
+        .text_404 {
+            font-size: 160px;
+            color: #70BACF;
+        }
+
+        .text_not_found {
+            color: #70BACF;
+            font-size: 60px;
+            margin-top: -40px;
+        }
+    }
+
+    .btn_back_home {
+        color: #0093bb;
+        font-size: 18px;
+        font-style: italic;
+        text-decoration: underline;
+
+        :hover {
+            color: #0082a5;
+            cursor: pointer;
+            
+        }
+    }
+}

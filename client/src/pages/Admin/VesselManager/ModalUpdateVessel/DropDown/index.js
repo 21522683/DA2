@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import classNames from "classnames/bind";
 import styles from './DropDown.module.scss';
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 function Dropdown({ handleSelectOption }) {
-    const [selectedOption, setSelectedOption] = useState('Đang trống');
+
+    const listVissels = useSelector(state => state.vesselManagement.vesselsList);
+    const indexSelected = useSelector(state => state.vesselManagement.indexSelected);
+    const itemSelected = listVissels[indexSelected];
+
+    const [selectedOption, setSelectedOption] = useState(itemSelected.trangThai ? "Đang sử dụng" : "Đang trống");
     const [showOption, setShowOption] = useState(false);
 
     const handleClickOption2 = () => {
@@ -15,9 +21,9 @@ function Dropdown({ handleSelectOption }) {
     }
 
     const handleClickOption3 = () => {
-        setSelectedOption('Đã sử dụng');
+        setSelectedOption('Đang sử dụng');
         setShowOption(false);
-        handleSelectOption('Đã sử dụng');
+        handleSelectOption('Đang sử dụng');
     }
 
     return (
@@ -36,7 +42,7 @@ function Dropdown({ handleSelectOption }) {
                             <span className={cx('text_dropdown')}>Đang trống</span>
                         </div>
                         <div className={cx('dropdown_option')} onClick={handleClickOption3}>
-                            <span className={cx('text_dropdown')}>Đã sử dụng</span>
+                            <span className={cx('text_dropdown')}>Đang sử dụng</span>
                         </div>
                     </div>
                 )
