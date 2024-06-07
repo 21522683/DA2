@@ -37,8 +37,9 @@ function ModalAddContainer({getAllContainers}) {
         dispatch(setIsOpenModalAdd(false));
     }
     const handleAdd = async () => {
-        dispatch(setLoading(true));
+        
         if (validation(soHieu)) {
+            dispatch(setLoading(true));
             const data = {
                 soHieu: soHieu,
                 loaiContainer: loaiContainer,

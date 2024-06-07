@@ -71,14 +71,16 @@ function DetailOrder() {
             </div>
           </div>
 
-          <div className={cx('container_2')}>
-            <span className={cx('title')}>Thông tin cảng đi: </span>
-            <span className={cx('content')}>{itemSelected.cangDi}</span>
-          </div>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <div className={cx('container_2')}>
+              <span className={cx('title')}>Thông tin cảng đi: </span>
+              <span className={cx('content')}>{itemSelected.cangDi}</span>
+            </div>
 
-          <div className={cx('container_2')}>
-            <span className={cx('title')}>Thông tin cảng đến: </span>
-            <span className={cx('content')}>{itemSelected.cangDen}</span>
+            <div className={cx('container_2')}>
+              <span className={cx('title')}>Thông tin cảng đến: </span>
+              <span className={cx('content')}>{itemSelected.cangDen}</span>
+            </div>
           </div>
         </div>
 

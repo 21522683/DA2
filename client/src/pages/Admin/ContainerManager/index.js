@@ -115,7 +115,7 @@ function ContainerManager() {
           </div>
 
           <div className={cx('btn-add')} onClick={handleClickAdd}>
-            Thêm container
+            Thêm
           </div>
         </div>
       </div>

@@ -37,7 +37,7 @@ const MyRevanueChart = ({dataChart}) => {
           cy="50%"
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={140}
+          outerRadius={120}
           fill="#8884d8"
           dataKey="value"
         >

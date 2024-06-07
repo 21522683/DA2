@@ -13,11 +13,12 @@
     justify-content: center;
 
     .container-body {
-        width: 40%;
+        width: 44%;
         background-color: #fff;
         border-radius: 4px;
         display: flex;
         flex-direction: column;
+        padding: 0 20px;
 
         .container-header {
             display: flex;

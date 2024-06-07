@@ -25,9 +25,10 @@ function ModalAddVessel({getAllVessels}) {
             return true;
         }
     }
-    useEffect(() => {
-        let temp = validationSoHieu(soHieu);
-    }, [soHieu]);
+    const handleChangeSoHieu = (value) => {
+        setSoHieu(value);
+        validationSoHieu(value);
+    }
 
     const [tenTau, setTenTau] = useState('');
     const [textValidateTenTau, setTextValidateTenTau] = useState('');
@@ -40,9 +41,10 @@ function ModalAddVessel({getAllVessels}) {
             return true;
         }
     }
-    useEffect(() => {
-        let temp = validationTenTau(tenTau);
-    }, [tenTau]);
+    const handleChangeTenTau = (value) => {
+        setTenTau(value);
+        validationTenTau(value);
+    }
 
     const [giaThue, setGiaThue] = useState(0);
     const [textValidateGiaThue, setTextValidateGiaThue] = useState('');
@@ -61,9 +63,10 @@ function ModalAddVessel({getAllVessels}) {
             }
         }
     }
-    useEffect(() => {
-        let temp = validationGiaThue(giaThue);
-    }, [giaThue]);
+    const handleChangeGiaThue = (value) => {
+        setGiaThue(value);
+        validationGiaThue(value);
+    }
 
     const [taiTrong, setTaiTrong] = useState(0);
     const [textValidateTaiTrong, setTextValidateTaiTrong] = useState('');
@@ -82,9 +85,10 @@ function ModalAddVessel({getAllVessels}) {
             }
         }
     }
-    useEffect(() => {
-        let temp = validationTaiTrong(taiTrong);
-    }, [taiTrong]);
+    const handleChangeTaiTrong = (value) => {
+        setTaiTrong(value);
+        validationTaiTrong(value);
+    }
 
     const handleClose = () => {
         dispatch(setIsOpenModalAdd(false));
@@ -137,12 +141,12 @@ function ModalAddVessel({getAllVessels}) {
                     <div className={cx('container_input_2')}>
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Số hiệu tàu</span>
-                            <input value={soHieu} onChange={(e) => setSoHieu(e.target.value)} type="text" className={cx('input_number')} placeholder='Nhập số hiệu tàu' />
+                            <input value={soHieu} onChange={(e) => handleChangeSoHieu(e.target.value)} type="text" className={cx('input_number')} placeholder='Nhập số hiệu tàu' />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidateSoHieu}</span>
                         </div>
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Tải trọng (tấn)</span>
-                            <input value={taiTrong} onChange={(e) => setTaiTrong(e.target.value)} type="number" className={cx('input_number')} placeholder='Nhập tải trọng' />
+                            <input value={taiTrong} onChange={(e) => handleChangeTaiTrong(e.target.value)} type="number" className={cx('input_number')} placeholder='Nhập tải trọng' />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidateTaiTrong}</span>
                         </div>
                     </div>
@@ -150,13 +154,13 @@ function ModalAddVessel({getAllVessels}) {
                     <div className={cx('container_input_2')}>
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Tên tàu</span>
-                            <input value={tenTau} onChange={(e) => setTenTau(e.target.value)} type="text" className={cx('input_number')} placeholder='Nhập tên tàu' />
+                            <input value={tenTau} onChange={(e) => handleChangeTenTau(e.target.value)} type="text" className={cx('input_number')} placeholder='Nhập tên tàu' />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidateTenTau}</span>
                         </div>
 
                         <div className={cx('container_input_2_a')}>
                             <span className={cx('title_input')}>Giá thuê</span>
-                            <input value={giaThue} onChange={(e) => setGiaThue(e.target.value)} type="number" className={cx('input_number')} placeholder='Nhập giá thuê' />
+                            <input value={giaThue} onChange={(e) => handleChangeGiaThue(e.target.value)} type="number" className={cx('input_number')} placeholder='Nhập giá thuê' />
                             <span style={{ color: 'red', fontSize: '10px', marginTop: '8px', marginLeft: '4px' }}>{textValidateGiaThue}</span>
                         </div>
                     </div>

@@ -183,7 +183,7 @@ function ReportStatiscalManager() {
                 <div className={cx('body_container')}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#434343' }}>DANH SÁCH NGƯỜI DÙNG</span>
-                        <div style={{ width: '800px' }}>
+                        <div style={{ width: '600px' }}>
                             <SearchBar handleChangeInput={handleChangeInputSearch} />
                         </div>
                     </div>

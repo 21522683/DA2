@@ -116,6 +116,7 @@ function ModalUpdateContainer({getAllVessels}) {
                 giaThue
             }
             try {
+                dispatch(setLoading(true));
                 const url = `${baseUrl}/vessel/updateVessel/${itemSelected._id}`;
                 const res = await customAxios.put(url, data);
                 if (res.data.vessel) {

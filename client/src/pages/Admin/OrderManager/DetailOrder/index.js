@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 
 
-function DetailOrder({getAllOrders}) {
+function DetailOrder({ getAllOrders }) {
 
   const dispatch = useDispatch();
   const listOrders = useSelector(state => state.orderManagement.ordersList);
@@ -69,7 +69,7 @@ function DetailOrder({getAllOrders}) {
 
   return (
     <div className={cx('wrapper')} onClick={handleClose}>
-      {isOpenMessagebox && <MessageBox getAllOrders={getAllOrders}/>}
+      {isOpenMessagebox && <MessageBox getAllOrders={getAllOrders} />}
       <div className={cx('container-body')} onClick={(e) => e.stopPropagation()}>
 
         <div className={cx('container-header')}>
@@ -81,7 +81,7 @@ function DetailOrder({getAllOrders}) {
           <div className={cx('container-status')}>
             <span className={cx('title')}>Trạng thái đơn hàng: </span>
             {
-               itemSelected.trangThaiHuy ? (<span className={cx('status')}>Đã bị hủy</span>) : (itemSelected.trangThaiXetDuyet ? (<span className={cx('accept')}>Đã xét duyệt</span>) : (<span className={cx('waiting')}>Chờ xét duyệt</span>))
+              itemSelected.trangThaiHuy ? (<span className={cx('status')}>Đã bị hủy</span>) : (itemSelected.trangThaiXetDuyet ? (<span className={cx('accept')}>Đã xét duyệt</span>) : (<span className={cx('waiting')}>Chờ xét duyệt</span>))
             }
           </div>
 
@@ -115,14 +115,16 @@ function DetailOrder({getAllOrders}) {
             </div>
           </div>
 
-          <div className={cx('container_2')}>
-            <span className={cx('title')}>Thông tin cảng đi: </span>
-            <span className={cx('content')}>{itemSelected.cangDi}</span>
-          </div>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}> 
+            <div className={cx('container_2')}>
+              <span className={cx('title')}>Thông tin cảng đi: </span>
+              <span className={cx('content')}>{itemSelected.cangDi}</span>
+            </div>
 
-          <div className={cx('container_2')}>
-            <span className={cx('title')}>Thông tin cảng đến: </span>
-            <span className={cx('content')}>{itemSelected.cangDen}</span>
+            <div className={cx('container_2')}>
+              <span className={cx('title')}>Thông tin cảng đến: </span>
+              <span className={cx('content')}>{itemSelected.cangDen}</span>
+            </div>
           </div>
         </div>
 

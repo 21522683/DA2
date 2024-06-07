@@ -50,8 +50,8 @@ function ModalUpdateContainer({getAllContainers}) {
         dispatch(setIsOpenModalUpdate(false));
     }
     const handleSave = async () => {
-        dispatch(setLoading(true));
         if (validation(soHieu)) {
+            dispatch(setLoading(true));
             const data = { 
                 loaiContainer: type,
                 trangThai: trangThai,
