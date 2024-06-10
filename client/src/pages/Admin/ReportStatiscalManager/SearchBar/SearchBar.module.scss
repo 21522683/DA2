@@ -1,0 +1,35 @@
+.wrapper {
+    .main-search {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border: 2px solid #b6b6b6;
+        padding: 5px 10px;
+        border-radius: 4px;
+    }
+    
+    .main-icon-search {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    
+    .main-input {
+        color: #888;
+        font-size: 15px;
+        width: 100%;
+    }
+    
+    .main-icon-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+}

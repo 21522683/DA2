@@ -3,7 +3,8 @@ import classNames from "classnames/bind";
 import styles from './DetailGoodsDeclaration.module.scss';
 import ItemDetailGoods from './ItemDetailGoods';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsOpenModalDetail } from '../../../../redux/sliceAdmin/goodsDeclarationSlice';
+import { setIsOpenModalCreateBill, setIsOpenModalDetail } from '../../../../redux/slices/goodsDeclarationSlice';
+import convertDate from '../../../../utils/convertDate';
 
 const cx = classNames.bind(styles);
 
@@ -21,8 +22,9 @@ function DetailGoodsDeclaration() {
   }
 
   const handleAccept = () => {
-
+    dispatch(setIsOpenModalCreateBill(true));
   }
+
 
   return (
     <div className={cx('wrapper')} onClick={handleClose}>
@@ -42,13 +44,13 @@ function DetailGoodsDeclaration() {
           </div>
 
           <div className={cx('container-status')}>
-            <span className={cx('title')}>Mã đơn hàng: </span>
-            <span className={cx('content')}>DH0927226372</span>
+            <span className={cx('title')}>Mã kê khai: </span>
+            <span className={cx('content')}>{itemSelected._id}</span>
           </div>
 
           <div className={cx('container-status')}>
-            <span className={cx('title')}>Ngày tạo đơn hàng: </span>
-            <span className={cx('content')}>{itemSelected.donHang.ngayTaoDon}</span>
+            <span className={cx('title')}>Ngày tạo: </span>
+            <span className={cx('content')}>{convertDate(itemSelected.ngayTao)}</span>
           </div>
         </div>
 
@@ -57,28 +59,28 @@ function DetailGoodsDeclaration() {
           <div className={cx('container_1')}>
             <div className={cx('container-date')}>
               <span className={cx('title')}>Tên người đại diện: </span>
-              <span className={cx('content')}>{itemSelected.donHang.user.representative.hoten}</span>
+              <span className={cx('content')}>{itemSelected.donHang.user.hoten}</span>
             </div>
 
             <div className={cx('container-date')}>
               <span className={cx('title')}>Địa chỉ email: </span>
-              <span className={cx('content')}>{itemSelected.donHang.user.representative.email}</span>
+              <span className={cx('content')}>{itemSelected.donHang.user.email}</span>
+            </div>
+
+            <div className={cx('container-date')}>
+              <span className={cx('title')}>Số điện thoại: </span>
+              <span className={cx('content')}>{itemSelected.donHang.user.infoVerify.soDienThoai}</span>
             </div>
           </div>
           <div className={cx('container_1')}>
             <div className={cx('container-date')}>
               <span className={cx('title')}>Tên doanh nghiệp: </span>
-              <span className={cx('content')}>{itemSelected.donHang.user.tenDoanhNghiep}</span>
-            </div>
-
-            <div className={cx('container-date')}>
-              <span className={cx('title')}>Số điện thoại: </span>
-              <span className={cx('content')}>{itemSelected.donHang.user.representative.soDienThoai}</span>
+              <span className={cx('content')}>{itemSelected.donHang.user.infoVerify.tenDoanhNghiep}</span>
             </div>
 
             <div className={cx('container-date')}>
               <span className={cx('title')}>Số FAX: </span>
-              <span className={cx('content')}>{itemSelected.donHang.user.soFAX}</span>
+              <span className={cx('content')}>{itemSelected.donHang.user.infoVerify.soFAX}</span>
             </div>
           </div>
 
@@ -89,12 +91,12 @@ function DetailGoodsDeclaration() {
           <div className={cx('container_1')}>
             <div className={cx('container-date')}>
               <span className={cx('title')}>Ngày đi dự kiến: </span>
-              <span className={cx('content')}>{itemSelected.donHang.ngayDiDuKien}</span>
+              <span className={cx('content')}>{convertDate(itemSelected.donHang.ngayDiDuKien)}</span>
             </div>
 
             <div className={cx('container-date')}>
               <span className={cx('title')}>Ngày đến dự kiến: </span>
-              <span className={cx('content')}>{itemSelected.donHang.ngayDenDuKien}</span>
+              <span className={cx('content')}>{convertDate(itemSelected.donHang.ngayDenDuKien)}</span>
             </div>
 
             <div className={cx('container-type')}>

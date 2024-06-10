@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import connect from './database/database.js'
-import { UserRouter } from './routes/index.js'
+import { BillRouter, ContainerRouter, ContractRouter, GoodsDeclarationRouter, OrderRouter, UserRouter, VesselRouter } from './routes/index.js'
     
 const PORT = process.env.PORT || 4000
 const app = express();
@@ -15,7 +15,14 @@ app.use(express.json({
 }));
 
 
-app.use('/api/users', UserRouter); 
+app.use('/user', UserRouter); 
+app.use('/order', OrderRouter); 
+app.use('/goodsDeclaration', GoodsDeclarationRouter);
+app.use('/container', ContainerRouter); 
+app.use('/vessel', VesselRouter); 
+app.use('/bill', BillRouter); 
+app.use('/contract', ContractRouter); 
+
 
 
 app.get('/', (req,res) => {

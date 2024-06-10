@@ -2,12 +2,13 @@ import React from 'react'
 import classNames from "classnames/bind";
 import styles from './ItemVessel.module.scss';
 import { useDispatch } from 'react-redux';
-import { setIndexVesselSelected, setIsOpenMessageBox, setIsOpenModalUpdate } from '../../../../redux/sliceAdmin/vesselSlice';
+import { setIndexVesselSelected, setIsOpenMessageBox, setIsOpenModalUpdate } from '../../../../redux/slices/vesselSlice';
+import formatMoney from '../../../../utils/formatMoney';
 
 const cx = classNames.bind(styles);
 
 
-function ItemVessel({itemVessel, indexItem}) {
+function ItemVessel({ itemVessel, indexItem }) {
 
     const dispatch = useDispatch();
 
@@ -46,21 +47,26 @@ function ItemVessel({itemVessel, indexItem}) {
                     </div>
 
                     <div className={cx('container_volume')}>
-                        <span className={cx('title')}>Trọng lượng (tấn):</span>
-                        <span className={cx('content')}>{itemVessel.trongLuong}</span>
+                        <span className={cx('title')}>Giá thuê:</span>
+                        <span className={cx('content')}>{formatMoney(itemVessel.giaThue)}</span>
                     </div>
                 </div>
             </div>
 
-            <div className={cx('item_hover')}>
-                <div className={cx('btn_update')} onClick={handleClickUpdate}>
-                    Cập nhật
-                </div>
+            {
+                itemVessel.trangThai === false && (
+                    <div className={cx('item_hover')}>
+                        <div className={cx('btn_update')} onClick={handleClickUpdate}>
+                            Cập nhật
+                        </div>
 
-                <div className={cx('btn_delete')} onClick={handleClickDelete}>
-                    Xóa
-                </div>
-            </div>
+                        <div className={cx('btn_delete')} onClick={handleClickDelete}>
+                            Xóa
+                        </div>
+                    </div>
+                )
+            }
+
         </div>
     )
 }

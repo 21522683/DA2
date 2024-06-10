@@ -9,13 +9,8 @@ export default mongoose.model('Goods',
                 public_id: String,
             }
         ],
-        linhVuc: {
-            type: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'GoodsField'
-            },
-        },
-        soluong: Number,
+        linhVuc: String,
+        soLuong: Number,
         moTa: String,
         donViTinh: String,
         khoiLuong: Number,
@@ -25,5 +20,6 @@ export default mongoose.model('Goods',
         chieuRong: Number,
         chieuCao: Number,
         nhaCungCap: String,
+        giaBan: Number,
     })
 )

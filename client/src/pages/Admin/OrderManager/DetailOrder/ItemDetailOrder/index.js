@@ -3,10 +3,12 @@ import classNames from "classnames/bind";
 import styles from './ItemDetailOrder.module.scss';
 import images from '../../../../../assets/images';
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import convertDate from '../../../../../utils/convertDate';
+import formatMoney from '../../../../../utils/formatMoney';
 
 const cx = classNames.bind(styles);
 
-function ItemDetailOrder({itemHH}) {
+function ItemDetailOrder({ itemHH }) {
     const [showDetail, setShowDetail] = useState(false);
 
     const handleClickIconShowDetail = () => {
@@ -15,14 +17,16 @@ function ItemDetailOrder({itemHH}) {
     return (
         <>
             <div className={cx('item-list')}>
-                <img className={cx('image_hh')} src={itemHH.hinhAnh[0].url} alt='hh' />
-                <div className={cx('container-info')}>
-                    <span className={cx('name_goods')}>{itemHH.tenHH}</span>
-                    <div className={cx('container-field')}>
-                        <span className={cx('title')}>Lĩnh vực: </span>
-                        <span className={cx('content')}>{itemHH.linhVuc.tenLinhVuc}</span>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img className={cx('image_hh')} src={itemHH.hinhAnh[0].url} alt='hh' />
+                    <div className={cx('container-info')}>
+                        <span className={cx('name_goods')}>{itemHH.tenHH}</span>
+                        <div className={cx('container-field')}>
+                            <span className={cx('title')}>Lĩnh vực: </span>
+                            <span className={cx('content')}>{itemHH.linhVuc}</span>
+                        </div>
+                        <span className={cx('description')}>{itemHH.moTa}</span>
                     </div>
-                    <span className={cx('description')}>{itemHH.moTa}</span>
                 </div>
 
                 {
@@ -42,15 +46,30 @@ function ItemDetailOrder({itemHH}) {
                             <span className={cx('title')}>Nhà cung cấp:</span>
                             <span className={cx('content')}>{itemHH.nhaCungCap}</span>
                         </div>
+                        <div className={cx('container_hh')}>
+                                <span className={cx('title')}>Lĩnh vực:</span>
+                                <span className={cx('content')}>{itemHH.linhVuc}</span>
+                            </div>
+                        <div className={cx('container_mutilple')}>
+                            <div className={cx('container_hh')}>
+                                <span className={cx('title')}>Giá bán:</span>
+                                <span className={cx('content')}>{formatMoney(itemHH.giaBan)}</span>
+                            </div>
+                            <div className={cx('container_hh')}>
+                                <span className={cx('title')}>Ngày SX:</span>
+                                <span className={cx('content')}>{convertDate(itemHH.ngaySX)}</span>
+                            </div>
+                            <div className={cx('container_hh')}>
+                                <span className={cx('title')}>HSD:</span>
+                                <span className={cx('content')}>{convertDate(itemHH.HSD)}</span>
+                            </div>
+                        </div>
+
 
                         <div className={cx('container_mutilple')}>
                             <div className={cx('container_hh')}>
-                                <span className={cx('title')}>Lĩnh vực:</span>
-                                <span className={cx('content')}>{itemHH.linhVuc.tenlinhVuc}</span>
-                            </div>
-                            <div className={cx('container_hh')}>
                                 <span className={cx('title')}>Số lượng:</span>
-                                <span className={cx('content')}>{itemHH.soluong}</span>
+                                <span className={cx('content')}>{itemHH.soLuong}</span>
                             </div>
                             <div className={cx('container_hh')}>
                                 <span className={cx('title')}>Khối lượng:</span>
@@ -59,17 +78,6 @@ function ItemDetailOrder({itemHH}) {
                             <div className={cx('container_hh')}>
                                 <span className={cx('title')}>Đơn vị tính:</span>
                                 <span className={cx('content')}>{itemHH.donViTinh}</span>
-                            </div>
-                        </div>
-
-                        <div className={cx('container_mutilple')}>
-                            <div className={cx('container_hh')}>
-                                <span className={cx('title')}>Ngày SX:</span>
-                                <span className={cx('content')}>{itemHH.ngaySX}</span>
-                            </div>
-                            <div className={cx('container_hh')}>
-                                <span className={cx('title')}>HSD:</span>
-                                <span className={cx('content')}>{itemHH.HSD}</span>
                             </div>
                         </div>
 
