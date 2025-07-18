@@ -33,7 +33,9 @@
 
 ### Kiến trúc phát triển phần mềm
 
-* Kiến trúc Monolithic là một kiểu kiến trúc trong đó toàn bộ ứng dụng được xây dựng và triển khai như một đơn vị duy nhất. Trong một ứng dụng monolithic, các thành phần như giao diện người dùng, logic kinh doanh và cơ sở dữ liệu được kết hợp trong một gói duy nhất và chạy trong cùng một môi trường thực thi. Do đó, ứng dụng monolithic thường được quản lý như một khối duy nhất và triển khai như một thực thể duy nhất..
+* Kiến trúc MVC:
+<img width="641" height="495" alt="image" src="https://github.com/user-attachments/assets/4b42f01a-58f6-4dba-98c3-f104d4a17d99" />
+
 
 ## Tác giả 
 * [Phan Trọng Tính](https://www.facebook.com/profile.php?id=100073316952962) - 21522683
