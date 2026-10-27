@@ -55,7 +55,7 @@
 
 ## Giảng viên hướng dẫn 
 
-* Thầy Huỳnh Trịnh Đông, giảng viên trường Đại học Công nghệ Thông tin, Đại học Quốc gia Thành phố Hồ Chí Minh 
+* Thầy Nguyễn Trịnh Đông, giảng viên trường Đại học Công nghệ Thông tin, Đại học Quốc gia Thành phố Hồ Chí Minh 
 
 ## Phản hồi 
 
